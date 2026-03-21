@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Monthly Newsletter</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f4f4f4;
+      }
+      .email-wrapper {
+        width: 100%;
+        background-color: #f4f4f4;
+        padding: 20px 0;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      /* Header */
+      .header {
+        background-color: #1a73e8;
+        padding: 30px 40px;
+        text-align: center;
+      }
+      .header img {
+        max-width: 160px;
+        height: auto;
+      }
+      .header h1 {
+        color: #ffffff;
+        font-size: 26px;
+        margin: 16px 0 0;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      /* Hero */
+      .hero {
+        background-color: #e8f0fe;
+        padding: 40px;
+        text-align: center;
+      }
+      .hero h2 {
+        color: #1a73e8;
+        font-size: 22px;
+        margin: 0 0 12px;
+      }
+      .hero p {
+        color: #444444;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+      }
+      /* Content */
+      .content {
+        padding: 40px;
+      }
+      .content h3 {
+        color: #222222;
+        font-size: 18px;
+        margin: 0 0 12px;
+      }
+      .content p {
+        color: #555555;
+        font-size: 15px;
+        line-height: 1.7;
+        margin: 0 0 20px;
+      }
+      /* CTA Button */
+      .cta-container {
+        text-align: center;
+        padding: 0 40px 40px;
+      }
+      .cta-button {
+        display: inline-block;
+        background-color: #1a73e8;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 14px 32px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      /* Articles */
+      .articles {
+        padding: 0 40px 40px;
+        border-top: 1px solid #eeeeee;
+      }
+      .articles h3 {
+        color: #222222;
+        font-size: 18px;
+        margin: 30px 0 16px;
+      }
+      .article-item {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .article-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 4px;
+        flex-shrink: 0;
+      }
+      .article-item h4 {
+        color: #1a73e8;
+        font-size: 15px;
+        margin: 0 0 6px;
+      }
+      .article-item p {
+        color: #666666;
+        font-size: 13px;
+        line-height: 1.5;
+        margin: 0;
+      }
+      /* Footer */
+      .footer {
+        background-color: #f8f8f8;
+        padding: 24px 40px;
+        text-align: center;
+        border-top: 1px solid #eeeeee;
+      }
+      .footer p {
+        color: #999999;
+        font-size: 12px;
+        line-height: 1.6;
+        margin: 0 0 8px;
+      }
+      .footer a {
+        color: #1a73e8;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-wrapper">
+      <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+          <img
+            src="https://via.placeholder.com/160x40/ffffff/1a73e8?text=MyBrand"
+            alt="MyBrand logo"
+          />
+          <h1>Monthly Newsletter</h1>
+        </div>
+
+        <!-- Hero -->
+        <div class="hero">
+          <h2>Hello, John Doe! 👋</h2>
+          <p>
+            Here's what's been happening at MyBrand this month — curated just
+            for you.
+          </p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+          <h3>Your Personalised Digest</h3>
+          <p>
+            We've rounded up the most interesting stories, product updates, and
+            tips to keep you in the loop. Dive in and let us know what you
+            think!
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-container">
+          <a href="https://example.com/newsletter" class="cta-button"
+            >Read the Full Issue</a
+          >
+        </div>
+
+        <!-- Articles -->
+        <div class="articles">
+          <h3>Top Stories This Month</h3>
+
+          <div class="article-item">
+            <img
+              src="https://via.placeholder.com/80x80/1a73e8/ffffff?text=1"
+              alt="Article 1"
+            />
+            <div>
+              <h4>Getting Started with Lit Templates</h4>
+              <p>
+                Discover how Lit's simple and expressive templating system can
+                supercharge your HTML workflows.
+              </p>
+            </div>
+          </div>
+
+          <div class="article-item">
+            <img
+              src="https://via.placeholder.com/80x80/34a853/ffffff?text=2"
+              alt="Article 2"
+            />
+            <div>
+              <h4>Building Reactive UIs with Web Components</h4>
+              <p>
+                A deep dive into building performant and reusable UI elements
+                using the Web Components standard.
+              </p>
+            </div>
+          </div>
+
+          <div class="article-item">
+            <img
+              src="https://via.placeholder.com/80x80/ea4335/ffffff?text=3"
+              alt="Article 3"
+            />
+            <div>
+              <h4>Server-Side Rendering with @lit-labs/ssr</h4>
+              <p>
+                Learn how to pre-render Lit templates on the server for blazing
+                fast initial page loads.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <p>
+            You received this email because you subscribed to MyBrand updates.
+          </p>
+          <p>
+            <a href="https://example.com/unsubscribe">Unsubscribe</a> &middot;
+            <a href="https://example.com/privacy">Privacy Policy</a> &middot;
+            <a href="https://example.com/contact">Contact Us</a>
+          </p>
+          <p>&copy; 2024 MyBrand, Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
