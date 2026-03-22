@@ -20,22 +20,74 @@ This project demonstrates how to use [`lit`](https://lit.dev) and [`@lit-labs/ss
 
 ```
 src/
-├── index.ts                  Entry point – sample data → rendered HTML file
-├── renderer.ts               renderToString(): Lit template → full email HTML
-├── types.ts                  EmailData / ArticleItem interfaces
+├── index.ts                    Entry point – sample data → rendered HTML files
+├── renderer.ts                 renderToString() / hackernoonRenderToString()
+├── types.ts                    EmailData / ArticleItem / HackernoonEmailData interfaces
 └── templates/
-    ├── newsletter.ts         Lit body template (header, hero, articles, footer)
-    └── email-template.html   Original static HTML reference template
+    ├── newsletter.ts           Generic newsletter Lit body template
+    └── hackernoon-email.ts     Hacker Noon newsletter Lit body template
+hackernoon.html                 Original static HTML reference (Hacker Noon)
 ```
 
 ## Getting started
 
 ```bash
 npm install
-npm run render        # builds TypeScript then renders dist/rendered-email.html
+npm run render        # builds TypeScript then renders both email templates
 ```
 
-Open `dist/rendered-email.html` in a browser to preview the email.
+Rendered output files:
+
+| File | Template |
+|---|---|
+| `dist/rendered-email.html` | Generic newsletter |
+| `dist/rendered-hackernoon.html` | Hacker Noon newsletter |
+
+Open either file in a browser to preview the email.
+
+---
+
+## Hacker Noon template
+
+### Import and render
+
+```ts
+import '@lit-labs/ssr/lib/install-global-dom-shim.js';  // must come first
+import { hackernoonEmailTemplate } from './templates/hackernoon-email.js';
+import { hackernoonRenderToString } from './renderer.js';
+import type { HackernoonEmailData } from './types.js';
+
+const data: HackernoonEmailData = {
+  title: 'The Secrets of High-Performing DevOps Teams',
+  preheaderText: 'A short sentence shown in the email client preview pane…',
+  year: new Date().getFullYear(),
+};
+
+const template = hackernoonEmailTemplate(data);
+const html = hackernoonRenderToString(template, data);
+// write `html` to a file or send via your ESP
+```
+
+### `HackernoonEmailData` shape
+
+| Field | Type | Description |
+|---|---|---|
+| `title` | `string` | Main article headline rendered as `<h1>` |
+| `preheaderText` | `string` | Hidden preview text shown in email client inbox lists |
+| `year` | `number` | Copyright year in the footer |
+
+All other content (sponsor card, article body, social links) is static and preserved verbatim from the original `hackernoon.html` reference file.
+
+### Template sections
+
+The body template is split into four section helpers for readability:
+
+| Helper | Email section | Dynamic fields |
+|---|---|---|
+| `renderPreheaderSection()` | Top logo banner | — |
+| `renderHeaderSection(data)` | Sponsor card + article content | `data.title` |
+| `renderBodySection()` | Closing divider + bottom logo | — |
+| `renderFooterSection(data)` | Social icons + copyright | `data.year` |
 
 ---
 
