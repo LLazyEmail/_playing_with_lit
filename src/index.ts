@@ -17,8 +17,9 @@ import { fileURLToPath } from 'node:url';
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
 
 import { newsletterEmailTemplate } from './templates/newsletter.js';
-import { renderToString } from './renderer.js';
-import type { EmailData } from './types.js';
+import { hackernoonEmailTemplate } from './templates/hackernoon.js';
+import { renderToString, hackernoonRenderToString } from './renderer.js';
+import type { EmailData, HackernoonEmailData } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Sample data – swap these values for real subscriber / campaign data
@@ -66,7 +67,7 @@ const emailData: EmailData = {
 };
 
 // ---------------------------------------------------------------------------
-// Render
+// Render – generic newsletter
 // ---------------------------------------------------------------------------
 const template = newsletterEmailTemplate(emailData);
 const html = renderToString(template, emailData);
@@ -79,3 +80,24 @@ const outPath = join(outDir, 'rendered-email.html');
 writeFileSync(outPath, html, 'utf-8');
 
 console.log(`✅  Email rendered successfully → ${outPath}`);
+
+// ---------------------------------------------------------------------------
+// Hacker Noon newsletter data
+// ---------------------------------------------------------------------------
+const hackernoonData: HackernoonEmailData = {
+  title: 'The Secrets of High-Performing DevOps teams',
+  preheaderText:
+    'Ultra-fast innovation holds the key for conglomerates like Apple, Microsoft, and Tencent, known as the pacesetters in the modern markets. However, they all faced challenges that are typical for established companies. For the most obvious examples, Laggard, tricky releases and a gap between dev and ops plugged them into implementing a radical DevOps strategy.',
+  year: 2021,
+};
+
+// ---------------------------------------------------------------------------
+// Render – Hacker Noon newsletter
+// ---------------------------------------------------------------------------
+const hackernoonTemplate = hackernoonEmailTemplate(hackernoonData);
+const hackernoonHtml = hackernoonRenderToString(hackernoonTemplate, hackernoonData);
+
+const hackernoonOutPath = join(outDir, 'rendered-hackernoon.html');
+writeFileSync(hackernoonOutPath, hackernoonHtml, 'utf-8');
+
+console.log(`✅  Hacker Noon email rendered successfully → ${hackernoonOutPath}`);

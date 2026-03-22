@@ -39,3 +39,13 @@ export interface ArticleItem {
   /** URL the headline links to. */
   url: string;
 }
+
+/** Data passed to the Hacker Noon newsletter email template. */
+export interface HackernoonEmailData {
+  /** Article / issue title shown in the <title> tag and the main headline. */
+  title: string;
+  /** Hidden preview text shown in email clients before the email is opened. */
+  preheaderText: string;
+  /** Year shown in the footer copyright notice. */
+  year: number;
+}
