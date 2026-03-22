@@ -1,7 +1,7 @@
 import { render } from '@lit-labs/ssr';
 import { collectResultSync } from '@lit-labs/ssr/lib/render-result.js';
 import type { TemplateResult } from 'lit';
-import type { EmailData, HackernoonEmailData } from './types.js';
+import type { EmailData, HackernoonEmailData, NomoretogoEmailData } from './types.js';
 
 // ---------------------------------------------------------------------------
 // CSS shared by all newsletter emails
@@ -624,5 +624,95 @@ export function hackernoonRenderToString(
     <body style="height: 100%;margin: 0;padding: 0;width: 100%;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #ffffff;">
         ${bodyContent}
     </body>
+</html>`;
+}
+
+// ---------------------------------------------------------------------------
+// No More To-Go newsletter styles
+// Ported from the email-specific <style> block in nomoretogo.html
+// ---------------------------------------------------------------------------
+
+const NOMORETOGO_STYLES = `
+  .ReadMsgBody { width: 100%; }
+  .ExternalClass { width: 100%; }
+  .ExternalClass * { line-height: 100%; }
+  .ExternalClass, .ExternalClass p, .ExternalClass td, .ExternalClass div,
+  .ExternalClass span, .ExternalClass font { line-height: 100%; }
+  body { margin: 0; padding: 0; }
+  body, table, td, p, a, li { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+  table td { border-collapse: collapse; }
+  table { border-spacing: 0; border-collapse: collapse; }
+  p, a, li, td, blockquote { mso-line-height-rule: exactly; }
+  p, a, li, td, body, table, blockquote { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+  img, a img { border: 0; outline: none; text-decoration: none; }
+  img { -ms-interpolation-mode: bicubic; }
+  a[href^=tel], a[href^=sms], a[href^=mailto], a[href^=date] {
+    color: inherit; cursor: pointer; text-decoration: none;
+  }
+  @media screen {
+    body { font-family: 'Poppins', sans-serif; }
+  }
+  @media only screen and (min-width: 768px) {
+    .mlEmailContainer { width: 640px !important; }
+  }
+  @media only screen and (max-width: 640px) {
+    .mlTemplateContainer { padding: 10px 10px 0 10px; }
+    .mlContentCenter { min-width: 10% !important; margin: 0 !important; float: none !important; }
+    .mlContentTable { width: 100% !important; min-width: 10% !important; margin: 0 !important; float: none !important; }
+    .mlContentBlock { display: block !important; width: 100% !important; min-width: 10% !important; margin: 0 !important; float: none !important; }
+    .mlContentImage img { height: auto !important; width: 100% !important; }
+    .mlContentButton a { display: block !important; width: auto !important; }
+    .mobileHide { display: none !important; }
+    .mobileShow { display: block !important; }
+    .alignCenter { height: auto !important; text-align: center !important; }
+    .marginBottom { margin-bottom: 15px !important; }
+  }
+`;
+
+// ---------------------------------------------------------------------------
+// No More To-Go renderer
+// ---------------------------------------------------------------------------
+
+/**
+ * Renders a Lit {@link TemplateResult} (the No More To-Go email body) to a
+ * complete, email-client-compatible HTML string that matches the structure of
+ * the original `nomoretogo.html` reference file.
+ *
+ * The document shell — DOCTYPE, meta tags, Google Fonts link, and
+ * nomoretogo-specific CSS — is built here rather than inside the Lit template
+ * so the SSR parser only handles body content.
+ *
+ * @param template  Lit TemplateResult produced by {@link nomoretogoEmailTemplate}.
+ * @param data      No More To-Go email data (title used in the &lt;title&gt; tag).
+ */
+export function nomoretogoRenderToString(
+  template: TemplateResult,
+  data: Pick<NomoretogoEmailData, 'title'>
+): string {
+  const rawBodyContent = collectResultSync(render(template));
+  // Strip Lit SSR hydration markers – not needed in email HTML.
+  const bodyContent = stripLitMarkers(rawBodyContent);
+
+  return `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="address=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>${data.title}</title>
+    <!--[if !mso]><!-->
+    <style type="text/css">
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+    </style>
+    <!--<![endif]-->
+    <style type="text/css">${NOMORETOGO_STYLES}</style>
+  </head>
+  <body class="mlBodyBackground" style="padding:0;margin:0;-webkit-font-smoothing:antialiased;background-color:#f6f8f9;-webkit-text-size-adjust:none;">
+    ${bodyContent}
+  </body>
 </html>`;
 }
