@@ -2,40 +2,10 @@ import { html, TemplateResult } from 'lit';
 import type { HackernoonEmailData } from '../types.js';
 
 /**
- * Returns the email body content for the Hacker Noon newsletter as a Lit
- * {@link TemplateResult}, ported from the original `hackernoon.html` reference
- * file.
- *
- * The full HTML document shell (DOCTYPE, <head>, styles, MSO conditionals) is
- * assembled by {@link hackernoonRenderToString} in renderer.ts so that Lit's
- * SSR parser only handles the body content.
- *
- * Dynamic fields:
- *  - `data.preheaderText` – hidden preview text shown in email clients
- *  - `data.title`         – main article headline
- *  - `data.year`          – copyright year in the footer
- *
- * All other content (sponsor card, article body, social links, etc.) is
- * preserved verbatim from the original hackernoon.html.
+ * Renders the top logo banner row (maps to the `templatePreheader` section).
  */
-export function hackernoonEmailTemplate(
-  data: HackernoonEmailData
-): TemplateResult {
+function renderPreheaderSection(): TemplateResult {
   return html`
-        <!--[if !gte mso 9]><!--><span class="mcnPreviewText"
-        style="display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;">${data.preheaderText}</span><!--<![endif]-->
-
-        <center>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;padding: 0;width: 100%;background-color: #ffffff;">
-                <tr>
-                    <td align="center" valign="top" id="bodyCell" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;padding: 10px;width: 100%;border-top: 0;">
-                        <!-- BEGIN TEMPLATE // -->
-                        <!--[if (gte mso 9)|(IE)]>
-                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
-                        <tr>
-                        <td align="center" valign="top" width="600" style="width:600px;">
-                        <![endif]-->
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border: 0;max-width: 600px !important;">
                             <tr>
                                 <td valign="top" id="templatePreheader" style="background:#ffffff none no-repeat center/cover;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #ffffff;background-image: none;background-repeat: no-repeat;background-position: center;background-size: cover;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 9px;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
     <tbody class="mcnImageBlockOuter">
@@ -54,7 +24,17 @@ export function hackernoonEmailTemplate(
             </tr>
     </tbody>
 </table></td>
-                            </tr>
+                            </tr>`;
+}
+
+/**
+ * Renders the sponsor card and main article body row
+ * (maps to the `templateHeader` section).
+ *
+ * @param data.title - The article headline rendered as an `<h1>`.
+ */
+function renderHeaderSection(data: HackernoonEmailData): TemplateResult {
+  return html`
                             <tr>
                                 <td valign="top" id="templateHeader" style="background:#ffffff none no-repeat center/cover;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #ffffff;background-image: none;background-repeat: no-repeat;background-position: center;background-size: cover;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 0;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
     <tbody class="mcnImageCardBlockOuter">
@@ -328,7 +308,15 @@ style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms
         </tr>
     </tbody>
 </table></td>
-                            </tr>
+                            </tr>`;
+}
+
+/**
+ * Renders the closing divider and bottom logo banner row
+ * (maps to the `templateBody` section).
+ */
+function renderBodySection(): TemplateResult {
+  return html`
                             <tr>
                                 <td valign="top" id="templateBody" style="background:#ffffff none no-repeat center/cover;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #ffffff;background-image: none;background-repeat: no-repeat;background-position: center;background-size: cover;border-top: 0;border-bottom: 4px solid #00ff00;padding-top: 0;padding-bottom: 9px;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;table-layout: fixed !important;">
     <tbody class="mcnDividerBlockOuter">
@@ -361,7 +349,17 @@ style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms
             </tr>
     </tbody>
 </table></td>
-                            </tr>
+                            </tr>`;
+}
+
+/**
+ * Renders the social media links and copyright footer row
+ * (maps to the `templateFooter` section).
+ *
+ * @param data.year - The copyright year.
+ */
+function renderFooterSection(data: HackernoonEmailData): TemplateResult {
+  return html`
                             <tr>
                                 <td valign="top" id="templateFooter" style="background:#ffffff none no-repeat center/cover;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #ffffff;background-image: none;background-repeat: no-repeat;background-position: center;background-size: cover;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 9px;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
     <tbody class="mcnFollowBlockOuter">
@@ -611,7 +609,53 @@ style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms
         </tr>
     </tbody>
 </table></td>
-                            </tr>
+                            </tr>`;
+}
+
+/**
+ * Returns the email body content for the Hacker Noon newsletter as a Lit
+ * {@link TemplateResult}, ported from the original `hackernoon.html` reference file.
+ *
+ * The full HTML document shell (DOCTYPE, <head>, styles, MSO conditionals) is
+ * assembled by {@link hackernoonRenderToString} in renderer.ts so that Lit's
+ * SSR parser only handles the body content.
+ *
+ * Dynamic fields:
+ *  - `data.preheaderText` – hidden preview text shown in email clients
+ *  - `data.title`         – main article headline (rendered in {@link renderHeaderSection})
+ *  - `data.year`          – copyright year in the footer (rendered in {@link renderFooterSection})
+ *
+ * All other content (sponsor card, article body, social links, etc.) is
+ * preserved verbatim from the original hackernoon.html.
+ *
+ * Template sections:
+ *  1. {@link renderPreheaderSection} – top logo banner
+ *  2. {@link renderHeaderSection}    – sponsor card + article content
+ *  3. {@link renderBodySection}      – closing divider + bottom logo
+ *  4. {@link renderFooterSection}    – social icons + copyright
+ */
+export function hackernoonEmailTemplate(
+  data: HackernoonEmailData
+): TemplateResult {
+  return html`
+        <!--[if !gte mso 9]><!--><span class="mcnPreviewText"
+        style="display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;">${data.preheaderText}</span><!--<![endif]-->
+
+        <center>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;padding: 0;width: 100%;background-color: #ffffff;">
+                <tr>
+                    <td align="center" valign="top" id="bodyCell" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;padding: 10px;width: 100%;border-top: 0;">
+                        <!-- BEGIN TEMPLATE // -->
+                        <!--[if (gte mso 9)|(IE)]>
+                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+                        <tr>
+                        <td align="center" valign="top" width="600" style="width:600px;">
+                        <![endif]-->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border: 0;max-width: 600px !important;">
+                            ${renderPreheaderSection()}
+                            ${renderHeaderSection(data)}
+                            ${renderBodySection()}
+                            ${renderFooterSection(data)}
                         </table>
                         <!--[if (gte mso 9)|(IE)]>
                         </td>
