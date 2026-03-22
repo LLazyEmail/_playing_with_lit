@@ -17,7 +17,7 @@ import { fileURLToPath } from 'node:url';
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
 
 import { newsletterEmailTemplate } from './templates/newsletter.js';
-import { hackernoonEmailTemplate } from './templates/hackernoon.js';
+import { hackernoonEmailTemplate } from './templates/hackernoon-email.js';
 import { renderToString, hackernoonRenderToString } from './renderer.js';
 import type { EmailData, HackernoonEmailData } from './types.js';
 
