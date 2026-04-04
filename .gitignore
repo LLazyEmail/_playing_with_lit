@@ -4,6 +4,9 @@ node_modules/
 # Build output
 dist/
 
+# Generated email artifacts (produced by render:template / CI)
+generated/
+
 # OS / editor artefacts
 .DS_Store
 *.log

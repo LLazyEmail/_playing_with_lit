@@ -1,0 +1,36 @@
+name: Render Email Template
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  render:
+    name: Generate HTML email artifact
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Render No More To-Go email template
+        run: npm run render:template
+
+      - name: Upload rendered HTML as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-email-html
+          path: generated/nomoretogo-email.html
+          if-no-files-found: error
