@@ -29,7 +29,7 @@ jobs:
         run: npm run render:template
 
       - name: Upload rendered HTML as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: rendered-email-html
           path: generated/nomoretogo-email.html
