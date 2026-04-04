@@ -363,3 +363,76 @@ import juice from 'juice';
 const inlined = juice(renderToString(template, data));
 // send `inlined` via your ESP
 ```
+
+---
+
+## Scalable template organization plan
+
+When the template count grows toward ~100, a flat `src/templates/` folder becomes hard to navigate. The plan below splits large template files (like `src/templates/nomoretogo-email.ts`) into a **template-domain folder per template** with shared primitives alongside.
+
+### Recommended folder structure
+
+```text
+src/
+  templates/
+    index.ts                          # registry — re-exports all public templates
+    shared/
+      blocks/                         # reusable chunks used across many templates
+        logo-banner.ts
+        nav-title-date.ts
+        cta-button.ts
+        footer-basic.ts
+      layout/
+        email-shell.ts                # outer HTML wrapper / document shell
+      types/
+        common.ts                     # shared interfaces (e.g. RecipientData)
+      utils/
+        table.ts                      # helpers for table wrappers / spacers
+    nomoretogo/
+      index.ts                        # public entry — exports nomoretogoEmailTemplate
+      types.ts                        # template-specific data model
+      constants.ts                    # BASE_IMAGE_URL, spacing tokens, colours
+      sections/
+        logo.section.ts
+        nav.section.ts
+        intro.section.ts
+        recipe-grid.section.ts
+        cta.section.ts
+        prep-info.section.ts
+        community.section.ts
+        amazon.section.ts
+        footer.section.ts
+        recipe-grid/                  # nested sub-components for the grid
+          recipe-row.ts
+          recipe-card.ts
+      mappers/
+        validate-data.ts              # runtime guard / defaulting (zod optional)
+      __tests__/
+        nomoretogo.template.test.ts
+```
+
+### Design rules
+
+1. **One section = one file** — keep each section under ~200 lines to stay readable.
+2. **`index.ts` is a composer only** — the main template file just imports and assembles sections in order; no raw HTML markup lives there.
+3. **Promote reusable parts to `shared/blocks/`** — CTA buttons, footers, date headers, and social rows that appear in multiple templates belong in `shared/`.
+4. **Separate content model from rendering** — use `types.ts` for data contracts and `mappers/validate-data.ts` for runtime validation or defaulting.
+5. **No magic constants in section files** — image base URLs, spacing values, and brand colours go in `constants.ts` (or a shared theme file).
+6. **Test per section and snapshot the full template** — unit-test individual section helpers; keep at least one snapshot test of the assembled output to catch regressions when refactoring.
+
+### Mapping: current `nomoretogo-email.ts` → proposed files
+
+| Current function | Proposed file |
+|---|---|
+| `renderLogoSection` | `nomoretogo/sections/logo.section.ts` |
+| `renderNavSection` | `nomoretogo/sections/nav.section.ts` |
+| `renderIntroSection` | `nomoretogo/sections/intro.section.ts` |
+| `renderRecipeGridSection` | `nomoretogo/sections/recipe-grid.section.ts` |
+| `renderRecipeRow` | `nomoretogo/sections/recipe-grid/recipe-row.ts` |
+| *(recipe card sub-component)* | `nomoretogo/sections/recipe-grid/recipe-card.ts` |
+| `renderCtaSection` | `nomoretogo/sections/cta.section.ts` |
+| `renderPrepInfoSection` | `nomoretogo/sections/prep-info.section.ts` |
+| `renderCommunitySection` | `nomoretogo/sections/community.section.ts` |
+| `renderAmazonSection` | `nomoretogo/sections/amazon.section.ts` |
+| `renderFooterSection` | `nomoretogo/sections/footer.section.ts` |
+| exported template composer | `nomoretogo/index.ts` |
