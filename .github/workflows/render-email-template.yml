@@ -28,9 +28,14 @@ jobs:
       - name: Render No More To-Go email template
         run: npm run render:template
 
+      - name: Render Hacker Noon email template
+        run: npm run render:hackernoon
+
       - name: Upload rendered HTML as artifact
         uses: actions/upload-artifact@v4
         with:
           name: rendered-email-html
-          path: generated/nomoretogo-email.html
+          path: |
+            generated/nomoretogo-email.html
+            generated/hackernoon-email.html
           if-no-files-found: error
