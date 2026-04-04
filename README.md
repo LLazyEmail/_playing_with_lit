@@ -21,18 +21,21 @@ This project demonstrates how to use [`lit`](https://lit.dev) and [`@lit-labs/ss
 ```
 src/
 ├── index.ts                         Entry point – renders all templates to dist/
-├── renderer.ts                      renderToString / hackernoonRenderToString / nomoretogoRenderToString
+├── renderer.ts                      renderToString / hackernoonRenderToString / nomoretogoRenderToString / mailchimpRenderToString
 ├── types.ts                         Shared TypeScript interfaces
 ├── scripts/
 │   ├── render-hackernoon.ts         Standalone script → generated/hackernoon-email.html
 │   ├── render-nomoretogo.ts         Standalone script → generated/nomoretogo-email.html
+│   ├── render-mailchimp.ts          Standalone script → generated/mailchimp-email.html
 │   └── content/
 │       ├── hackernoon-data.ts       Sample data for the Hacker Noon template
-│       └── nomoretogo-data.ts       Sample data for the No More To-Go template
+│       ├── nomoretogo-data.ts       Sample data for the No More To-Go template
+│       └── mailchimp-data.ts        Sample data for the Mailchimp-style template
 └── templates/
     ├── newsletter.ts                Generic newsletter Lit body template
     ├── hackernoon-email.ts          Re-export shim → hackernoon/index.ts
     ├── nomoretogo-email.ts          Re-export shim → nomoretogo/index.ts
+    ├── mailchimp-email.ts           Re-export shim → mailchimp/index.ts
     ├── hackernoon/                  Modular Hacker Noon template
     │   ├── index.ts                 hackernoonEmailTemplate() composer
     │   ├── types.ts                 Re-exports HackernoonEmailData
@@ -42,23 +45,38 @@ src/
     │       ├── header.section.ts    Sponsor card + article body (templateHeader)
     │       ├── body.section.ts      Closing divider + bottom logo (templateBody)
     │       └── footer.section.ts    Social icons + copyright (templateFooter)
-    └── nomoretogo/                  Modular No More To-Go template
-        ├── index.ts                 nomoretogoEmailTemplate() composer
-        ├── types.ts                 Re-exports NomoretogoEmailData / RecipeItem
-        ├── constants.ts             BASE_IMAGE URL
+    ├── nomoretogo/                  Modular No More To-Go template
+    │   ├── index.ts                 nomoretogoEmailTemplate() composer
+    │   ├── types.ts                 Re-exports NomoretogoEmailData / RecipeItem
+    │   ├── constants.ts             BASE_IMAGE URL
+    │   └── sections/
+    │       ├── logo.section.ts
+    │       ├── nav.section.ts
+    │       ├── intro.section.ts
+    │       ├── recipe-grid.section.ts
+    │       ├── recipe-grid/recipe-row.ts
+    │       ├── cta.section.ts
+    │       ├── prep-info.section.ts
+    │       ├── community.section.ts
+    │       ├── amazon.section.ts
+    │       └── footer.section.ts
+    └── mailchimp/                   Modular Mailchimp-style product email template
+        ├── index.ts                 mailchimpEmailTemplate() composer
+        ├── types.ts                 Re-exports MailchimpEmailData / ProductItem / FooterColumn
+        ├── constants.ts             Placeholder image base URL
         └── sections/
-            ├── logo.section.ts
-            ├── nav.section.ts
-            ├── intro.section.ts
-            ├── recipe-grid.section.ts
-            ├── recipe-grid/recipe-row.ts
-            ├── cta.section.ts
-            ├── prep-info.section.ts
-            ├── community.section.ts
-            ├── amazon.section.ts
-            └── footer.section.ts
+            ├── preheader.section.ts  Preview text + view-in-browser link
+            ├── branding.section.ts   Dark top-bar with brand name + nav links
+            ├── image.section.ts      Full-width hero image
+            ├── text.section.ts       H1 heading + body paragraph
+            ├── product-row.section.ts  2-column product card rows
+            ├── product-row/
+            │   └── product-card.ts   Single product card (image, meta, price, CTA)
+            ├── footer.section.ts     Three-column dark footer
+            └── disclaimer.section.ts Company info + unsubscribe link
 hackernoon.html                      Original static HTML reference (Hacker Noon)
 nomoretogo.html                      Original static HTML reference (No More To-Go)
+email-template-mailchimp (1).html    Original static HTML reference (Mailchimp-style)
 ```
 
 ## Getting started
@@ -68,6 +86,7 @@ npm install
 npm run render             # builds TypeScript then renders all templates to dist/
 npm run render:hackernoon  # renders only the Hacker Noon template
 npm run render:template    # renders only the No More To-Go template
+npm run render:mailchimp   # renders only the Mailchimp-style template
 ```
 
 ### Rendered output locations
@@ -79,6 +98,7 @@ npm run render:template    # renders only the No More To-Go template
 | `npm run render` | `dist/rendered-nomoretogo.html` | No More To-Go newsletter |
 | `npm run render:hackernoon` | `generated/hackernoon-email.html` | Hacker Noon newsletter |
 | `npm run render:template` | `generated/nomoretogo-email.html` | No More To-Go newsletter |
+| `npm run render:mailchimp` | `generated/mailchimp-email.html` | Mailchimp-style product email |
 
 Open any of the output files in a browser to preview the email.
 
@@ -137,6 +157,100 @@ The body template is composed from four section files inside `src/templates/hack
 | `footer.section.ts` | Social icons + copyright (`templateFooter`) | `data.year` |
 
 Constants for shared URLs (brand logo, meme GIFs, Mailchimp social icons, Bridgecrew sponsor) live in `src/templates/hackernoon/constants.ts`.
+
+---
+
+## Mailchimp-style product email template
+
+Converted from `email-template-mailchimp (1).html`. The template is structured as a **modular folder** (`src/templates/mailchimp/`) where each email zone is a separate section file. The top-level `mailchimp-email.ts` is a backward-compatible re-export shim.
+
+### Import and render
+
+```ts
+import '@lit-labs/ssr/lib/install-global-dom-shim.js';  // must come first
+import { mailchimpEmailTemplate } from './templates/mailchimp-email.js';
+import { mailchimpRenderToString } from './renderer.js';
+import type { MailchimpEmailData } from './types.js';
+
+const data: MailchimpEmailData = {
+  title: 'Summer Sale – Up to 40% Off',
+  preheaderText: 'Shop our best deals before they're gone',
+  viewInBrowserUrl: 'https://example.com/archive/issue-42',
+  brandName: 'Brandname',
+  navLinks: [
+    { label: 'Shop', url: 'https://example.com/shop' },
+    { label: 'Sale', url: 'https://example.com/sale' },
+  ],
+  heroImageUrl: 'https://example.com/images/banner.jpg',
+  heroImageAlt: 'Summer Sale banner',
+  contentHeading: 'Big Summer Sale',
+  contentBody: 'Up to 40% off selected lines – this weekend only.',
+  productRows: [
+    [
+      { imageUrl: '…', imageAlt: '…', meta: 'In Stock', title: 'Widget A',
+        description: 'A great widget.', previousPrice: '$99', price: '$59', buyUrl: '#' },
+      { imageUrl: '…', imageAlt: '…', meta: 'In Stock', title: 'Widget B',
+        description: 'Another great widget.', previousPrice: '$79', price: '$49', buyUrl: '#' },
+    ],
+  ],
+  footerColumns: [
+    { title: 'About', description: 'We make great widgets.' },
+    { title: 'Support', description: 'Help is always available.' },
+    { title: 'Legal', description: 'Terms and privacy policy.' },
+  ],
+  companyName: 'Widgets Inc.',
+  companyAddress: '1 Widget Lane, Widgetville',
+  unsubscribeUrl: 'https://example.com/unsubscribe',
+  updateProfileUrl: 'https://example.com/profile',
+};
+
+const template = mailchimpEmailTemplate(data);
+const html = mailchimpRenderToString(template, data);
+// write `html` to a file or send via your ESP
+```
+
+Or use the dedicated render script to write `generated/mailchimp-email.html`:
+
+```bash
+npm run render:mailchimp
+```
+
+### `MailchimpEmailData` shape
+
+| Field | Type | Description |
+|---|---|---|
+| `title` | `string` | Email subject / `<title>` tag |
+| `preheaderText` | `string` | Hidden preview text in inbox lists |
+| `viewInBrowserUrl` | `string` | "View in browser" link |
+| `brandName` | `string` | Brand name in the header bar |
+| `navLinks` | `Array<{ label, url }>` | Navigation links in the header bar |
+| `heroImageUrl` | `string` | Full-width hero image URL |
+| `heroImageAlt` | `string` | Alt text for the hero image |
+| `contentHeading` | `string` | Main H1 heading |
+| `contentBody` | `string` | Body paragraph below the heading |
+| `productRows` | `Array<[ProductItem, ProductItem]>` | Rows of two product cards each |
+| `footerColumns` | `[FooterColumn, FooterColumn, FooterColumn]` | Three dark footer columns |
+| `companyName` | `string` | Company name in the disclaimer |
+| `companyAddress` | `string` | Physical address in the disclaimer |
+| `unsubscribeUrl` | `string` | Unsubscribe link |
+| `updateProfileUrl` | `string` | Update-profile link |
+
+Each `ProductItem` carries: `imageUrl`, `imageAlt`, `meta`, `title`, `description`, `previousPrice`, `price`, `buyUrl`.  
+Each `FooterColumn` carries: `title`, `description`.
+
+### Template sections
+
+The body template is composed from seven section files inside `src/templates/mailchimp/sections/`:
+
+| Section file | Email zone | Dynamic fields |
+|---|---|---|
+| `preheader.section.ts` | Hidden preview text row | `preheaderText`, `viewInBrowserUrl` |
+| `branding.section.ts` | Dark header bar | `brandName`, `navLinks` |
+| `image.section.ts` | Full-width hero image | `heroImageUrl`, `heroImageAlt` |
+| `text.section.ts` | H1 + paragraph | `contentHeading`, `contentBody` |
+| `product-row.section.ts` | 2-column product rows | `productRows` (via `product-row/product-card.ts`) |
+| `footer.section.ts` | Three-column dark footer | `footerColumns` |
+| `disclaimer.section.ts` | Company info + unsubscribe | `companyName`, `companyAddress`, `unsubscribeUrl`, `updateProfileUrl` |
 
 ---
 
