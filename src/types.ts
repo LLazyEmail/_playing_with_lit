@@ -64,6 +64,68 @@ export interface RecipeItem {
   linkUrl: string;
 }
 
+/** A single product card shown in the Mailchimp product grid. */
+export interface ProductItem {
+  /** URL for the product image. */
+  imageUrl: string;
+  /** Alt text for the product image. */
+  imageAlt: string;
+  /** Short availability / delivery note shown above the title. */
+  meta: string;
+  /** Product name. */
+  title: string;
+  /** Short product description. */
+  description: string;
+  /** Original / crossed-out price (e.g. "$1599"). */
+  previousPrice: string;
+  /** Current / sale price (e.g. "$1299"). */
+  price: string;
+  /** URL the "Buy Now" button links to. */
+  buyUrl: string;
+}
+
+/** A single column in the three-column footer of the Mailchimp template. */
+export interface FooterColumn {
+  /** Column heading. */
+  title: string;
+  /** Column body text. */
+  description: string;
+}
+
+/** Data passed to the Mailchimp-style email template. */
+export interface MailchimpEmailData {
+  /** Email subject / issue title shown in the &lt;title&gt; tag. */
+  title: string;
+  /** Short preview text shown in email clients before the email is opened. */
+  preheaderText: string;
+  /** URL for the "View this e-mail in your browser" link. */
+  viewInBrowserUrl: string;
+  /** Brand / company name shown in the header. */
+  brandName: string;
+  /** Navigation links shown in the header bar. */
+  navLinks: Array<{ label: string; url: string }>;
+  /** URL for the full-width hero image. */
+  heroImageUrl: string;
+  /** Alt text for the hero image. */
+  heroImageAlt: string;
+  /** Main content heading (H1). */
+  contentHeading: string;
+  /** Main content body paragraph. */
+  contentBody: string;
+  /** Rows of two product cards each. */
+  productRows: Array<[ProductItem, ProductItem]>;
+  /** Three footer columns (left, centre, right). */
+  footerColumns: [FooterColumn, FooterColumn, FooterColumn];
+  /** Company name shown in the disclaimer. */
+  companyName: string;
+  /** Physical company address shown in the disclaimer. */
+  companyAddress: string;
+  /** URL for the unsubscribe link. */
+  unsubscribeUrl: string;
+  /** URL for the update-profile link. */
+  updateProfileUrl: string;
+}
+
 /** Data passed to the No More To-Go newsletter email template. */
 export interface NomoretogoEmailData {
   /** Email subject / issue title shown in the &lt;title&gt; tag. */
