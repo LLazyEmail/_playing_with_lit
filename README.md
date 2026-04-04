@@ -20,34 +20,75 @@ This project demonstrates how to use [`lit`](https://lit.dev) and [`@lit-labs/ss
 
 ```
 src/
-├── index.ts                    Entry point – sample data → rendered HTML files
-├── renderer.ts                 renderToString() / hackernoonRenderToString()
-├── types.ts                    EmailData / ArticleItem / HackernoonEmailData interfaces
+├── index.ts                         Entry point – renders all templates to dist/
+├── renderer.ts                      renderToString / hackernoonRenderToString / nomoretogoRenderToString
+├── types.ts                         Shared TypeScript interfaces
+├── scripts/
+│   ├── render-hackernoon.ts         Standalone script → generated/hackernoon-email.html
+│   ├── render-nomoretogo.ts         Standalone script → generated/nomoretogo-email.html
+│   └── content/
+│       ├── hackernoon-data.ts       Sample data for the Hacker Noon template
+│       └── nomoretogo-data.ts       Sample data for the No More To-Go template
 └── templates/
-    ├── newsletter.ts           Generic newsletter Lit body template
-    └── hackernoon-email.ts     Hacker Noon newsletter Lit body template
-hackernoon.html                 Original static HTML reference (Hacker Noon)
+    ├── newsletter.ts                Generic newsletter Lit body template
+    ├── hackernoon-email.ts          Re-export shim → hackernoon/index.ts
+    ├── nomoretogo-email.ts          Re-export shim → nomoretogo/index.ts
+    ├── hackernoon/                  Modular Hacker Noon template
+    │   ├── index.ts                 hackernoonEmailTemplate() composer
+    │   ├── types.ts                 Re-exports HackernoonEmailData
+    │   ├── constants.ts             Brand URLs, meme base URL, sponsor constants
+    │   └── sections/
+    │       ├── logo.section.ts      Top logo banner (templatePreheader)
+    │       ├── header.section.ts    Sponsor card + article body (templateHeader)
+    │       ├── body.section.ts      Closing divider + bottom logo (templateBody)
+    │       └── footer.section.ts    Social icons + copyright (templateFooter)
+    └── nomoretogo/                  Modular No More To-Go template
+        ├── index.ts                 nomoretogoEmailTemplate() composer
+        ├── types.ts                 Re-exports NomoretogoEmailData / RecipeItem
+        ├── constants.ts             BASE_IMAGE URL
+        └── sections/
+            ├── logo.section.ts
+            ├── nav.section.ts
+            ├── intro.section.ts
+            ├── recipe-grid.section.ts
+            ├── recipe-grid/recipe-row.ts
+            ├── cta.section.ts
+            ├── prep-info.section.ts
+            ├── community.section.ts
+            ├── amazon.section.ts
+            └── footer.section.ts
+hackernoon.html                      Original static HTML reference (Hacker Noon)
+nomoretogo.html                      Original static HTML reference (No More To-Go)
 ```
 
 ## Getting started
 
 ```bash
 npm install
-npm run render        # builds TypeScript then renders both email templates
+npm run render             # builds TypeScript then renders all templates to dist/
+npm run render:hackernoon  # renders only the Hacker Noon template
+npm run render:template    # renders only the No More To-Go template
 ```
 
-Rendered output files:
+### Rendered output locations
 
-| File | Template |
-|---|---|
-| `dist/rendered-email.html` | Generic newsletter |
-| `dist/rendered-hackernoon.html` | Hacker Noon newsletter |
+| Command | Output file | Template |
+|---|---|---|
+| `npm run render` | `dist/rendered-email.html` | Generic newsletter |
+| `npm run render` | `dist/rendered-hackernoon.html` | Hacker Noon newsletter |
+| `npm run render` | `dist/rendered-nomoretogo.html` | No More To-Go newsletter |
+| `npm run render:hackernoon` | `generated/hackernoon-email.html` | Hacker Noon newsletter |
+| `npm run render:template` | `generated/nomoretogo-email.html` | No More To-Go newsletter |
 
-Open either file in a browser to preview the email.
+Open any of the output files in a browser to preview the email.
+
+> **CI:** A GitHub Actions workflow (`.github/workflows/render-email-template.yml`) runs on every push and pull request. It builds the project, renders both the Hacker Noon and No More To-Go templates, and uploads the resulting HTML files as a `rendered-email-html` artifact.
 
 ---
 
 ## Hacker Noon template
+
+Ported from `hackernoon.html`. The template is structured as a **modular folder** (`src/templates/hackernoon/`) where each Mailchimp template zone is a separate section file. The top-level `hackernoon-email.ts` is a backward-compatible re-export shim so existing imports keep working.
 
 ### Import and render
 
@@ -68,6 +109,12 @@ const html = hackernoonRenderToString(template, data);
 // write `html` to a file or send via your ESP
 ```
 
+Or use the dedicated render script to write `generated/hackernoon-email.html`:
+
+```bash
+npm run render:hackernoon
+```
+
 ### `HackernoonEmailData` shape
 
 | Field | Type | Description |
@@ -80,14 +127,16 @@ All other content (sponsor card, article body, social links) is static and prese
 
 ### Template sections
 
-The body template is split into four section helpers for readability:
+The body template is composed from four section files inside `src/templates/hackernoon/sections/`:
 
-| Helper | Email section | Dynamic fields |
+| Section file | Email zone | Dynamic fields |
 |---|---|---|
-| `renderPreheaderSection()` | Top logo banner | — |
-| `renderHeaderSection(data)` | Sponsor card + article content | `data.title` |
-| `renderBodySection()` | Closing divider + bottom logo | — |
-| `renderFooterSection(data)` | Social icons + copyright | `data.year` |
+| `logo.section.ts` | Top logo banner (`templatePreheader`) | — |
+| `header.section.ts` | Sponsor card + article content (`templateHeader`) | `data.title` |
+| `body.section.ts` | Closing divider + bottom logo (`templateBody`) | — |
+| `footer.section.ts` | Social icons + copyright (`templateFooter`) | `data.year` |
+
+Constants for shared URLs (brand logo, meme GIFs, Mailchimp social icons, Bridgecrew sponsor) live in `src/templates/hackernoon/constants.ts`.
 
 ---
 
@@ -366,73 +415,50 @@ const inlined = juice(renderToString(template, data));
 
 ---
 
-## Scalable template organization plan
+## Scalable template organization
 
-When the template count grows toward ~100, a flat `src/templates/` folder becomes hard to navigate. The plan below splits large template files (like `src/templates/nomoretogo-email.ts`) into a **template-domain folder per template** with shared primitives alongside.
+Both the **Hacker Noon** and **No More To-Go** templates are already structured using the modular pattern described below. When you add new templates, follow the same conventions.
 
-### Recommended folder structure
+### Folder structure (implemented)
 
 ```text
 src/
   templates/
-    index.ts                          # registry — re-exports all public templates
-    shared/
-      blocks/                         # reusable chunks used across many templates
-        logo-banner.ts
-        nav-title-date.ts
-        cta-button.ts
-        footer-basic.ts
-      layout/
-        email-shell.ts                # outer HTML wrapper / document shell
-      types/
-        common.ts                     # shared interfaces (e.g. RecipientData)
-      utils/
-        table.ts                      # helpers for table wrappers / spacers
+    hackernoon/                       # one folder per template
+      index.ts                        # public entry — exports hackernoonEmailTemplate()
+      types.ts                        # re-exports template-specific data model
+      constants.ts                    # image base URLs, sponsor URLs, icon paths
+      sections/
+        logo.section.ts
+        header.section.ts
+        body.section.ts
+        footer.section.ts
     nomoretogo/
-      index.ts                        # public entry — exports nomoretogoEmailTemplate
-      types.ts                        # template-specific data model
-      constants.ts                    # BASE_IMAGE_URL, spacing tokens, colours
+      index.ts                        # public entry — exports nomoretogoEmailTemplate()
+      types.ts
+      constants.ts
       sections/
         logo.section.ts
         nav.section.ts
         intro.section.ts
         recipe-grid.section.ts
+        recipe-grid/
+          recipe-row.ts
         cta.section.ts
         prep-info.section.ts
         community.section.ts
         amazon.section.ts
         footer.section.ts
-        recipe-grid/                  # nested sub-components for the grid
-          recipe-row.ts
-          recipe-card.ts
-      mappers/
-        validate-data.ts              # runtime guard / defaulting (zod optional)
-      __tests__/
-        nomoretogo.template.test.ts
+    hackernoon-email.ts               # re-export shim (backward compat)
+    nomoretogo-email.ts               # re-export shim (backward compat)
+    newsletter.ts                     # example of a simple single-file template
 ```
 
 ### Design rules
 
 1. **One section = one file** — keep each section under ~200 lines to stay readable.
 2. **`index.ts` is a composer only** — the main template file just imports and assembles sections in order; no raw HTML markup lives there.
-3. **Promote reusable parts to `shared/blocks/`** — CTA buttons, footers, date headers, and social rows that appear in multiple templates belong in `shared/`.
-4. **Separate content model from rendering** — use `types.ts` for data contracts and `mappers/validate-data.ts` for runtime validation or defaulting.
-5. **No magic constants in section files** — image base URLs, spacing values, and brand colours go in `constants.ts` (or a shared theme file).
+3. **Promote reusable parts to `shared/blocks/`** — CTA buttons, footers, date headers, and social rows that appear in multiple templates belong in `shared/` (not yet created, but the right place to add them as the library grows).
+4. **Separate content model from rendering** — use `types.ts` for data contracts.
+5. **No magic constants in section files** — image base URLs, spacing values, and brand colours go in `constants.ts`.
 6. **Test per section and snapshot the full template** — unit-test individual section helpers; keep at least one snapshot test of the assembled output to catch regressions when refactoring.
-
-### Mapping: current `nomoretogo-email.ts` → proposed files
-
-| Current function | Proposed file |
-|---|---|
-| `renderLogoSection` | `nomoretogo/sections/logo.section.ts` |
-| `renderNavSection` | `nomoretogo/sections/nav.section.ts` |
-| `renderIntroSection` | `nomoretogo/sections/intro.section.ts` |
-| `renderRecipeGridSection` | `nomoretogo/sections/recipe-grid.section.ts` |
-| `renderRecipeRow` | `nomoretogo/sections/recipe-grid/recipe-row.ts` |
-| *(recipe card sub-component)* | `nomoretogo/sections/recipe-grid/recipe-card.ts` |
-| `renderCtaSection` | `nomoretogo/sections/cta.section.ts` |
-| `renderPrepInfoSection` | `nomoretogo/sections/prep-info.section.ts` |
-| `renderCommunitySection` | `nomoretogo/sections/community.section.ts` |
-| `renderAmazonSection` | `nomoretogo/sections/amazon.section.ts` |
-| `renderFooterSection` | `nomoretogo/sections/footer.section.ts` |
-| exported template composer | `nomoretogo/index.ts` |
