@@ -7,6 +7,7 @@
     "build": "tsc",
     "render": "npm run build && node dist/index.js",
     "render:template": "npm run build && node dist/scripts/render-nomoretogo.js",
+    "render:hackernoon": "npm run build && node dist/scripts/render-hackernoon.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
