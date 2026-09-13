@@ -1,7 +1,3 @@
-/**
- * Shared constants for the No More To-Go email template.
- */
+import { getAssetBaseUrl } from '../../config/index.js';
 
-/** Base URL for all images used in this template. */
-export const BASE_IMAGE =
-  'https://raw.githubusercontent.com/LLazyEmail/nomoretogo_email_template/main/data/images/';
+export const BASE_IMAGE = getAssetBaseUrl('nomoretogo.images');
