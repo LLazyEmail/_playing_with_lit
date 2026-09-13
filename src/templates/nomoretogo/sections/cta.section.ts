@@ -1,5 +1,6 @@
 import { html, TemplateResult } from 'lit';
 import type { NomoretogoEmailData } from '../types.js';
+import { renderCtaButton } from '../../shared/blocks/cta-button.js';
 
 /**
  * Renders the "Get This Week's Menu" call-to-action button.
@@ -21,7 +22,12 @@ export function renderCtaSection(
               <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="width:100%;min-width:100%;">
                 <tbody><tr>
                   <td align="center" class="mlContentButton" style="font-family:'Poppins',sans-serif;">
-                    <a class="mlContentButton" href="${data.ctaUrl}" style="font-family:'Poppins',sans-serif;background-color:#d6685e;border-radius:3px;color:#ffffff;display:inline-block;font-size:17px;font-weight:400;line-height:23px;padding:15px 0;text-align:center;text-decoration:none;width:260px;" target="_self">Get This Week's Menu</a>
+                    ${renderCtaButton({
+                      className: 'mlContentButton',
+                      href: data.ctaUrl,
+                      label: "Get This Week's Menu",
+                      style: "font-family:'Poppins',sans-serif;background-color:#d6685e;border-radius:3px;color:#ffffff;display:inline-block;font-size:17px;font-weight:400;line-height:23px;padding:15px 0;text-align:center;text-decoration:none;width:260px;",
+                    })}
                   </td>
                 </tr></tbody>
               </table>

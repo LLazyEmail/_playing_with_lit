@@ -1,5 +1,6 @@
 import { html, TemplateResult } from 'lit';
 import type { MailchimpEmailData } from '../types.js';
+import { renderFooterColumn } from '../../shared/blocks/footer-column.js';
 
 /**
  * Renders the three-column dark footer row for the Mailchimp-style email.
@@ -19,30 +20,9 @@ export function renderFooterSection(
         <table class="table-inner" align="center" border="0" cellpadding="0" cellspacing="0" width="600">
           <tr>
             <td bgcolor="#30363d" class="footer-inner" valign="top">
-              <table class="table-full" align="left" border="0" cellpadding="0" cellspacing="0" width="31%">
-                <tr>
-                  <td valign="top" class="footer-col-first">
-                    <h3>${col1.title}</h3>
-                    <p>${col1.description}</p>
-                  </td>
-                </tr>
-              </table>
-              <table class="table-full" align="left" border="0" cellpadding="0" cellspacing="0" width="31%">
-                <tr>
-                  <td valign="top" class="footer-col-second">
-                    <h3>${col2.title}</h3>
-                    <p>${col2.description}</p>
-                  </td>
-                </tr>
-              </table>
-              <table class="table-full" align="left" border="0" cellpadding="0" cellspacing="0" width="31%">
-                <tr>
-                  <td valign="top" class="footer-col-last">
-                    <h3>${col3.title}</h3>
-                    <p>${col3.description}</p>
-                  </td>
-                </tr>
-              </table>
+              ${renderFooterColumn({ className: 'footer-col-first', ...col1 })}
+              ${renderFooterColumn({ className: 'footer-col-second', ...col2 })}
+              ${renderFooterColumn({ className: 'footer-col-last', ...col3 })}
             </td>
           </tr>
         </table>
