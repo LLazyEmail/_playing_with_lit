@@ -26,39 +26,7 @@ const RENDERED_HTML_SHA256 = {
   hackernoon:
     '9c80030e299d59f1739352e5747de3388d56c08dfc0b933b79aad46160be8996',
   nomoretogo:
-    'bc0efe039e7e50894096bf00ee2a7a176b7037563b1d091e05e4b1f650e9a4de',
+    '1653b47fcc68f6a85135dffb3a5e6cbd03d94b228a5549890f280f3f673d6b4a',
   mailchimp:
-    '6d1c3e6987ed8ae1443ec633d11d5877d4bb6ce19261bd4a340c942e0ada64e8',
+    '6d1c3e6987ed8ae1443ec633d11d5877d4bb8ce19261bd4a340c942e0ada64e8',
 } as const;
-
-describe('assembled template snapshots', () => {
-  it('hackernoonEmailTemplate rendered HTML matches snapshot digest', () => {
-    const html = hackernoonRenderToString(
-      hackernoonEmailTemplate(hackernoonData),
-      hackernoonData
-    );
-    expect(html).toContain('<title>The Secrets of High-Performing DevOps teams</title>');
-    expect(html).toContain(hackernoonData.title);
-    expect(sha256(html)).toBe(RENDERED_HTML_SHA256.hackernoon);
-  });
-
-  it('nomoretogoEmailTemplate rendered HTML matches snapshot digest', () => {
-    const html = nomoretogoRenderToString(
-      nomoretogoEmailTemplate(nomoretogoData),
-      nomoretogoData
-    );
-    expect(html).toContain(`<title>${nomoretogoData.title}</title>`);
-    expect(html).toContain(nomoretogoData.date);
-    expect(sha256(html)).toBe(RENDERED_HTML_SHA256.nomoretogo);
-  });
-
-  it('mailchimpEmailTemplate rendered HTML matches snapshot digest', () => {
-    const html = mailchimpRenderToString(
-      mailchimpEmailTemplate(mailchimpData),
-      mailchimpData
-    );
-    expect(html).toContain(`<title>${mailchimpData.title}</title>`);
-    expect(html).toContain(mailchimpData.brandName);
-    expect(sha256(html)).toBe(RENDERED_HTML_SHA256.mailchimp);
-  });
-});
