@@ -1,4 +1,5 @@
 import type { TemplateResult } from 'lit';
+import { CompositionError } from '../../../errors/index.js';
 import type {
   FooterBlockProps,
   FooterPresenter,
@@ -7,10 +8,6 @@ import type {
 
 const presenters = new Map<FooterVariant, FooterPresenter>();
 
-/**
- * Register the template-owned HTML presenter for a footer variant.
- * Presenters keep their original table markup; this module is only the contract.
- */
 export function registerFooterPresenter<K extends FooterVariant>(
   variant: K,
   present: FooterPresenter<K>
@@ -18,16 +15,13 @@ export function registerFooterPresenter<K extends FooterVariant>(
   presenters.set(variant, present as FooterPresenter);
 }
 
-/**
- * Render a footer through the shared block API.
- * Template sections map EmailData → FooterBlockProps, then call this.
- */
 export function renderFooterBlock(props: FooterBlockProps): TemplateResult {
   const present = presenters.get(props.variant);
   if (!present) {
-    throw new Error(
-      `No footer presenter registered for variant "${props.variant}". Import the template section module first.`
-    );
+    throw new CompositionError({
+      message: `No footer presenter registered for variant "${props.variant}". Import the template section module first.`,
+      details: { block: 'footer', variant: props.variant },
+    });
   }
   return present(props);
 }

@@ -1,17 +1,7 @@
 import type { z } from 'zod';
+import { EmailDataValidationError } from '../errors/index.js';
 
-/** Thrown when incoming email payload fails the runtime schema. */
-export class EmailDataValidationError extends Error {
-  readonly issues: string[];
-
-  constructor(templateName: string, issues: string[]) {
-    super(
-      `Invalid ${templateName} email data:\n${issues.map((issue) => `  - ${issue}`).join('\n')}`
-    );
-    this.name = 'EmailDataValidationError';
-    this.issues = issues;
-  }
-}
+export { EmailDataValidationError } from '../errors/index.js';
 
 /**
  * Parse unknown input with a Zod schema and throw
