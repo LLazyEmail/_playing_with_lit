@@ -14,7 +14,7 @@ This project demonstrates how to use [`lit`](https://lit.dev) and [`@lit-labs/ss
 | Server-side rendering | `@lit-labs/ssr` + `collectResultSync` |
 | Hydration markers | Stripped from output (not needed for email) |
 | `<head>` / `<title>` | Built as plain JS template string in the renderer (Lit SSR cannot process expressions inside raw-text elements like `<title>`) |
-| Styling | Single `EMAIL_STYLES` constant in `renderer.ts`, injected into the `<style>` block |
+| Styling | Template-specific style constants, injected into each renderer's `<style>` block |
 
 ## Project structure
 
@@ -74,9 +74,11 @@ src/
             │   └── product-card.ts   Single product card (image, meta, price, CTA)
             ├── footer.section.ts     Three-column dark footer
             └── disclaimer.section.ts Company info + unsubscribe link
-hackernoon.html                      Original static HTML reference (Hacker Noon)
-nomoretogo.html                      Original static HTML reference (No More To-Go)
-email-template-mailchimp (1).html    Original static HTML reference (Mailchimp-style)
+reference/
+├── hackernoon.html                  Golden source for the Hacker Noon template
+├── nomoretogo.html                  Golden source for the No More To-Go template
+├── email-template-mailchimp (1).html Golden source for the Mailchimp-style template
+└── flat_file_7.html                 Additional legacy HTML reference
 ```
 
 ## Getting started
@@ -87,6 +89,17 @@ npm run render             # builds TypeScript then renders all templates to dis
 npm run render:hackernoon  # renders only the Hacker Noon template
 npm run render:template    # renders only the No More To-Go template
 npm run render:mailchimp   # renders only the Mailchimp-style template
+```
+
+### Code quality
+
+ESLint checks the JavaScript tooling configuration. Prettier provides the shared formatting rules for TypeScript, Markdown, and configuration files; TypeScript-aware ESLint rules are intentionally deferred because this project is pinned to TypeScript 7.0.2 and its stable programmatic API arrives in 7.1.
+
+```bash
+npm run lint           # ESLint checks used by CI
+npm run lint:fix       # apply safe ESLint fixes
+npm run format         # format supported source files
+npm run format:check   # check formatting without writing
 ```
 
 ### Rendered output locations
@@ -102,13 +115,17 @@ npm run render:mailchimp   # renders only the Mailchimp-style template
 
 Open any of the output files in a browser to preview the email.
 
-> **CI:** A GitHub Actions workflow (`.github/workflows/render-email-template.yml`) runs on every push and pull request. It builds the project, renders both the Hacker Noon and No More To-Go templates, and uploads the resulting HTML files as a `rendered-email-html` artifact.
+> **CI:** A GitHub Actions workflow (`.github/workflows/render-email-template.yml`) runs on every push and pull request. It builds the project, runs lint and tests, renders both the Hacker Noon and No More To-Go templates, and uploads the resulting HTML files as a `rendered-email-html` artifact.
+
+### Reference HTML policy
+
+Files in `reference/` are retained as golden visual and structural comparisons for the ported templates. They are not executable source code and must not be edited to make a render appear correct; update the Lit sections instead. Keep these files after a port is complete so regressions can be compared against their original output. `flat_file_7.html` is a supplementary legacy reference and follows the same preservation policy.
 
 ---
 
 ## Hacker Noon template
 
-Ported from `hackernoon.html`. The template is structured as a **modular folder** (`src/templates/hackernoon/`) where each Mailchimp template zone is a separate section file. The top-level `hackernoon-email.ts` is a backward-compatible re-export shim so existing imports keep working.
+Ported from `reference/hackernoon.html`. The template is structured as a **modular folder** (`src/templates/hackernoon/`) where each Mailchimp template zone is a separate section file. The top-level `hackernoon-email.ts` is a backward-compatible re-export shim so existing imports keep working.
 
 ### Import and render
 
@@ -143,7 +160,7 @@ npm run render:hackernoon
 | `preheaderText` | `string` | Hidden preview text shown in email client inbox lists |
 | `year` | `number` | Copyright year in the footer |
 
-All other content (sponsor card, article body, social links) is static and preserved verbatim from the original `hackernoon.html` reference file.
+All other content (sponsor card, article body, social links) is static and preserved verbatim from the original `reference/hackernoon.html` file.
 
 ### Template sections
 
@@ -162,7 +179,7 @@ Constants for shared URLs (brand logo, meme GIFs, Mailchimp social icons, Bridge
 
 ## Mailchimp-style product email template
 
-Converted from `email-template-mailchimp (1).html`. The template is structured as a **modular folder** (`src/templates/mailchimp/`) where each email zone is a separate section file. The top-level `mailchimp-email.ts` is a backward-compatible re-export shim.
+Converted from `reference/email-template-mailchimp (1).html`. The template is structured as a **modular folder** (`src/templates/mailchimp/`) where each email zone is a separate section file. The top-level `mailchimp-email.ts` is a backward-compatible re-export shim.
 
 ### Import and render
 

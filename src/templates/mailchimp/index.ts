@@ -1,4 +1,4 @@
-import { html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import type { MailchimpEmailData } from './types.js';
 import { renderPreheaderSection } from './sections/preheader.section.js';
 import { renderBrandingSection } from './sections/branding.section.js';
@@ -7,6 +7,7 @@ import { renderTextSection } from './sections/text.section.js';
 import { renderProductRowsSection } from './sections/product-row.section.js';
 import { renderFooterSection } from './sections/footer.section.js';
 import { renderDisclaimerSection } from './sections/disclaimer.section.js';
+import { renderLayoutSection } from './sections/layout.section.js';
 
 /**
  * Builds the full Mailchimp-style product email as a Lit
@@ -32,20 +33,13 @@ import { renderDisclaimerSection } from './sections/disclaimer.section.js';
 export function mailchimpEmailTemplate(
   data: MailchimpEmailData
 ): TemplateResult {
-  return html`
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#eeeeee">
-      <tr>
-        <td align="center" valign="top" width="100%">
-          <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" class="full_wrapper">
-            ${renderPreheaderSection(data)}
-            ${renderBrandingSection(data)}
-            ${renderImageSection(data)}
-            ${renderTextSection(data)}
-            ${renderProductRowsSection(data)}
-            ${renderFooterSection(data)}
-            ${renderDisclaimerSection(data)}
-          </table>
-        </td>
-      </tr>
-    </table>`;
+  return renderLayoutSection(
+    renderPreheaderSection(data),
+    renderBrandingSection(data),
+    renderImageSection(data),
+    renderTextSection(data),
+    renderProductRowsSection(data),
+    renderFooterSection(data),
+    renderDisclaimerSection(data),
+  );
 }

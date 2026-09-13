@@ -108,7 +108,8 @@ The original HTML email templates are stored in the `reference/` directory:
 
 - `reference/hackernoon.html` — Golden source for Hacker Noon template
 - `reference/nomoretogo.html` — Golden source for No More To-Go template
-- `reference/mailchimp.html` — Golden source for Mailchimp-style template
+- `reference/email-template-mailchimp (1).html` — Golden source for Mailchimp-style template
+- `reference/flat_file_7.html` — Additional legacy HTML reference
 
 These serve as:
 
@@ -117,6 +118,7 @@ These serve as:
 - Documentation — show what the final email should look like.
 
 They are not the primary source of truth for the component code; rather, they document the expected visual output.
+Keep them after a template is ported so they remain available for regression comparisons.
 
 ## Before You Submit a PR
 
