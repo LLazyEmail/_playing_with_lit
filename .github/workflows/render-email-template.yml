@@ -25,6 +25,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run unit and snapshot tests
+        run: npm test
+
       - name: Render No More To-Go email template
         run: npm run render:template
 
