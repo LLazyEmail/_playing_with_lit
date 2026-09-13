@@ -8,38 +8,22 @@ import { renderProductRowsSection } from './sections/product-row.section.js';
 import { renderFooterSection } from './sections/footer.section.js';
 import { renderDisclaimerSection } from './sections/disclaimer.section.js';
 import { renderLayoutSection } from './sections/layout.section.js';
+import {
+  mailchimpEmailDataSchema,
+  parseEmailData,
+} from '../../validation/index.js';
 
-/**
- * Builds the full Mailchimp-style product email as a Lit
- * {@link TemplateResult}.
- *
- * Pass the result to {@link mailchimpRenderToString} (defined in
- * `renderer.ts`) to get a complete HTML email string ready for sending.
- *
- * The template is composed of seven sections that map 1-to-1 with the
- * original Mailchimp template zones:
- *  - Preheader  → {@link renderPreheaderSection}    (preview text + view-in-browser)
- *  - Branding   → {@link renderBrandingSection}     (brand name + nav links)
- *  - Image      → {@link renderImageSection}        (full-width hero image)
- *  - Text       → {@link renderTextSection}         (H1 heading + body paragraph)
- *  - Products   → {@link renderProductRowsSection}  (2-column product card rows)
- *  - Footer     → {@link renderFooterSection}       (three-column dark footer)
- *  - Disclaimer → {@link renderDisclaimerSection}   (company info + unsubscribe)
- *
- * @param data - All content and URLs for the email.
- * @returns    A Lit TemplateResult that can be server-side rendered via
- *             `@lit-labs/ssr`.
- */
 export function mailchimpEmailTemplate(
   data: MailchimpEmailData
 ): TemplateResult {
+  const parsed = parseEmailData(mailchimpEmailDataSchema, data, 'Mailchimp');
   return renderLayoutSection(
-    renderPreheaderSection(data),
-    renderBrandingSection(data),
-    renderImageSection(data),
-    renderTextSection(data),
-    renderProductRowsSection(data),
-    renderFooterSection(data),
-    renderDisclaimerSection(data),
+    renderPreheaderSection(parsed),
+    renderBrandingSection(parsed),
+    renderImageSection(parsed),
+    renderTextSection(parsed),
+    renderProductRowsSection(parsed),
+    renderFooterSection(parsed),
+    renderDisclaimerSection(parsed),
   );
 }
