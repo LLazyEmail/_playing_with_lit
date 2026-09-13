@@ -10,31 +10,29 @@ import { renderCommunitySection } from './sections/community.section.js';
 import { renderAmazonSection } from './sections/amazon.section.js';
 import { renderFooterSection } from './sections/footer.section.js';
 import { renderLayoutSection } from './sections/layout.section.js';
+import {
+  nomoretogoEmailDataSchema,
+  parseEmailData,
+} from '../../validation/index.js';
 
-/**
- * Builds the full No More To-Go weekly menu email as a Lit
- * {@link TemplateResult}.
- *
- * Pass the result to {@link nomoretogoRenderToString} (defined in
- * `renderer.ts`) to get a complete HTML email string ready for sending.
- *
- * @param data - All content and URLs for the email.
- * @returns    A Lit TemplateResult that can be server-side rendered via
- *             `@lit-labs/ssr`.
- */
 export function nomoretogoEmailTemplate(
   data: NomoretogoEmailData
 ): TemplateResult {
-  return renderLayoutSection(
+  const parsed = parseEmailData(
+    nomoretogoEmailDataSchema,
     data,
+    'No More To-Go'
+  );
+  return renderLayoutSection(
+    parsed,
     renderLogoSection(),
-    renderNavSection(data),
-    renderIntroSection(data),
-    renderRecipeGridSection(data),
-    renderCtaSection(data),
-    renderPrepInfoSection(data),
-    renderCommunitySection(data),
+    renderNavSection(parsed),
+    renderIntroSection(parsed),
+    renderRecipeGridSection(parsed),
+    renderCtaSection(parsed),
+    renderPrepInfoSection(parsed),
+    renderCommunitySection(parsed),
     renderAmazonSection(),
-    renderFooterSection(data),
+    renderFooterSection(parsed),
   );
 }
