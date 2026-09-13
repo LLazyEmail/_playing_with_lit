@@ -7,12 +7,6 @@ import { NOMORETOGO_STYLES } from './styles/nomoretogo.styles.js';
 import { MAILCHIMP_STYLES } from './styles/mailchimp.styles.js';
 
 // ---------------------------------------------------------------------------
-// CSS shared by all newsletter emails
-// ---------------------------------------------------------------------------
-
-
-
-// ---------------------------------------------------------------------------
 // Renderer
 // ---------------------------------------------------------------------------
 
@@ -63,7 +57,7 @@ function stripLitMarkers(html: string): string {
 
 // ---------------------------------------------------------------------------
 // Hacker Noon newsletter styles
-// Ported verbatim from the <style> block in hackernoon.html
+// Ported verbatim from the <style> block in reference/hackernoon.html
 // ---------------------------------------------------------------------------
 
 const HACKERNOON_STYLES = `
@@ -451,7 +445,7 @@ const HACKERNOON_STYLES = `
 /**
  * Renders a Lit {@link TemplateResult} (the Hacker Noon email body) to a
  * complete, email-client-compatible HTML string that matches the structure
- * of the original `hackernoon.html` reference file.
+ * of the original `reference/hackernoon.html` reference file.
  *
  * The document shell is built here (DOCTYPE, xmlns attributes, MSO
  * conditionals, Google Fonts link, hackernoon-specific CSS) rather than
@@ -493,7 +487,7 @@ export function hackernoonRenderToString(
 
 // ---------------------------------------------------------------------------
 // No More To-Go newsletter styles
-// Ported from the email-specific <style> block in nomoretogo.html
+// Ported from the email-specific <style> block in reference/nomoretogo.html
 // ---------------------------------------------------------------------------
 
 
@@ -505,7 +499,7 @@ export function hackernoonRenderToString(
 /**
  * Renders a Lit {@link TemplateResult} (the No More To-Go email body) to a
  * complete, email-client-compatible HTML string that matches the structure of
- * the original `nomoretogo.html` reference file.
+ * the original `reference/nomoretogo.html` reference file.
  *
  * The document shell — DOCTYPE, meta tags, Google Fonts link, and
  * nomoretogo-specific CSS — is built here rather than inside the Lit template
@@ -548,7 +542,7 @@ export function nomoretogoRenderToString(
 
 // ---------------------------------------------------------------------------
 // Mailchimp-style product email styles
-// Ported verbatim from the <style> block in email-template-mailchimp (1).html
+// Ported verbatim from the <style> block in reference/email-template-mailchimp (1).html
 // ---------------------------------------------------------------------------
 
 

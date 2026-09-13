@@ -3,7 +3,7 @@ import type { HackernoonEmailData } from '../../types.js';
 /**
  * Sample data for the Hacker Noon DevOps newsletter issue.
  *
- * Preserves the original content from `hackernoon.html`.
+ * Preserves the original content from `reference/hackernoon.html`.
  * Swap these values for real issue data when generating a new campaign.
  */
 export const hackernoonData: HackernoonEmailData = {
