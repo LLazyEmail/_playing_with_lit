@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { renderFooterBlock } from './footer.js';
-import { renderFooterSection } from '../../hackernoon/sections/footer.section.js';
+import { renderFooterSection } from '../../hackernoon/sections/footer.compose.js';
 import { renderFragment } from '../../../test/render-fragment.js';
 
 describe('renderFooterBlock', () => {
