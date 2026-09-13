@@ -1,6 +1,10 @@
 import { html, TemplateResult } from 'lit';
 import { BASE_IMAGE } from '../constants.js';
 import type { NomoretogoEmailData } from '../types.js';
+import {
+  registerFooterPresenter,
+  renderFooterBlock,
+} from '../../shared/blocks/footer.js';
 
 /**
  * Renders the email footer with the brand name, address, social icons, and
@@ -8,8 +12,8 @@ import type { NomoretogoEmailData } from '../types.js';
  *
  * @param data.unsubscribeUrl - URL for the unsubscribe action.
  */
-export function renderFooterSection(
-  data: Pick<NomoretogoEmailData, 'unsubscribeUrl'>
+function presentNomoretogoFooter(
+  data: { unsubscribeUrl: string }
 ): TemplateResult {
   return html`
     <!-- Divider -->
@@ -115,4 +119,17 @@ export function renderFooterSection(
         </table>
       </td></tr></tbody>
     </table>`;
+}
+
+registerFooterPresenter('nomoretogo', ({ unsubscribeUrl }) =>
+  presentNomoretogoFooter({ unsubscribeUrl })
+);
+
+export function renderFooterSection(
+  data: Pick<NomoretogoEmailData, 'unsubscribeUrl'>
+): TemplateResult {
+  return renderFooterBlock({
+    variant: 'nomoretogo',
+    unsubscribeUrl: data.unsubscribeUrl,
+  });
 }
