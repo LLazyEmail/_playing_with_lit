@@ -7,8 +7,11 @@
     "build": "tsc",
     "render": "npm run build && node dist/index.js",
     "render:template": "npm run build && node dist/scripts/render-nomoretogo.js",
+    "render:template:minify": "npm run build && EMAIL_MINIFY=1 node dist/scripts/render-nomoretogo.js",
     "render:mailchimp": "npm run build && node dist/scripts/render-mailchimp.js",
+    "render:mailchimp:minify": "npm run build && EMAIL_MINIFY=1 node dist/scripts/render-mailchimp.js",
     "render:hackernoon": "npm run build && node dist/scripts/render-hackernoon.js",
+    "render:hackernoon:minify": "npm run build && EMAIL_MINIFY=1 node dist/scripts/render-hackernoon.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -31,6 +34,7 @@
   "dependencies": {
     "@lit-labs/ssr": "^4.0.0",
     "@types/node": "^24.12.0",
+    "html-minifier-terser": "^7.2.0",
     "lit": "^3.3.2",
     "typescript": "7.0.2",
     "zod": "^3.24.2"
