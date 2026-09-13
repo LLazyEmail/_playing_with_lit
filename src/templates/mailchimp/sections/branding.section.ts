@@ -1,5 +1,9 @@
 import { html, TemplateResult } from 'lit';
 import type { MailchimpEmailData } from '../types.js';
+import {
+  registerLogoPresenter,
+  renderLogoBlock,
+} from '../../shared/blocks/logo.js';
 
 /**
  * Renders the dark top-bar branding row for the Mailchimp-style email.
@@ -9,7 +13,7 @@ import type { MailchimpEmailData } from '../types.js';
  *
  * @param data - Requires `brandName` and `navLinks`.
  */
-export function renderBrandingSection(
+function presentMailchimpBranding(
   data: Pick<MailchimpEmailData, 'brandName' | 'navLinks'>
 ): TemplateResult {
   return html`
@@ -33,4 +37,21 @@ export function renderBrandingSection(
         </table>
       </td>
     </tr>`;
+}
+
+registerLogoPresenter('mailchimp', (props) =>
+  presentMailchimpBranding({
+    brandName: props.brandName,
+    navLinks: props.navLinks,
+  })
+);
+
+export function renderBrandingSection(
+  data: Pick<MailchimpEmailData, 'brandName' | 'navLinks'>
+): TemplateResult {
+  return renderLogoBlock({
+    variant: 'mailchimp',
+    brandName: data.brandName,
+    navLinks: data.navLinks,
+  });
 }

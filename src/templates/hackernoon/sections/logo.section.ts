@@ -1,12 +1,16 @@
 import { html, TemplateResult } from 'lit';
 import { HACKERNOON_BRAND_URL } from '../constants.js';
+import {
+  registerLogoPresenter,
+  renderLogoBlock,
+} from '../../shared/blocks/logo.js';
 
 /**
  * Renders the top logo banner row (maps to the `templatePreheader` section).
  *
  * Displays the Hacker Noon brand logo linking to hackernoon.com.
  */
-export function renderLogoSection(): TemplateResult {
+function presentHackernoonLogo(): TemplateResult {
   return html`
                             <tr>
                                 <td valign="top" id="templatePreheader" style="background:#ffffff none no-repeat center/cover;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #ffffff;background-image: none;background-repeat: no-repeat;background-position: center;background-size: cover;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 9px;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
@@ -27,4 +31,10 @@ export function renderLogoSection(): TemplateResult {
     </tbody>
 </table></td>
                             </tr>`;
+}
+
+registerLogoPresenter('hackernoon', () => presentHackernoonLogo());
+
+export function renderLogoSection(): TemplateResult {
+  return renderLogoBlock({ variant: 'hackernoon' });
 }

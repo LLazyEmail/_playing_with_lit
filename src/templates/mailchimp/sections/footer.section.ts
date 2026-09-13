@@ -1,6 +1,10 @@
 import { html, TemplateResult } from 'lit';
 import type { MailchimpEmailData } from '../types.js';
 import { renderFooterColumn } from '../../shared/blocks/footer-column.js';
+import {
+  registerFooterPresenter,
+  renderFooterBlock,
+} from '../../shared/blocks/footer.js';
 
 /**
  * Renders the three-column dark footer row for the Mailchimp-style email.
@@ -10,7 +14,7 @@ import { renderFooterColumn } from '../../shared/blocks/footer-column.js';
  *
  * @param data - Requires `footerColumns` (a fixed-length tuple of three columns).
  */
-export function renderFooterSection(
+function presentMailchimpFooter(
   data: Pick<MailchimpEmailData, 'footerColumns'>
 ): TemplateResult {
   const [col1, col2, col3] = data.footerColumns;
@@ -28,4 +32,15 @@ export function renderFooterSection(
         </table>
       </td>
     </tr>`;
+}
+
+registerFooterPresenter('mailchimp', (props) => presentMailchimpFooter(props));
+
+export function renderFooterSection(
+  data: Pick<MailchimpEmailData, 'footerColumns'>
+): TemplateResult {
+  return renderFooterBlock({
+    variant: 'mailchimp',
+    footerColumns: data.footerColumns,
+  });
 }

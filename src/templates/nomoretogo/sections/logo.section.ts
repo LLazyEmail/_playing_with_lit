@@ -1,10 +1,14 @@
 import { html, TemplateResult } from 'lit';
 import { BASE_IMAGE } from '../constants.js';
+import {
+  registerLogoPresenter,
+  renderLogoBlock,
+} from '../../shared/blocks/logo.js';
 
 /**
  * Renders the top logo banner.
  */
-export function renderLogoSection(): TemplateResult {
+function presentNomoretogoLogo(): TemplateResult {
   return html`
     <table align="center" border="0" bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="640" style="width:640px;min-width:640px;">
       <tbody><tr><td>
@@ -20,4 +24,10 @@ export function renderLogoSection(): TemplateResult {
         </table>
       </td></tr></tbody>
     </table>`;
+}
+
+registerLogoPresenter('nomoretogo', () => presentNomoretogoLogo());
+
+export function renderLogoSection(): TemplateResult {
+  return renderLogoBlock({ variant: 'nomoretogo' });
 }
