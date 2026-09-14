@@ -1,0 +1,34 @@
+import type { ZurbEmailData } from '../../types.js';
+
+export const zurbData: ZurbEmailData = {
+  title: 'Foundation for Emails 2 is Here! 🐙',
+  preheaderText: 'A new way to code responsive emails.',
+  year: 2019,
+  heroHeading: 'Foundation for Emails 2',
+  heroBody:
+    'Inky, a new workflow, and a smaller, faster grid for HTML emails that survive the inbox.',
+  logo: {
+    imageUrl: 'https://foundation.zurb.com/emails/docs/assets/img/inky.png',
+    imageAlt: 'Foundation for Emails',
+  },
+  homeLink: {
+    label: 'ZURB',
+    url: 'https://get.foundation/emails.html',
+  },
+  cta: {
+    label: 'Learn more',
+    url: 'https://get.foundation/emails.html',
+  },
+  features: [
+    { title: 'Inky',
+      body: 'Write semantic email HTML and compile to tables.' },
+    { title: 'Smaller CSS',
+      body: 'A grid aimed at inbox constraints, not the web.' },
+    { title: 'Workflow',
+      body: 'Sass, inlining, and templates designed for email.' },
+  ],
+  unsubscribe: {
+    label: 'Unsubscribe',
+    url: 'https://get.foundation/emails.html#unsubscribe',
+  },
+};
