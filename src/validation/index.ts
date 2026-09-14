@@ -12,3 +12,8 @@ export {
   EmailDataValidationError,
   parseEmailData,
 } from './parse.js';
+export { Validator } from './validator.js';
+export { HackernoonValidator } from './hackernoon.validator.js';
+export { NomoretogoValidator } from './nomoretogo.validator.js';
+export { MailchimpValidator } from './mailchimp.validator.js';
+export { NewsletterValidator } from './newsletter.validator.js';

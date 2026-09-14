@@ -11,21 +11,22 @@ import {
   nomoretogoRenderToString as renderNomoretogoHtml,
   renderToString as renderNewsletterHtml,
 } from '../renderer.js';
-import {
-  emailDataSchema,
-  hackernoonEmailDataSchema,
-  mailchimpEmailDataSchema,
-  nomoretogoEmailDataSchema,
-} from './schemas.js';
-import { parseEmailData } from './parse.js';
+import { HackernoonValidator } from './hackernoon.validator.js';
+import { MailchimpValidator } from './mailchimp.validator.js';
+import { NewsletterValidator } from './newsletter.validator.js';
+import { NomoretogoValidator } from './nomoretogo.validator.js';
+
+const newsletterValidator = new NewsletterValidator();
+const hackernoonValidator = new HackernoonValidator();
+const nomoretogoValidator = new NomoretogoValidator();
+const mailchimpValidator = new MailchimpValidator();
 
 /** Validate newsletter data, then render. */
 export function renderToString(
   template: TemplateResult,
   data: EmailData
 ): string {
-  const parsed = parseEmailData(emailDataSchema, data, 'newsletter');
-  return renderNewsletterHtml(template, parsed);
+  return renderNewsletterHtml(template, newsletterValidator.parse(data));
 }
 
 /** Validate Hacker Noon data, then render. */
@@ -33,12 +34,7 @@ export function hackernoonRenderToString(
   template: TemplateResult,
   data: HackernoonEmailData
 ): string {
-  const parsed = parseEmailData(
-    hackernoonEmailDataSchema,
-    data,
-    'Hacker Noon'
-  );
-  return renderHackernoonHtml(template, parsed);
+  return renderHackernoonHtml(template, hackernoonValidator.parse(data));
 }
 
 /** Validate No More To-Go data, then render. */
@@ -46,12 +42,7 @@ export function nomoretogoRenderToString(
   template: TemplateResult,
   data: NomoretogoEmailData
 ): string {
-  const parsed = parseEmailData(
-    nomoretogoEmailDataSchema,
-    data,
-    'No More To-Go'
-  );
-  return renderNomoretogoHtml(template, parsed);
+  return renderNomoretogoHtml(template, nomoretogoValidator.parse(data));
 }
 
 /** Validate Mailchimp data, then render. */
@@ -59,6 +50,5 @@ export function mailchimpRenderToString(
   template: TemplateResult,
   data: MailchimpEmailData
 ): string {
-  const parsed = parseEmailData(mailchimpEmailDataSchema, data, 'Mailchimp');
-  return renderMailchimpHtml(template, parsed);
+  return renderMailchimpHtml(template, mailchimpValidator.parse(data));
 }
