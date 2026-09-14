@@ -18,6 +18,8 @@
     "render:mysterium:minify": "npm run build && EMAIL_MINIFY=1 node dist/scripts/render-mysterium.js",
     "render:flat-file-7": "npm run build && node dist/scripts/render-flat-file-7.js",
     "render:flat-file-7:minify": "npm run build && EMAIL_MINIFY=1 node dist/scripts/render-flat-file-7.js",
+    "render:zurb": "npm run build && node dist/scripts/render-zurb.js",
+    "render:zurb:minify": "npm run build && EMAIL_MINIFY=1 node dist/scripts/render-zurb.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
