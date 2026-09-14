@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`assembled template snapshots > hackernoonEmailTemplate rendered HTML matches snapshot 1`] = `"9c80030e299d59f1739352e5747de3388d56c08dfc0b933b79aad46160be8996"`;
+
+exports[`assembled template snapshots > mailchimpEmailTemplate rendered HTML matches snapshot 1`] = `"6d1c3e6987ed8ae1443ec633d11d5877d4bb6ce19261bd4a340c942e0ada64e8"`;
+
+exports[`assembled template snapshots > nomoretogoEmailTemplate rendered HTML matches snapshot 1`] = `"1653b47fcc68f6a85135dffb3a5e6cbd03d94b228a5549890f280f3f673d6b4a"`;
