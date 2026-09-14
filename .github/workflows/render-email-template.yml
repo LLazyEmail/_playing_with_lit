@@ -19,10 +19,6 @@ jobs:
         with:
           node-version: '24'
           cache: 'npm'
-      # NOTE: switch to `npm ci` once package-lock.json is regenerated and
-      # committed to match package.json (see markup-generator addition).
-      # Until then, CI is not using a reproducible dependency graph — this
-      # is the most likely cause of "it broke with no code change."
       - run: npm install
       - run: npm run build
   lint:
@@ -60,7 +56,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        template: [hackernoon, nomoretogo, mailchimp]
+        template: [hackernoon, nomoretogo, mailchimp, zurb]
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
