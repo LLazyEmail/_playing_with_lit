@@ -10,3 +10,7 @@ export {
   templateRegistry,
 } from './template-registry.js';
 export type { TemplateEntry, TemplateName } from './template-registry.js';
+export { BuildPipeline } from './build-pipeline.js';
+export type { BuildConfig, BuildResult } from './build-pipeline.js';
+export { ConsoleLogger, SilentLogger } from './logger.js';
+export type { Logger } from './logger.js';
