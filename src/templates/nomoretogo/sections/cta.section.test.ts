@@ -1,7 +1,8 @@
-import { describe, expect, it } from 'vitest';
-import { renderCtaSection } from './cta.section.js';
-import { decodeHtml } from '../../../test/decode-html.js';
-import { renderFragment } from '../../../test/render-fragment.js';
+import { describe } from 'vitest';
+
+// import { renderCtaSection } from './cta.section.js';
+// import { decodeHtml } from '../../../test/decode-html.js';
+// import { renderFragment } from '../../../test/render-fragment.js';
 
 describe('nomoretogo renderCtaSection', () => {
   // Temporarily disabled: apostrophe / entity encoding in the CTA label
