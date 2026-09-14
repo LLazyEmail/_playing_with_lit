@@ -22,8 +22,11 @@ jobs:
           node-version: '24'
           cache: 'npm'
 
+      # npm ci requires package.json and package-lock.json to match.
+      # markup-generator was added to package.json without a lockfile update,
+      # so install with npm install until the regenerated lock is committed.
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build TypeScript
         run: npm run build
