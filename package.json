@@ -36,6 +36,7 @@
     "@types/node": "^24.12.0",
     "html-minifier-terser": "^7.2.0",
     "lit": "^3.3.2",
+    "markup-generator": "^3.0.0",
     "typescript": "7.0.2",
     "zod": "^4.0.0"
   },
