@@ -1,15 +1,11 @@
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
 
 import { getTemplate } from '../rendering/template-registry.js';
-import { finalizeHtml, isMinifyEnabled } from '../pipeline/index.js';
-import { writeGeneratedEmail } from './write-generated-email.js';
+import { runCampaign } from './run-pipeline.js';
 
-const { renderer, validator, sampleData } = getTemplate('mailchimp');
-const renderedHtml = await finalizeHtml(renderer.render(validator.parse(sampleData)));
-
-const mode = isMinifyEnabled() ? 'minified' : 'debug';
-await writeGeneratedEmail({
-  content: renderedHtml,
+const { sampleData } = getTemplate('mailchimp');
+await runCampaign({
+  templateName: 'mailchimp',
+  data: sampleData,
   fileName: 'mailchimp-email.html',
-  label: `Mailchimp email rendered (${mode})`,
 });
