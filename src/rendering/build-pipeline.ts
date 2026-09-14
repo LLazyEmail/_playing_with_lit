@@ -1,7 +1,7 @@
 import { writeGeneratedFile, MarkupGeneratorError } from 'markup-generator';
 import { isAppError } from '../errors/index.js';
+import type { Logger } from '../logging/logger.js';
 import { finalizeHtml } from '../pipeline/index.js';
-import type { Logger } from './logger.js';
 import {
   isTemplateName,
   templateRegistry,
@@ -69,6 +69,7 @@ export class BuildPipeline {
         fileName,
         dir,
       });
+      this.logger.info(`rendered ${name} → ${outputPath}`);
       return { success: true, outputPath };
     } catch (err) {
       if (err instanceof MarkupGeneratorError) {
