@@ -6,15 +6,9 @@ Lit. Do not add a `src/templates/` folder just because a file lives here.
 
 | File | Kind | Used as |
 |---|---|---|
-| `hackernoon.html` | Template reference | Hacker Noon composer (`src/templates/hackernoon/`) |
-| `flat_file_7.html` | Campaign reference | Same Hacker Noon template; data in `src/scripts/content/flat-file-7-data.ts` |
-| `mysterium_1.html` | Campaign reference | Same Hacker Noon template; data in `src/scripts/content/mysterium-data.ts` |
-| `nomoretogo.html` | Template reference | No More To-Go composer |
-| `email-template-mailchimp (1).html` | Template reference | Mailchimp composer |
-
-`mysterium_1.html` belongs in this folder next to `hackernoon.html`. If it is
-still at the repo root, move it with:
-
-```bash
-git mv mysterium_1.html reference/mysterium_1.html
-```
+| `hackernoon/bridgecrew.html` | Template reference | Hacker Noon composer (`src/templates/hackernoon/`) |
+| `hackernoon/flatfile.html` | Campaign reference | Same Hacker Noon template; data in `src/scripts/content/flat-file-7-data.ts` |
+| `hackernoon/mysterium.html` | Campaign reference | Same Hacker Noon template; data in `src/scripts/content/mysterium-data.ts` |
+| `nomoretogo.html` | Template reference | No More To-Go composer (`src/templates/nomoretogo/`) |
+| `email-template-mailchimp.html` | Template reference | Mailchimp composer (`src/templates/mailchimp/`) |
+| `zurb.html` | Template reference | Zurb Foundation for Emails 2 composer (`src/templates/zurb/`) |

@@ -1,6 +1,6 @@
 # Zurb / Foundation for Emails 2 — zone map
 
-Source: `zurb-index.html` at the repo root (should move to `reference/zurb-index.html`).
+Source: `reference/zurb.html`.
 
 This is **not** a Hacker Noon campaign. It is a Foundation for Emails 2 announcement
 (Inky/Zurb table layout, purple `#232547` body, footer background image from Campaign Monitor).
