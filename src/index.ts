@@ -6,12 +6,12 @@
  *   npm run render
  *
  * Output:
- *   dist/rendered-email.html
+ *   generated/rendered-email.html
+ *   generated/rendered-hackernoon.html
+ *   generated/rendered-nomoretogo.html
  */
 
-import { writeFileSync, mkdirSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { writeGeneratedEmail } from 'markup-generator';
 
 // Install a lightweight DOM shim so @lit-labs/ssr can run in Node.js
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
@@ -73,14 +73,11 @@ const emailData: EmailData = {
 const template = newsletterEmailTemplate(emailData);
 const html = renderToString(template, emailData);
 
-// Write output
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const outDir = join(__dirname, '..', 'dist');
-mkdirSync(outDir, { recursive: true });
-const outPath = join(outDir, 'rendered-email.html');
-writeFileSync(outPath, html, 'utf-8');
-
-console.log(`✅  Email rendered successfully → ${outPath}`);
+await writeGeneratedEmail({
+  content: html,
+  fileName: 'rendered-email.html',
+  label: 'Newsletter email rendered',
+});
 
 // ---------------------------------------------------------------------------
 // Hacker Noon newsletter data
@@ -98,10 +95,11 @@ const hackernoonData: HackernoonEmailData = {
 const hackernoonTemplate = hackernoonEmailTemplate(hackernoonData);
 const hackernoonHtml = hackernoonRenderToString(hackernoonTemplate, hackernoonData);
 
-const hackernoonOutPath = join(outDir, 'rendered-hackernoon.html');
-writeFileSync(hackernoonOutPath, hackernoonHtml, 'utf-8');
-
-console.log(`✅  Hacker Noon email rendered successfully → ${hackernoonOutPath}`);
+await writeGeneratedEmail({
+  content: hackernoonHtml,
+  fileName: 'rendered-hackernoon.html',
+  label: 'Hacker Noon email rendered',
+});
 
 // ---------------------------------------------------------------------------
 // No More To-Go newsletter data
@@ -191,7 +189,8 @@ const nomoretogoData: NomoretogoEmailData = {
 const nomoretogoTemplate = nomoretogoEmailTemplate(nomoretogoData);
 const nomoretogoHtml = nomoretogoRenderToString(nomoretogoTemplate, nomoretogoData);
 
-const nomoretogoOutPath = join(outDir, 'rendered-nomoretogo.html');
-writeFileSync(nomoretogoOutPath, nomoretogoHtml, 'utf-8');
-
-console.log(`✅  No More To-Go email rendered successfully → ${nomoretogoOutPath}`);
+await writeGeneratedEmail({
+  content: nomoretogoHtml,
+  fileName: 'rendered-nomoretogo.html',
+  label: 'No More To-Go email rendered',
+});
