@@ -2,4 +2,5 @@ dist/
 generated/
 node_modules/
 reference/
+sandbox/
 package-lock.json
