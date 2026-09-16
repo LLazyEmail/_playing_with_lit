@@ -1,0 +1,8 @@
+{
+  "id": "hackernoon-mysterium",
+  "template": "hackernoon",
+  "output": "hackernoon-mysterium.html",
+  "options": {
+    "minify": true
+  }
+}
