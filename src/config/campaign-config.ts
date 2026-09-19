@@ -1,46 +1,42 @@
 import { z } from 'zod';
 
-/**
- * Optional rendering flags that can be set per campaign.
- * All fields are optional — defaults are handled by the pipeline.
- */
+/** Optional rendering flags that can be set per campaign. */
 export const CampaignOptionsSchema = z.object({
-  /** Run html-minifier after rendering. Defaults to the MINIFY env flag when absent. */
   minify: z.boolean().optional(),
-  /** Inline CSS via juice before writing. Reserved for future pipeline integration. */
   inlineCss: z.boolean().optional(),
 });
 
-/**
- * Top-level campaign configuration schema.
- *
- * A campaign config describes *how* a template run is wired up:
- * - which template to invoke (must match a key in the PipelineRegistry)
- * - where to write the rendered output
- * - any optional rendering flags
- *
- * It deliberately does NOT carry template *data* — that is supplied separately
- * by the caller or loaded from a corresponding data file.
- */
+const hexColor = z
+  .string()
+  .regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/, 'primaryColor must be a hex color');
+
+export const CampaignThemeSchema = z.object({
+  primaryColor: hexColor.optional(),
+  secondaryColor: hexColor.optional(),
+  backgroundColor: hexColor.optional(),
+  fontFamily: z.string().optional(),
+  bannerUrl: z.string().optional(),
+});
+
+/** Template payload. Shape is template-specific; Hacker Noon uses these three. */
+export const CampaignContentSchema = z
+  .object({
+    title: z.string().optional(),
+    preheaderText: z.string().optional(),
+    year: z.number().int().optional(),
+  })
+  .passthrough();
+
 export const CampaignConfigSchema = z.object({
-  /** Unique, URL-safe slug. Used for logging and referencing configs. */
   id: z.string().min(1, '`id` must not be empty'),
-
-  /**
-   * Template identifier — must match a registered key in the BuildPipeline
-   * registry (e.g. "hackernoon", "nomoretogo", "mailchimp").
-   */
   template: z.string().min(1, '`template` must not be empty'),
-
-  /**
-   * Output filename written under the `generated/` directory.
-   * Example: "hackernoon-email.html"
-   */
+  title: z.string().optional(),
   output: z.string().min(1, '`output` must not be empty'),
-
-  /** Per-campaign rendering overrides. All fields are optional. */
+  theme: CampaignThemeSchema.optional(),
+  content: CampaignContentSchema.optional(),
   options: CampaignOptionsSchema.optional(),
 });
 
 export type CampaignOptions = z.infer<typeof CampaignOptionsSchema>;
+export type CampaignTheme = z.infer<typeof CampaignThemeSchema>;
 export type CampaignConfig = z.infer<typeof CampaignConfigSchema>;

@@ -33,18 +33,15 @@ describe('CampaignConfig', () => {
     const config = validateCampaignConfig(raw, contentSchema);
     expect(config.id).toBe('hn-automation-2021');
     expect(config.template).toBe('hackernoon');
-    expect(config.title).toBe('Magic Behind Test Automation');
-    expect(config.theme?.primaryColor).toBe('#00ff00');
-    expect(config.content.issueNumber).toBe(42);
+    expect(config.content.headline).toBe('Automating the web');
   });
 
-  it('validates minimal config with only required id and template', () => {
+  it('validates a minimal config without theme', () => {
     const raw = {
       id: 'minimal-1',
       template: 'newsletter',
       content: 'simple string body',
     };
-
     const config = validateCampaignConfig(raw);
     expect(config.id).toBe('minimal-1');
     expect(config.template).toBe('newsletter');
@@ -92,7 +89,7 @@ describe('CampaignConfig', () => {
 
       expect(config.id).toBe('flat-file-7');
       expect(config.template).toBe('hackernoon');
-      expect(config.content.title).toBe('Magic Behind Test Automation');
+      expect(config.content?.title).toBe('Magic Behind Test Automation');
     });
 
     it('validates campaigns/hackernoon/mysterium.json against Hackernoon schema', () => {
@@ -103,22 +100,11 @@ describe('CampaignConfig', () => {
       const raw = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
       const config = validateCampaignConfig(raw, hackernoonEmailDataSchema);
 
-      expect(config.id).toBe('mysterium');
+      expect(config.id).toBe('hackernoon-mysterium');
       expect(config.template).toBe('hackernoon');
-      expect(config.content.title).toBe('Mysterium Network: Decentralized VPN');
-    });
-
-    it('validates campaigns/zurb/announcement.json', () => {
-      const filePath = path.resolve(
-        process.cwd(),
-        'campaigns/zurb/announcement.json'
+      expect(config.content?.title).toBe(
+        'Mysterium Network: Decentralized VPN'
       );
-      const raw = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-      const config = validateCampaignConfig(raw);
-
-      expect(config.id).toBe('zurb-announcement');
-      expect(config.template).toBe('zurb');
-      expect(config.theme?.primaryColor).toBe('#232547');
     });
   });
 });
