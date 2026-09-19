@@ -27,15 +27,11 @@ export const CampaignContentSchema = z
   })
   .passthrough();
 
-/**
- * Campaign config: wiring + optional theme/content.
- * `output` defaults to `{id}.html` so fixtures that omit it still load.
- */
 export const CampaignConfigSchema = z.object({
   id: z.string().min(1, '`id` must not be empty'),
   template: z.string().min(1, '`template` must not be empty'),
   title: z.string().optional(),
-  output: z.string().min(1, '`output` must not be empty').optional(),
+  output: z.string().min(1, '`output` must not be empty'),
   theme: CampaignThemeSchema.optional(),
   content: CampaignContentSchema.optional(),
   options: CampaignOptionsSchema.optional(),
