@@ -1,0 +1,8 @@
+{
+  "id": "nomoretogo-default",
+  "template": "nomoretogo",
+  "output": "nomoretogo-email.html",
+  "options": {
+    "minify": false
+  }
+}
