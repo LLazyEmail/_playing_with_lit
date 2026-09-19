@@ -32,16 +32,39 @@ describe('CampaignConfigSchema', () => {
     expect(result.options).toBeUndefined();
   });
 
-  it('strips unknown fields (Zod default behaviour)', () => {
-    const result = CampaignConfigSchema.parse({
-      id: 'test',
+
+  
+it('strips unknown fields (Zod default behaviour)', () => {
+  const result = CampaignConfigSchema.parse({
+    id: 'test',
+    template: 'hackernoon',
+    output: 'out.html',
+    bogusField: 'should be stripped',
+  });
+  expect((result as Record<string, unknown>)['bogusField']).toBeUndefined();
+});
+
+  it('throws when theme.primaryColor is not a hex color', () => {
+  expect(() =>
+    CampaignConfigSchema.parse({
+      id: 'x',
       template: 'hackernoon',
       output: 'out.html',
-      unknownField: 'should be stripped',
-    });
+      theme: { primaryColor: 'green' },
+    })
+  ).toThrow(/primaryColor/i);
+});
 
-    expect((result as Record<string, unknown>)['unknownField']).toBeUndefined();
-  });
+it('throws when content.year is not a number', () => {
+  expect(() =>
+    CampaignConfigSchema.parse({
+      id: 'x',
+      template: 'hackernoon',
+      output: 'out.html',
+      content: { title: 't', preheaderText: 'p', year: '2021' },
+    })
+  ).toThrow();
+});
 
   it('throws when id is missing', () => {
     expect(() =>
@@ -102,13 +125,24 @@ describe('loadCampaignConfig', () => {
     expect(config.output).toBe('hackernoon-email.html');
   });
 
-  it('loads and validates campaigns/hackernoon/mysterium.json', () => {
-    const config = loadCampaignConfig(
-      join(repoRoot, 'campaigns', 'hackernoon', 'mysterium.json')
-    );
-    expect(config.id).toBe('hackernoon-mysterium');
-    expect(config.options?.minify).toBe(true);
-  });
+it('loads and validates campaigns/hackernoon/mysterium.json', () => {
+  const config = loadCampaignConfig(
+    join(repoRoot, 'campaigns', 'hackernoon', 'mysterium.json')
+  );
+
+  expect(config.id).toBe('hackernoon-mysterium');
+  expect(config.template).toBe('hackernoon');
+  expect(config.title).toBe('Mysterium Network Issue');
+  expect(config.output).toBe('hackernoon-mysterium.html');
+
+  expect(config.theme?.primaryColor).toBe('#00bb00');
+
+  expect(config.content?.title).toBe('Mysterium Network: Decentralized VPN');
+  expect(config.content?.preheaderText).toBe(
+    'Explore peer-to-peer privacy and decentralization.'
+  );
+  expect(config.content?.year).toBe(2021);
+});
 
   it('loads and validates campaigns/nomoretogo/default.json', () => {
     const config = loadCampaignConfig(
