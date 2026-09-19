@@ -5,7 +5,7 @@ import { CampaignConfigSchema } from './campaign-config.js';
 import { loadCampaignConfig } from './campaign-loader.js';
 
 // Resolve path to the campaigns/ directory at the repo root.
-const repoRoot = join(fileURLToPath(import.meta.url), '..', '..', '..', '..');
+const repoRoot = join(fileURLToPath(import.meta.url), '..', '..', '..');
 
 describe('CampaignConfigSchema', () => {
   it('accepts a valid config with all fields', () => {
