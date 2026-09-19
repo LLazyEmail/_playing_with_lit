@@ -10,5 +10,8 @@
     "title": "Mysterium Network: Decentralized VPN",
     "preheaderText": "Explore peer-to-peer privacy and decentralization.",
     "year": 2021
+  },
+  "options": {
+     "minify": false
   }
 }
