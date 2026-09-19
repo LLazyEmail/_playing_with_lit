@@ -2,6 +2,7 @@
   "id": "flat-file-7",
   "template": "hackernoon",
   "title": "Magic Behind Test Automation",
+  "output": "flat-file-7-email.html",
   "theme": {
     "primaryColor": "#00bb00"
   },
