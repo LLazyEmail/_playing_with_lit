@@ -2,6 +2,7 @@
   "id": "mysterium",
   "template": "hackernoon",
   "title": "Mysterium Network Issue",
+  "output": "hackernoon-mysterium.html",
   "theme": {
     "primaryColor": "#00bb00"
   },
