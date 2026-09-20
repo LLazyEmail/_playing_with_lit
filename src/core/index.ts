@@ -14,11 +14,18 @@ export type {
   TemplateManifestEntry,
 } from './ManifestGenerator/ManifestGenerator.js';
 export {
+  
+  CampaignOptionsSchema,
+  CampaignThemeSchema,
+  CampaignContentSchema,
   campaignConfigSchema,
   themeSchema,
 } from './Campaign/CampaignConfig.js';
 export { validateCampaignConfig } from './Campaign/validateCampaignConfig.js';
 export type {
   CampaignConfig,
+  CampaignOptions,
+  CampaignTheme,
   Theme,
 } from './Campaign/CampaignConfig.js';
+export { loadCampaignConfig } from './Campaign/CampaignLoader.js';

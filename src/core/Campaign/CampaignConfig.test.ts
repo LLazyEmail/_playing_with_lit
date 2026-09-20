@@ -1,110 +1,155 @@
-import { describe, it, expect } from 'vitest';
-import { z } from 'zod';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import {
-  validateCampaignConfig,
-  campaignConfigSchema,
-  themeSchema,
-} from './CampaignConfig.js';
-import { hackernoonEmailDataSchema } from '../../validation/schemas.js';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { describe, expect, it } from 'vitest';
+import { CampaignConfigSchema } from './CampaignConfig.js';
+import { loadCampaignConfig } from './CampaignLoader.js';
 
-describe('CampaignConfig', () => {
-  it('validates a complete campaign config with theme and content schema', () => {
-    const raw = {
-      id: 'hn-automation-2021',
+const repoRoot = join(fileURLToPath(import.meta.url), '..', '..', '..', '..');
+
+describe('CampaignConfigSchema', () => {
+  it('accepts a valid config with all fields', () => {
+    const result = CampaignConfigSchema.parse({
+      id: 'hackernoon-default',
       template: 'hackernoon',
-      title: 'Magic Behind Test Automation',
-      theme: {
-        primaryColor: '#00ff00',
-        fontFamily: 'Courier New, monospace',
-      },
-      content: {
-        headline: 'Automating the web',
-        issueNumber: 42,
-      },
-    };
-
-    const contentSchema = z.object({
-      headline: z.string(),
-      issueNumber: z.number(),
+      output: 'hackernoon-email.html',
+      options: { minify: false },
     });
 
-    const config = validateCampaignConfig(raw, contentSchema);
-    expect(config.id).toBe('hn-automation-2021');
-    expect(config.template).toBe('hackernoon');
-    expect(config.content.headline).toBe('Automating the web');
+    expect(result.id).toBe('hackernoon-default');
+    expect(result.template).toBe('hackernoon');
+    expect(result.output).toBe('hackernoon-email.html');
+    expect(result.options?.minify).toBe(false);
   });
 
-  it('validates a minimal config without theme', () => {
-    const raw = {
-      id: 'minimal-1',
-      template: 'newsletter',
-      content: 'simple string body',
-    };
-    const config = validateCampaignConfig(raw);
-    expect(config.id).toBe('minimal-1');
-    expect(config.template).toBe('newsletter');
-    expect(config.theme).toBeUndefined();
-    expect(config.content).toBe('simple string body');
+  it('accepts a config without options (options is optional)', () => {
+    const result = CampaignConfigSchema.parse({
+      id: 'nomoretogo-default',
+      template: 'nomoretogo',
+      output: 'nomoretogo-email.html',
+    });
+
+    expect(result.options).toBeUndefined();
   });
 
-  it('rejects missing or empty id and template', () => {
+  it('strips unknown fields (Zod default behaviour)', () => {
+    const result = CampaignConfigSchema.parse({
+      id: 'test',
+      template: 'hackernoon',
+      output: 'out.html',
+      bogusField: 'should be stripped',
+    });
+    expect((result as Record<string, unknown>)['bogusField']).toBeUndefined();
+  });
+
+  it('throws when theme.primaryColor is not a hex color', () => {
     expect(() =>
-      campaignConfigSchema.parse({
+      CampaignConfigSchema.parse({
+        id: 'x',
+        template: 'hackernoon',
+        output: 'out.html',
+        theme: { primaryColor: 'green' },
+      })
+    ).toThrow(/primaryColor/i);
+  });
+
+  it('throws when content.year is not a number', () => {
+    expect(() =>
+      CampaignConfigSchema.parse({
+        id: 'x',
+        template: 'hackernoon',
+        output: 'out.html',
+        content: { title: 't', preheaderText: 'p', year: '2021' },
+      })
+    ).toThrow();
+  });
+
+  it('throws when id is missing', () => {
+    expect(() =>
+      CampaignConfigSchema.parse({
+        template: 'hackernoon',
+        output: 'out.html',
+      })
+    ).toThrow();
+  });
+
+  it('throws when id is an empty string', () => {
+    expect(() =>
+      CampaignConfigSchema.parse({
         id: '',
         template: 'hackernoon',
-        content: {},
+        output: 'out.html',
       })
-    ).toThrow(/must not be empty/);
+    ).toThrow();
+  });
 
+  it('throws when template is missing', () => {
     expect(() =>
-      campaignConfigSchema.parse({
-        id: 'valid-id',
-        template: '',
-        content: {},
+      CampaignConfigSchema.parse({
+        id: 'x',
+        output: 'out.html',
       })
-    ).toThrow(/must not be empty/);
+    ).toThrow();
   });
 
-  it('validates theme tokens schema', () => {
-    const validTheme = {
-      primaryColor: '#232547',
-      secondaryColor: '#ffffff',
-      bannerUrl: 'https://example.com/banner.jpg',
-    };
-
-    const parsed = themeSchema.parse(validTheme);
-    expect(parsed.primaryColor).toBe('#232547');
+  it('throws when output is missing', () => {
+    expect(() =>
+      CampaignConfigSchema.parse({
+        id: 'x',
+        template: 'hackernoon',
+      })
+    ).toThrow();
   });
 
-  describe('campaign JSON files', () => {
-    it('validates campaigns/hackernoon/flat-file-7.json against Hackernoon schema', () => {
-      const filePath = path.resolve(
-        process.cwd(),
-        'campaigns/hackernoon/flat-file-7.json'
-      );
-      const raw = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-      const config = validateCampaignConfig(raw, hackernoonEmailDataSchema);
+  it('throws when options.minify is not a boolean', () => {
+    expect(() =>
+      CampaignConfigSchema.parse({
+        id: 'x',
+        template: 'hackernoon',
+        output: 'out.html',
+        options: { minify: 'yes' },
+      })
+    ).toThrow();
+  });
+});
 
-      expect(config.id).toBe('flat-file-7');
-      expect(config.template).toBe('hackernoon');
-      expect(config.content?.title).toBe('Magic Behind Test Automation');
-    });
+describe('loadCampaignConfig', () => {
+  it('loads and validates campaigns/hackernoon/default.json', () => {
+    const config = loadCampaignConfig(
+      join(repoRoot, 'campaigns', 'hackernoon', 'default.json')
+    );
+    expect(config.id).toBe('hackernoon-default');
+    expect(config.template).toBe('hackernoon');
+    expect(config.output).toBe('hackernoon-email.html');
+  });
 
-    it('validates campaigns/hackernoon/mysterium.json against Hackernoon schema', () => {
-      const filePath = path.resolve(
-        process.cwd(),
-        'campaigns/hackernoon/mysterium.json'
-      );
-      const raw = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-      const config = validateCampaignConfig(raw, hackernoonEmailDataSchema);
+  it('loads and validates campaigns/hackernoon/mysterium.json', () => {
+    const config = loadCampaignConfig(
+      join(repoRoot, 'campaigns', 'hackernoon', 'mysterium.json')
+    );
 
-      expect(config.id).toBe('hackernoon-mysterium');
-      expect(config.template).toBe('hackernoon');
-      expect(config.content?.title).toBe(
-        'Mysterium Network: Decentralized VPN'
-      );
-    });
+    expect(config.id).toBe('hackernoon-mysterium');
+    expect(config.template).toBe('hackernoon');
+    expect(config.title).toBe('Mysterium Network Issue');
+    expect(config.output).toBe('hackernoon-mysterium.html');
+    expect(config.theme?.primaryColor).toBe('#00bb00');
+    expect(config.content?.title).toBe('Mysterium Network: Decentralized VPN');
+    expect(config.content?.preheaderText).toBe(
+      'Explore peer-to-peer privacy and decentralization.'
+    );
+    expect(config.content?.year).toBe(2021);
+  });
+
+  it('loads and validates campaigns/nomoretogo/default.json', () => {
+    const config = loadCampaignConfig(
+      join(repoRoot, 'campaigns', 'nomoretogo', 'default.json')
+    );
+    expect(config.id).toBe('nomoretogo-default');
+    expect(config.template).toBe('nomoretogo');
+  });
+
+  it('throws a ZodError with a field-level message for an invalid JSON file', () => {
+    expect(() =>
+      CampaignConfigSchema.parse({ id: '', template: 'x', output: 'x.html' })
+    ).toThrow(/empty/i);
   });
 });
