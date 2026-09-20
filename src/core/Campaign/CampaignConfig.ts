@@ -38,14 +38,4 @@ export const campaignConfigSchema = z.object({
   content: z.unknown().optional(),
 });
 
-export function validateCampaignConfig<T>(
-  data: unknown,
-  contentSchema?: z.ZodType<T>
-): CampaignConfig<T> {
-  const base = campaignConfigSchema.parse(data);
-  if (contentSchema && base.content !== undefined) {
-    const validatedContent = contentSchema.parse(base.content);
-    return { ...base, content: validatedContent };
-  }
-  return base as CampaignConfig<T>;
-}
+export { validateCampaignConfig } from './validateCampaignConfig.js';
