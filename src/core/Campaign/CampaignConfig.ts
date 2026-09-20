@@ -37,11 +37,4 @@ export const CampaignConfigSchema = z.object({
   options: CampaignOptionsSchema.optional(),
 });
 
-/** Aliases for existing core barrel imports. */
-export const campaignConfigSchema = CampaignConfigSchema;
-export const themeSchema = CampaignThemeSchema;
-
-export type CampaignOptions = z.infer<typeof CampaignOptionsSchema>;
-export type CampaignTheme = z.infer<typeof CampaignThemeSchema>;
-export type Theme = CampaignTheme;
-export type CampaignConfig = z.infer<typeof CampaignConfigSchema>;
+export { validateCampaignConfig } from './validateCampaignConfig.js';
