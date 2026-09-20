@@ -97,3 +97,31 @@ export const mailchimpEmailDataSchema = z.object({
   unsubscribeUrl: nonEmpty,
   updateProfileUrl: nonEmpty,
 });
+
+export const linkSchema = z.object({
+  label: nonEmpty,
+  url: nonEmpty,
+});
+
+export const imageRefSchema = z.object({
+  imageUrl: nonEmpty,
+  imageAlt: nonEmpty,
+});
+
+export const zurbFeatureSchema = z.object({
+  title: nonEmpty,
+  body: nonEmpty,
+});
+
+export const zurbEmailDataSchema = z.object({
+  title: nonEmpty,
+  preheaderText: nonEmpty,
+  year: z.number().int(),
+  heroHeading: nonEmpty,
+  heroBody: nonEmpty,
+  logo: imageRefSchema,
+  homeLink: linkSchema,
+  cta: linkSchema,
+  features: z.array(zurbFeatureSchema),
+  unsubscribe: linkSchema,
+});
