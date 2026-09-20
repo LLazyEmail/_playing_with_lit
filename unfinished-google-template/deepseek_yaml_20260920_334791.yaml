@@ -1,0 +1,8 @@
+      - name: Render Google template
+        run: npm run render:google
+
+      - name: Upload Google artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-email
+          path: dist/google.html

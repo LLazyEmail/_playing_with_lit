@@ -1,0 +1,78 @@
+import type { GoogleEmailData } from '../../templates/google/types.js';
+
+export const googleShipmentData: GoogleEmailData = {
+  preheader: 'Your Google Store order has shipped.',
+
+  greeting: 'Hi Smiles Davis,',
+  intro: 'Your shipment was just dropped off. Go on. Open it and enjoy.',
+
+  order: {
+    number: 'SMLS.6500-5000-0050',
+    orderedAt: 'Oct 24, 2019, 02:59 PM',
+    orderedFrom: [
+      'Google LLC',
+      '1600 Amphitheatre Parkway',
+      'Mountain View',
+      'CA',
+      '94043',
+      'United States',
+    ],
+    shippingAddress: [
+      'Smiles Davis',
+      '600 Montgomery St',
+      'San Francisco',
+      'CA',
+      '94111',
+      'United States',
+    ],
+  },
+
+  progress: {
+    orderedDate: 'Oct 24',
+    shippedDate: 'Oct 30',
+    deliveredDate: 'Nov 01',
+  },
+
+  item: {
+    name: 'Google Home Mini (Chalk)',
+    image:
+      'https://lh3.googleusercontent.com/UQdT2kDIPDb65JrhGxh0ViEAe4v-IYH9Ndmo8fGcvyx3dpDq8KxF8wQMKTt0INYQpYjK',
+    idNumber: '6500500050',
+    price: '$49.00',
+    quantity: 1,
+  },
+
+  shipment: {
+    carrier: 'FedEx Smartpost',
+    trackingNumber: '74890988031574503941',
+    trackingUrl:
+      'https://www.fedex.com/Tracking?action=track&language=english&cntry_code=us&tracknumbers=74890988031574503941',
+  },
+
+  totals: {
+    shipping: '$0.00',
+    discount: '- $49.00',
+    tax: '$0.00',
+    total: '$0.00',
+  },
+
+  payment: {
+    method: 'Visa •••• 6500',
+  },
+
+  footer: {
+    year: 2019,
+    addressLine: 'Google LLC 1600 Amphitheatre Parkway, Mountain View, CA 94043',
+    copyright: '© 2019 Google | All Rights Reserved.',
+    links: {
+      account:
+        'https://accounts.google.com/ServiceLogin?service=googleplay&passive=1209600&continue=https://store.google.com/account',
+      orderHistory: 'https://store.google.com/authentication',
+      contactUs:
+        'https://support.google.com/store/answer/7334136?p=contact_store',
+      termsOfSale:
+        'https://store.google.com/intl/en-US_us/about/device-terms.html',
+      termsOfService: 'https://www.google.com/intl/en/policies/terms/',
+    },
+  },
+};
