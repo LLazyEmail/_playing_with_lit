@@ -41,6 +41,8 @@ export const CampaignConfigSchema = z.object({
 export type CampaignOptions = z.infer<typeof CampaignOptionsSchema>;
 export type CampaignTheme = z.infer<typeof CampaignThemeSchema>;
 export type CampaignContent = z.infer<typeof CampaignContentSchema>;
-export type CampaignConfig = z.infer<typeof CampaignConfigSchema>;
+export type CampaignConfig<T = unknown> = z.infer<typeof CampaignConfigSchema> & {
+  content?: T;
+};
 
 export { validateCampaignConfig } from './validateCampaignConfig.js';
