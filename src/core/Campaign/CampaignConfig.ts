@@ -36,8 +36,11 @@ export type CampaignOptions = z.infer<typeof CampaignOptionsSchema>;
 export type CampaignTheme = z.infer<typeof CampaignThemeSchema>;
 export type CampaignContent = z.infer<typeof CampaignContentSchema>;
 
+// Generic base content type - can be extended with template-specific fields
+export type BaseCampaignContent = Record<string, unknown>;
+
 // Generic campaign config that extends base content with template-specific fields
-export type CampaignConfig<T = Record<string, unknown>> = Omit<
+export type CampaignConfig<T = BaseCampaignContent> = Omit<
   z.infer<typeof CampaignConfigSchema>,
   'content'
 > & {
