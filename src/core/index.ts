@@ -15,15 +15,24 @@ export type {
 } from './ManifestGenerator/ManifestGenerator.js';
 export {
   CampaignOptionsSchema,
-  CampaignThemeSchema,
-  CampaignContentSchema,
   CampaignConfigSchema,
 } from './Campaign/CampaignConfig.js';
-export { validateCampaignConfig } from './Campaign/validateCampaignConfig.js';
 export type {
   CampaignConfig,
   CampaignOptions,
+  BaseCampaignContent,
+} from './Campaign/CampaignConfig.js';
+export {
+  CampaignThemeSchema,
+  CampaignContentSchema,
+  CampaignDataSchema,
+} from './Campaign/CampaignData.js';
+export type {
   CampaignTheme,
   CampaignContent,
-} from './Campaign/CampaignConfig.js';
+  CampaignData,
+  CampaignDataWithContent,
+} from './Campaign/CampaignData.js';
+export { validateCampaignConfig } from './Campaign/validateCampaignConfig.js';
 export { loadCampaignConfig } from './Campaign/CampaignLoader.js';
+export { loadCampaignData } from './Campaign/CampaignDataLoader.js';

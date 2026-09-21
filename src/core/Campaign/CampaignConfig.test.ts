@@ -2,6 +2,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { CampaignConfigSchema } from './CampaignConfig.js';
+import { CampaignDataSchema } from './CampaignData.js';
 import { loadCampaignConfig } from './CampaignLoader.js';
 
 const repoRoot = join(fileURLToPath(import.meta.url), '..', '..', '..', '..');
@@ -39,32 +40,6 @@ describe('CampaignConfigSchema', () => {
       bogusField: 'should be stripped',
     });
     expect((result as Record<string, unknown>)['bogusField']).toBeUndefined();
-  });
-
-  it('throws when theme.primaryColor is not a hex color', () => {
-    expect(() =>
-      CampaignConfigSchema.parse({
-        id: 'x',
-        template: 'hackernoon',
-        output: 'out.html',
-        theme: { primaryColor: 'green' },
-      })
-    ).toThrow(/primaryColor/i);
-  });
-
-  it('accepts arbitrary content fields (validated per-template)', () => {
-    const result = CampaignConfigSchema.parse({
-      id: 'x',
-      template: 'hackernoon',
-      output: 'out.html',
-      content: { title: 't', preheaderText: 'p', year: 2021, customField: 'value' },
-    });
-    expect(result.content).toEqual({
-      title: 't',
-      preheaderText: 'p',
-      year: 2021,
-      customField: 'value',
-    });
   });
 
   it('throws when id is missing', () => {
@@ -116,6 +91,51 @@ describe('CampaignConfigSchema', () => {
   });
 });
 
+describe('CampaignDataSchema', () => {
+  it('accepts a valid data with all fields', () => {
+    const result = CampaignDataSchema.parse({
+      title: 'Test Campaign',
+      theme: { primaryColor: '#00bb00' },
+      content: { title: 'Content Title', year: 2021 },
+    });
+
+    expect(result.title).toBe('Test Campaign');
+    expect(result.theme?.primaryColor).toBe('#00bb00');
+    expect(result.content?.title).toBe('Content Title');
+  });
+
+  it('accepts data with only title', () => {
+    const result = CampaignDataSchema.parse({
+      title: 'Test Campaign',
+    });
+
+    expect(result.title).toBe('Test Campaign');
+    expect(result.theme).toBeUndefined();
+    expect(result.content).toBeUndefined();
+  });
+
+  it('throws when theme.primaryColor is not a hex color', () => {
+    expect(() =>
+      CampaignDataSchema.parse({
+        title: 'Test',
+        theme: { primaryColor: 'green' },
+      })
+    ).toThrow(/hex color/i);
+  });
+
+  it('accepts arbitrary content fields (validated per-template)', () => {
+    const result = CampaignDataSchema.parse({
+      content: { title: 't', preheaderText: 'p', year: 2021, customField: 'value' },
+    });
+    expect(result.content).toEqual({
+      title: 't',
+      preheaderText: 'p',
+      year: 2021,
+      customField: 'value',
+    });
+  });
+});
+
 describe('loadCampaignConfig', () => {
   it('loads and validates campaigns/hackernoon/default.json', () => {
     const config = loadCampaignConfig(
@@ -126,21 +146,15 @@ describe('loadCampaignConfig', () => {
     expect(config.output).toBe('hackernoon-email.html');
   });
 
-  it('loads and validates campaigns/hackernoon/mysterium.json', () => {
+  it('loads and validates campaigns/hackernoon/mysterium.json (config only)', () => {
     const config = loadCampaignConfig(
       join(repoRoot, 'campaigns', 'hackernoon', 'mysterium.json')
     );
 
     expect(config.id).toBe('hackernoon-mysterium');
     expect(config.template).toBe('hackernoon');
-    expect(config.title).toBe('Mysterium Network Issue');
     expect(config.output).toBe('hackernoon-mysterium.html');
-    expect(config.theme?.primaryColor).toBe('#00bb00');
-    expect(config.content?.title).toBe('Mysterium Network: Decentralized VPN');
-    expect(config.content?.preheaderText).toBe(
-      'Explore peer-to-peer privacy and decentralization.'
-    );
-    expect(config.content?.year).toBe(2021);
+    expect(config.options?.minify).toBe(false);
   });
 
   it('loads and validates campaigns/nomoretogo/default.json', () => {
