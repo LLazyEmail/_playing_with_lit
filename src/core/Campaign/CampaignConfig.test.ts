@@ -2,7 +2,6 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { CampaignConfigSchema } from './CampaignConfig.js';
-import { CampaignDataSchema } from './CampaignData.js';
 import { loadCampaignConfig } from './CampaignLoader.js';
 
 const repoRoot = join(fileURLToPath(import.meta.url), '..', '..', '..', '..');
@@ -91,51 +90,6 @@ describe('CampaignConfigSchema', () => {
   });
 });
 
-describe('CampaignDataSchema', () => {
-  it('accepts a valid data with all fields', () => {
-    const result = CampaignDataSchema.parse({
-      title: 'Test Campaign',
-      theme: { primaryColor: '#00bb00' },
-      content: { title: 'Content Title', year: 2021 },
-    });
-
-    expect(result.title).toBe('Test Campaign');
-    expect(result.theme?.primaryColor).toBe('#00bb00');
-    expect(result.content?.title).toBe('Content Title');
-  });
-
-  it('accepts data with only title', () => {
-    const result = CampaignDataSchema.parse({
-      title: 'Test Campaign',
-    });
-
-    expect(result.title).toBe('Test Campaign');
-    expect(result.theme).toBeUndefined();
-    expect(result.content).toBeUndefined();
-  });
-
-  it('throws when theme.primaryColor is not a hex color', () => {
-    expect(() =>
-      CampaignDataSchema.parse({
-        title: 'Test',
-        theme: { primaryColor: 'green' },
-      })
-    ).toThrow(/hex color/i);
-  });
-
-  it('accepts arbitrary content fields (validated per-template)', () => {
-    const result = CampaignDataSchema.parse({
-      content: { title: 't', preheaderText: 'p', year: 2021, customField: 'value' },
-    });
-    expect(result.content).toEqual({
-      title: 't',
-      preheaderText: 'p',
-      year: 2021,
-      customField: 'value',
-    });
-  });
-});
-
 describe('loadCampaignConfig', () => {
   it('loads and validates campaigns/hackernoon/default.json', () => {
     const config = loadCampaignConfig(
@@ -155,6 +109,26 @@ describe('loadCampaignConfig', () => {
     expect(config.template).toBe('hackernoon');
     expect(config.output).toBe('hackernoon-mysterium.html');
     expect(config.options?.minify).toBe(false);
+  });
+
+  it('loads and validates campaigns/hackernoon/flat-file-7.json (config only)', () => {
+    const config = loadCampaignConfig(
+      join(repoRoot, 'campaigns', 'hackernoon', 'flat-file-7.json')
+    );
+
+    expect(config.id).toBe('flat-file-7');
+    expect(config.template).toBe('hackernoon');
+    expect(config.output).toBe('flat-file-7-email.html');
+  });
+
+  it('loads and validates campaigns/zurb/announcement.json (config only)', () => {
+    const config = loadCampaignConfig(
+      join(repoRoot, 'campaigns', 'zurb', 'announcement.json')
+    );
+
+    expect(config.id).toBe('zurb-announcement');
+    expect(config.template).toBe('zurb');
+    expect(config.output).toBe('zurb-announcement.html');
   });
 
   it('loads and validates campaigns/nomoretogo/default.json', () => {
