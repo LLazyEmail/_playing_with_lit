@@ -1,16 +1,7 @@
 {
   "id": "hackernoon-mysterium",
   "template": "hackernoon",
-  "title": "Mysterium Network Issue",
   "output": "hackernoon-mysterium.html",
-  "theme": {
-    "primaryColor": "#00bb00"
-  },
-  "content": {
-    "title": "Mysterium Network: Decentralized VPN",
-    "preheaderText": "Explore peer-to-peer privacy and decentralization.",
-    "year": 2021
-  },
   "options": {
      "minify": false
   }

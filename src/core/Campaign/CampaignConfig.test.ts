@@ -41,32 +41,6 @@ describe('CampaignConfigSchema', () => {
     expect((result as Record<string, unknown>)['bogusField']).toBeUndefined();
   });
 
-  it('throws when theme.primaryColor is not a hex color', () => {
-    expect(() =>
-      CampaignConfigSchema.parse({
-        id: 'x',
-        template: 'hackernoon',
-        output: 'out.html',
-        theme: { primaryColor: 'green' },
-      })
-    ).toThrow(/primaryColor/i);
-  });
-
-  it('accepts arbitrary content fields (validated per-template)', () => {
-    const result = CampaignConfigSchema.parse({
-      id: 'x',
-      template: 'hackernoon',
-      output: 'out.html',
-      content: { title: 't', preheaderText: 'p', year: 2021, customField: 'value' },
-    });
-    expect(result.content).toEqual({
-      title: 't',
-      preheaderText: 'p',
-      year: 2021,
-      customField: 'value',
-    });
-  });
-
   it('throws when id is missing', () => {
     expect(() =>
       CampaignConfigSchema.parse({
@@ -126,21 +100,35 @@ describe('loadCampaignConfig', () => {
     expect(config.output).toBe('hackernoon-email.html');
   });
 
-  it('loads and validates campaigns/hackernoon/mysterium.json', () => {
+  it('loads and validates campaigns/hackernoon/mysterium.json (config only)', () => {
     const config = loadCampaignConfig(
       join(repoRoot, 'campaigns', 'hackernoon', 'mysterium.json')
     );
 
     expect(config.id).toBe('hackernoon-mysterium');
     expect(config.template).toBe('hackernoon');
-    expect(config.title).toBe('Mysterium Network Issue');
     expect(config.output).toBe('hackernoon-mysterium.html');
-    expect(config.theme?.primaryColor).toBe('#00bb00');
-    expect(config.content?.title).toBe('Mysterium Network: Decentralized VPN');
-    expect(config.content?.preheaderText).toBe(
-      'Explore peer-to-peer privacy and decentralization.'
+    expect(config.options?.minify).toBe(false);
+  });
+
+  it('loads and validates campaigns/hackernoon/flat-file-7.json (config only)', () => {
+    const config = loadCampaignConfig(
+      join(repoRoot, 'campaigns', 'hackernoon', 'flat-file-7.json')
     );
-    expect(config.content?.year).toBe(2021);
+
+    expect(config.id).toBe('flat-file-7');
+    expect(config.template).toBe('hackernoon');
+    expect(config.output).toBe('flat-file-7-email.html');
+  });
+
+  it('loads and validates campaigns/zurb/announcement.json (config only)', () => {
+    const config = loadCampaignConfig(
+      join(repoRoot, 'campaigns', 'zurb', 'announcement.json')
+    );
+
+    expect(config.id).toBe('zurb-announcement');
+    expect(config.template).toBe('zurb');
+    expect(config.output).toBe('zurb-announcement.html');
   });
 
   it('loads and validates campaigns/nomoretogo/default.json', () => {

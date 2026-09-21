@@ -1,14 +1,5 @@
 {
   "id": "flat-file-7",
   "template": "hackernoon",
-  "title": "Magic Behind Test Automation",
-  "output": "flat-file-7-email.html",
-  "theme": {
-    "primaryColor": "#00bb00"
-  },
-  "content": {
-    "title": "Magic Behind Test Automation",
-    "preheaderText": "I test, therefore it works. Today most companies continue to demand faster releases and innovative software to stand up to the dynamic market scenario and steep competition.",
-    "year": 2021
-  }
+  "output": "flat-file-7-email.html"
 }
