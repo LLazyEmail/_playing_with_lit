@@ -52,15 +52,19 @@ describe('CampaignConfigSchema', () => {
     ).toThrow(/primaryColor/i);
   });
 
-  it('throws when content.year is not a number', () => {
-    expect(() =>
-      CampaignConfigSchema.parse({
-        id: 'x',
-        template: 'hackernoon',
-        output: 'out.html',
-        content: { title: 't', preheaderText: 'p', year: '2021' },
-      })
-    ).toThrow();
+  it('accepts arbitrary content fields (validated per-template)', () => {
+    const result = CampaignConfigSchema.parse({
+      id: 'x',
+      template: 'hackernoon',
+      output: 'out.html',
+      content: { title: 't', preheaderText: 'p', year: 2021, customField: 'value' },
+    });
+    expect(result.content).toEqual({
+      title: 't',
+      preheaderText: 'p',
+      year: 2021,
+      customField: 'value',
+    });
   });
 
   it('throws when id is missing', () => {
