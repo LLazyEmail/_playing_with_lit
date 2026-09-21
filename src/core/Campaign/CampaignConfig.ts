@@ -18,14 +18,8 @@ export const CampaignThemeSchema = z.object({
   bannerUrl: z.string().optional(),
 });
 
-/** Template payload. Shape is template-specific; Hacker Noon uses these three. */
-export const CampaignContentSchema = z
-  .object({
-    title: z.string().optional(),
-    preheaderText: z.string().optional(),
-    year: z.number().int().optional(),
-  })
-  .passthrough();
+/** Template payload. Shape is template-specific and validated per-template. */
+export const CampaignContentSchema = z.object({}).passthrough();
 
 export const CampaignConfigSchema = z.object({
   id: z.string().min(1, '`id` must not be empty'),
@@ -42,19 +36,12 @@ export type CampaignOptions = z.infer<typeof CampaignOptionsSchema>;
 export type CampaignTheme = z.infer<typeof CampaignThemeSchema>;
 export type CampaignContent = z.infer<typeof CampaignContentSchema>;
 
-// Base content type with optional fields
-type BaseCampaignContent = {
-  title?: string;
-  preheaderText?: string;
-  year?: number;
-};
-
 // Generic campaign config that extends base content with template-specific fields
 export type CampaignConfig<T = Record<string, unknown>> = Omit<
   z.infer<typeof CampaignConfigSchema>,
   'content'
 > & {
-  content?: BaseCampaignContent & T;
+  content?: T;
 };
 
 export { validateCampaignConfig } from './validateCampaignConfig.js';
