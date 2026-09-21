@@ -26,7 +26,7 @@ export function validateCampaignData<T>(
   const base = CampaignDataSchema.parse(data);
   if (contentSchema && base.content !== undefined) {
     const validatedContent = contentSchema.parse(base.content);
-    return { ...base, content: validatedContent };
+    return { ...base, content: validatedContent as any };
   }
   return base;
 }
