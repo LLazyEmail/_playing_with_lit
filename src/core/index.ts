@@ -33,6 +33,6 @@ export type {
   CampaignData,
   CampaignDataWithContent,
 } from './Campaign/CampaignData.js';
-export { validateCampaignConfig } from './Campaign/validateCampaignConfig.js';
+export { validateCampaignConfig, validateCampaignData } from './Campaign/validateCampaignConfig.js';
 export { loadCampaignConfig } from './Campaign/CampaignLoader.js';
 export { loadCampaignData, loadCampaignDataForConfig } from './Campaign/CampaignDataLoader.js';

@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { CampaignDataSchema } from './CampaignData.js';
 import { loadCampaignData, loadCampaignDataForConfig } from './CampaignDataLoader.js';
+import { validateCampaignData } from './validateCampaignConfig.js';
 
 const repoRoot = join(fileURLToPath(import.meta.url), '..', '..', '..', '..');
 
@@ -48,6 +49,40 @@ describe('CampaignDataSchema', () => {
       year: 2021,
       customField: 'value',
     });
+  });
+});
+
+describe('validateCampaignData', () => {
+  it('validates campaign data against base schema', () => {
+    const data = validateCampaignData({
+      title: 'Test Campaign',
+      theme: { primaryColor: '#00bb00' },
+      content: { title: 'Content Title', year: 2021 },
+    });
+
+    expect(data.title).toBe('Test Campaign');
+    expect(data.theme?.primaryColor).toBe('#00bb00');
+    expect(data.content?.title).toBe('Content Title');
+  });
+
+  it('validates content against template-specific schema when provided', () => {
+    const hackerNoonContentSchema = expect.objectContaining({
+      title: expect.any(String),
+      preheaderText: expect.any(String),
+      year: expect.any(Number),
+    });
+
+    const data = validateCampaignData(
+      {
+        title: 'Test',
+        content: { title: 'T', preheaderText: 'P', year: 2021 },
+      },
+      hackerNoonContentSchema as any
+    );
+
+    expect(data.content?.title).toBe('T');
+    expect(data.content?.preheaderText).toBe('P');
+    expect(data.content?.year).toBe(2021);
   });
 });
 

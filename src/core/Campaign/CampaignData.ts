@@ -1,7 +1,5 @@
 import { z } from 'zod';
-
-// Re-export base content type from CampaignConfig for consistency
-export { BaseCampaignContent } from './CampaignConfig.js';
+import { BaseCampaignContent } from './CampaignConfig.js';
 
 const hexColor = z
   .string()

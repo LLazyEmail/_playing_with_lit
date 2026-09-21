@@ -3,19 +3,30 @@ import {
   CampaignConfigSchema,
   type CampaignConfig,
 } from './CampaignConfig.js';
+import {
+  CampaignDataSchema,
+  type CampaignData,
+} from './CampaignData.js';
 
 /**
- * Validate a campaign config object against the base schema, then optionally
+ * Validate a campaign config object against the schema.
+ */
+export function validateCampaignConfig(data: unknown): CampaignConfig {
+  return CampaignConfigSchema.parse(data);
+}
+
+/**
+ * Validate campaign data against the base schema, then optionally
  * against a template-specific content schema.
  */
-export function validateCampaignConfig<T>(
+export function validateCampaignData<T>(
   data: unknown,
   contentSchema?: z.ZodType<T>
-): CampaignConfig<T> {
-  const base = CampaignConfigSchema.parse(data);
+): CampaignData {
+  const base = CampaignDataSchema.parse(data);
   if (contentSchema && base.content !== undefined) {
     const validatedContent = contentSchema.parse(base.content);
     return { ...base, content: validatedContent };
   }
-  return base as CampaignConfig<T>;
+  return base;
 }
