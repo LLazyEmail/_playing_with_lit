@@ -1,6 +1,7 @@
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import { z } from 'zod';
 import { CampaignDataSchema } from './CampaignData.js';
 import { loadCampaignData, loadCampaignDataForConfig } from './CampaignDataLoader.js';
 import { validateCampaignData } from './validateCampaignConfig.js';
@@ -66,10 +67,10 @@ describe('validateCampaignData', () => {
   });
 
   it('validates content against template-specific schema when provided', () => {
-    const hackerNoonContentSchema = expect.objectContaining({
-      title: expect.any(String),
-      preheaderText: expect.any(String),
-      year: expect.any(Number),
+    const hackerNoonContentSchema = z.object({
+      title: z.string(),
+      preheaderText: z.string(),
+      year: z.number(),
     });
 
     const data = validateCampaignData(
@@ -77,7 +78,7 @@ describe('validateCampaignData', () => {
         title: 'Test',
         content: { title: 'T', preheaderText: 'P', year: 2021 },
       },
-      hackerNoonContentSchema as any
+      hackerNoonContentSchema
     );
 
     expect(data.content?.title).toBe('T');
