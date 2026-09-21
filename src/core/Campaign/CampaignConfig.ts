@@ -41,8 +41,20 @@ export const CampaignConfigSchema = z.object({
 export type CampaignOptions = z.infer<typeof CampaignOptionsSchema>;
 export type CampaignTheme = z.infer<typeof CampaignThemeSchema>;
 export type CampaignContent = z.infer<typeof CampaignContentSchema>;
-export type CampaignConfig<T = unknown> = z.infer<typeof CampaignConfigSchema> & {
-  content?: T;
+
+// Base content type with optional fields
+type BaseCampaignContent = {
+  title?: string;
+  preheaderText?: string;
+  year?: number;
+};
+
+// Generic campaign config that extends base content with template-specific fields
+export type CampaignConfig<T = Record<string, unknown>> = Omit<
+  z.infer<typeof CampaignConfigSchema>,
+  'content'
+> & {
+  content?: BaseCampaignContent & T;
 };
 
 export { validateCampaignConfig } from './validateCampaignConfig.js';

@@ -15,7 +15,7 @@ export function validateCampaignConfig<T>(
   const base = CampaignConfigSchema.parse(data);
   if (contentSchema && base.content !== undefined) {
     const validatedContent = contentSchema.parse(base.content);
-    return { ...base, content: validatedContent };
+    return { ...base, content: { ...base.content, ...validatedContent } as any };
   }
   return base as CampaignConfig<T>;
 }
