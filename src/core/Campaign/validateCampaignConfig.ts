@@ -1,6 +1,6 @@
 import type { z } from 'zod';
 import {
-  campaignConfigSchema,
+  CampaignConfigSchema,
   type CampaignConfig,
 } from './CampaignConfig.js';
 
@@ -12,7 +12,7 @@ export function validateCampaignConfig<T>(
   data: unknown,
   contentSchema?: z.ZodType<T>
 ): CampaignConfig<T> {
-  const base = campaignConfigSchema.parse(data);
+  const base = CampaignConfigSchema.parse(data);
   if (contentSchema && base.content !== undefined) {
     const validatedContent = contentSchema.parse(base.content);
     return { ...base, content: validatedContent };

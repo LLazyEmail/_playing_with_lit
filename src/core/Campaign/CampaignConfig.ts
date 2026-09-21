@@ -37,4 +37,10 @@ export const CampaignConfigSchema = z.object({
   options: CampaignOptionsSchema.optional(),
 });
 
+// TypeScript types derived from schemas
+export type CampaignOptions = z.infer<typeof CampaignOptionsSchema>;
+export type CampaignTheme = z.infer<typeof CampaignThemeSchema>;
+export type CampaignContent = z.infer<typeof CampaignContentSchema>;
+export type CampaignConfig = z.infer<typeof CampaignConfigSchema>;
+
 export { validateCampaignConfig } from './validateCampaignConfig.js';
