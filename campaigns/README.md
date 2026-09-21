@@ -1,6 +1,8 @@
 # Campaign Configurations
 
-This directory contains campaign configurations and data payloads represented as JSON files adhering to the `CampaignConfig` schema defined in `src/core/Campaign/CampaignConfig.ts`.
+This directory contains campaign configurations represented as JSON files adhering to the `CampaignConfig` schema defined in `src/core/Campaign/CampaignConfig.ts`.
+
+**Note:** There is only one campaign configuration schema - it is the single source of truth for all campaign configuration. No additional "core" abstraction layers should be added; all campaign configuration details are defined in `CampaignConfig.ts`.
 
 ## Structure
 
