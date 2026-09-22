@@ -1,6 +1,6 @@
-import { readJson } from 'markup-generator';
 import { CampaignConfigSchema } from './CampaignConfig.js';
 import type { CampaignConfig } from './CampaignConfig.js';
+import { readJsonFile } from './readJsonFile.js';
 
 /**
  * Read and validate a campaign config from a JSON file.
@@ -8,6 +8,6 @@ import type { CampaignConfig } from './CampaignConfig.js';
  * Use loadCampaignData() to load the associated data (title, theme, content).
  */
 export function loadCampaignConfig(jsonPath: string): CampaignConfig {
-  const raw = readJson<unknown>(jsonPath);
+  const raw = readJsonFile<unknown>(jsonPath);
   return CampaignConfigSchema.parse(raw);
 }

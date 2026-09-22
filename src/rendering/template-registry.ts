@@ -4,14 +4,17 @@ import { HackernoonRenderer } from '../templates/hackernoon/hackernoon.renderer.
 import { NomoretogoRenderer } from '../templates/nomoretogo/nomoretogo.renderer.js';
 import { MailchimpRenderer } from '../templates/mailchimp/mailchimp.renderer.js';
 import { ZurbRenderer } from '../templates/zurb/zurb.renderer.js';
+import { GoogleRenderer } from '../templates/google/google.renderer.js';
 import { HackernoonValidator } from '../validation/hackernoon.validator.js';
 import { NomoretogoValidator } from '../validation/nomoretogo.validator.js';
 import { MailchimpValidator } from '../validation/mailchimp.validator.js';
 import { ZurbValidator } from '../validation/zurb.validator.js';
+import { GoogleValidator } from '../validation/google.validator.js';
 import { hackernoonData } from '../scripts/content/hackernoon-data.js';
 import { nomoretogoData } from '../scripts/content/nomoretogo-data.js';
 import { mailchimpData } from '../scripts/content/mailchimp-data.js';
 import { zurbData } from '../scripts/content/zurb-data.js';
+import { googleShipmentData } from '../scripts/content/google-data.js';
 import { ConfigError } from '../errors/index.js';
 
 export interface TemplateEntry<T> {
@@ -40,6 +43,11 @@ export const templateRegistry = {
     renderer: new ZurbRenderer(),
     validator: new ZurbValidator(),
     sampleData: zurbData,
+  },
+  google: {
+    renderer: new GoogleRenderer(),
+    validator: new GoogleValidator(),
+    sampleData: googleShipmentData,
   },
 } as const;
 

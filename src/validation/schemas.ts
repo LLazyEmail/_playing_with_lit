@@ -113,6 +113,56 @@ export const zurbFeatureSchema = z.object({
   body: nonEmpty,
 });
 
+export const googleEmailDataSchema = z.object({
+  preheader: nonEmpty,
+  greeting: nonEmpty,
+  intro: nonEmpty,
+  order: z.object({
+    number: nonEmpty,
+    orderedAt: nonEmpty,
+    orderedFrom: z.array(nonEmpty).min(1),
+    shippingAddress: z.array(nonEmpty).min(1),
+  }),
+  progress: z.object({
+    orderedDate: nonEmpty,
+    shippedDate: nonEmpty,
+    deliveredDate: nonEmpty,
+  }),
+  item: z.object({
+    name: nonEmpty,
+    image: nonEmpty,
+    idNumber: nonEmpty,
+    price: nonEmpty,
+    quantity: z.number().int().positive(),
+  }),
+  shipment: z.object({
+    carrier: nonEmpty,
+    trackingNumber: nonEmpty,
+    trackingUrl: nonEmpty,
+  }),
+  totals: z.object({
+    shipping: nonEmpty,
+    discount: nonEmpty,
+    tax: nonEmpty,
+    total: nonEmpty,
+  }),
+  payment: z.object({
+    method: nonEmpty,
+  }),
+  footer: z.object({
+    year: z.number().int(),
+    addressLine: nonEmpty,
+    copyright: nonEmpty,
+    links: z.object({
+      account: nonEmpty,
+      orderHistory: nonEmpty,
+      contactUs: nonEmpty,
+      termsOfSale: nonEmpty,
+      termsOfService: nonEmpty,
+    }),
+  }),
+});
+
 export const zurbEmailDataSchema = z.object({
   title: nonEmpty,
   preheaderText: nonEmpty,
