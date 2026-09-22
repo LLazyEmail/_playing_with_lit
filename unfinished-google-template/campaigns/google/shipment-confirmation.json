@@ -1,7 +1,0 @@
-{
-  "id": "google-shipment-confirmation",
-  "template": "google",
-  "subject": "Your Google Store order has shipped",
-  "dataFile": "src/scripts/content/google-data.ts",
-  "output": "dist/google.html"
-}
