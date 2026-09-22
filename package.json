@@ -20,6 +20,8 @@
     "render:flat-file-7:minify": "npm run build && EMAIL_MINIFY=1 node dist/scripts/render-flat-file-7.js",
     "render:zurb": "npm run build && node dist/scripts/render-zurb.js",
     "render:zurb:minify": "npm run build && EMAIL_MINIFY=1 node dist/scripts/render-zurb.js",
+    "render:google": "npm run build && node dist/scripts/render-google.js",
+    "render:google:minify": "npm run build && EMAIL_MINIFY=1 node dist/scripts/render-google.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

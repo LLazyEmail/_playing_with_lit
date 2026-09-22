@@ -10,7 +10,7 @@ Platform layers added around the templates (tests, shared blocks, Zod validation
 
 ### Templates vs campaigns
 
-A **template** is a composer under `src/templates/` (Hacker Noon, No More To-Go, Mailchimp, generic newsletter). Folder count is the template count.
+A **template** is a composer under `src/templates/` (Hacker Noon, No More To-Go, Mailchimp, Zurb, Google Store, generic newsletter). Folder count is the template count.
 
 A **campaign** is a data fixture + render script that reuses an existing template. Mysterium and `flat_file_7` are Hacker Noon *campaigns*, not extra templates. There is no `src/templates/mysterium/` folder on purpose.
 
@@ -21,6 +21,7 @@ A **campaign** is a data fixture + render script that reuses an existing templat
 | Campaign | Test automation (`flat_file_7`) | `reference/flat_file_7.html` | `src/scripts/content/flat-file-7-data.ts` | `npm run render:flat-file-7` |
 | Template | No More To-Go | `reference/nomoretogo.html` | `src/scripts/content/nomoretogo-data.ts` | `npm run render:template` |
 | Template | Mailchimp | `reference/email-template-mailchimp (1).html` | `src/scripts/content/mailchimp-data.ts` | `npm run render:mailchimp` |
+| Template | Google Store | `sandbox/google.html` | `src/scripts/content/google-data.ts` | `npm run render:google` |
 
 Original HTML lives under [`reference/`](reference/). See that folder’s README.
 
@@ -51,6 +52,7 @@ npm run render:mysterium   # Hacker Noon campaign (VPN issue)
 npm run render:flat-file-7 # Hacker Noon campaign (test automation issue)
 npm run render:template    # No More To-Go, readable debug HTML
 npm run render:mailchimp   # Mailchimp-style, readable debug HTML
+npm run render:google      # Google Store shipment confirmation
 npm run render:hackernoon:minify   # production / CI
 npm run render:mysterium:minify
 npm run render:flat-file-7:minify
@@ -79,6 +81,7 @@ npm run format:check
 | `npm run render:flat-file-7` | `generated/flat-file-7-email.html` | Hacker Noon campaign |
 | `npm run render:template` | `generated/nomoretogo-email.html` | No More To-Go template |
 | `npm run render:mailchimp` | `generated/mailchimp-email.html` | Mailchimp template |
+| `npm run render:google` | `generated/google-email.html` | Google Store shipment confirmation |
 
 > **CI:** `.github/workflows/render-email-template.yml` builds, lints, tests, then renders Hacker Noon and No More To-Go **minified**. Snapshot tests use readable HTML so digests stay stable.
 

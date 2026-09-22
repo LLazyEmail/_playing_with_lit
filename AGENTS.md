@@ -11,7 +11,7 @@ Open only the paths for the task. Skip `node_modules/`, `dist/`, `generated/`, a
 | Task | Open |
 |---|---|
 | Template markup | `src/templates/<name>/` — `index.ts` composes, `sections/*.section.ts` holds markup, plus `types.ts`, `constants.ts`, `<name>.renderer.ts` |
-| Registered templates | `hackernoon`, `nomoretogo`, `mailchimp`, `zurb` in `src/rendering/template-registry.ts`. `newsletter` is separate and renders from `src/index.ts` |
+| Registered templates | `hackernoon`, `nomoretogo`, `mailchimp`, `zurb`, `google` in `src/rendering/template-registry.ts`. `newsletter` is separate and renders from `src/index.ts` |
 | Campaign data | `campaigns/<template>/<campaign>.json` and `<campaign>.data.json`. Payload: `src/scripts/content/<name>-data.ts`. Mysterium and flat-file-7 are Hacker Noon campaigns, not templates |
 | New template | Copy `src/templates/zurb/`, `src/validation/zurb.validator.ts`, `src/scripts/render-zurb.ts`, and the `render:zurb` script. Register it in `template-registry.ts` |
 | Reference HTML | `reference/README.md` only |

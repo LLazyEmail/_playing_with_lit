@@ -3,6 +3,7 @@ export { HackernoonRenderer } from '../templates/hackernoon/hackernoon.renderer.
 export { NomoretogoRenderer } from '../templates/nomoretogo/nomoretogo.renderer.js';
 export { MailchimpRenderer } from '../templates/mailchimp/mailchimp.renderer.js';
 export { ZurbRenderer } from '../templates/zurb/zurb.renderer.js';
+export { GoogleRenderer } from '../templates/google/google.renderer.js';
 export { NewsletterRenderer } from '../templates/newsletter/newsletter.renderer.js';
 export {
   getTemplate,

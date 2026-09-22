@@ -45,6 +45,7 @@
 _playing_with_lit/
 ├── campaigns/                    # Campaign JSON configurations adhering to CampaignConfig
 │   ├── hackernoon/
+│   ├── google/
 │   └── zurb/
 ├── reference/                    # Sources of truth (original, unmodified email markup)
 │   ├── hackernoon/
