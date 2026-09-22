@@ -1,0 +1,31 @@
+# Grok project config. Only [permission] and [mcp] from this file are loaded.
+# Verify commands for this repo are pre-approved so a session does not stop to ask.
+
+[permission]
+allow = [
+  "Bash(npm run build)",
+  "Bash(npm run build *)",
+  "Bash(npm test)",
+  "Bash(npm test *)",
+  "Bash(npm run lint)",
+  "Bash(npm run lint *)",
+  "Bash(npm run lint:fix)",
+  "Bash(npm run lint:fix *)",
+  "Bash(npm run format)",
+  "Bash(npm run format *)",
+  "Bash(npm run format:check)",
+  "Bash(npm run format:check *)",
+  "Bash(npm run render)",
+  "Bash(npm run render:*)",
+  "Bash(npx tsc)",
+  "Bash(npx tsc *)",
+  "Bash(npx vitest)",
+  "Bash(npx vitest *)",
+]
+deny = [
+  "Bash(git push --force *)",
+  "Bash(git push -f *)",
+  "Bash(git reset --hard *)",
+  "Bash(git clean *)",
+  "Bash(rm -rf *)",
+]
