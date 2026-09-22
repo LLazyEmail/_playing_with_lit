@@ -48,3 +48,17 @@ class TemplateRegistry {
 }
 
 export const templateRegistry = new TemplateRegistry();
+
+export type TemplateName = string;
+
+export function listTemplateNames(): string[] {
+  return templateRegistry.list();
+}
+
+export function isTemplateName(name: string): name is TemplateName {
+  return templateRegistry.has(name);
+}
+
+export function getTemplate(name: string): TemplateEntry<unknown> {
+  return templateRegistry.get(name);
+}

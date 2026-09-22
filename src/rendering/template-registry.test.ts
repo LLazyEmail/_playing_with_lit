@@ -21,19 +21,19 @@ describe('templateRegistry', () => {
 
   it('looks up hackernoon by name', () => {
     const entry = getTemplate('hackernoon');
-    expect(entry).toBe(templateRegistry.hackernoon);
+    expect(entry).toBe(templateRegistry.get('hackernoon'));
     expect(entry.validator.validateSchema(hackernoonData)).toBe(true);
   });
 
   it('looks up zurb by name', () => {
     const entry = getTemplate('zurb');
-    expect(entry).toBe(templateRegistry.zurb);
+    expect(entry).toBe(templateRegistry.get('zurb'));
     expect(entry.validator.validateSchema(zurbData)).toBe(true);
   });
 
   it('looks up google by name', () => {
     const entry = getTemplate('google');
-    expect(entry).toBe(templateRegistry.google);
+    expect(entry).toBe(templateRegistry.get('google'));
     expect(entry.validator.validateSchema(googleShipmentData)).toBe(true);
   });
 

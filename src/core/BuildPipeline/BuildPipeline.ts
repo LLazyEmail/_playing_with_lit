@@ -9,7 +9,11 @@ export interface PipelineEntry<T = unknown> {
   validator: Validator<T>;
 }
 
-export type PipelineRegistry = Record<string, PipelineEntry>;
+/** Lookup used by the pipeline. `templateRegistry` satisfies this. */
+export interface PipelineRegistry {
+  has(name: string): boolean;
+  get(name: string): PipelineEntry;
+}
 
 export interface BuildConfig {
   templateName: string;
@@ -35,12 +39,12 @@ export class BuildPipeline {
 
   async run(config: BuildConfig): Promise<BuildResult> {
     const name = config.templateName;
-    const entry = this.registry[name];
-    if (!entry) {
+    if (!this.registry.has(name)) {
       const error = `Unknown template: ${name}`;
       this.logger.error(error);
       return { success: false, errors: [error] };
     }
+    const entry = this.registry.get(name);
 
     this.logger.debug(`Validating data for template "${name}"`);
     if (!entry.validator.validateSchema(config.data)) {

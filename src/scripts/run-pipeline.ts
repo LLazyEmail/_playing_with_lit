@@ -1,3 +1,4 @@
+import '../templates/register-all.js';
 import { BuildPipeline } from '../rendering/build-pipeline.js';
 import { ConsoleLogger } from '../logging/logger.js';
 import { templateRegistry } from '../rendering/template-registry.js';
