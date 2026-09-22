@@ -1,6 +1,6 @@
 # AGENTS.md — _playing_with_lit
 
-Agent instructions. Use this file and stop exploring once the rows below name the files you need.
+Agent instructions. Grok is the agent for this repo; its session rules and command approvals live in `.grok/`. Use this file and stop exploring once the rows below name the files you need.
 
 Lit `html` plus `@lit-labs/ssr` render HTML emails in Node. No browser and no client hydration.
 
