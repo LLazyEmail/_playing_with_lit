@@ -96,7 +96,7 @@ Each template lives in `src/templates/<name>/`:
 
 ## 6. Related Documentation
 
-- [AGENTS.md](file:///c:/Users/Laptop/Documents/GitHub/_playing_with_lit/AGENTS.md) — Coding agent rules, priority roadmap, and constraints.
+- [AGENTS.md](file:///c:/Users/Laptop/Documents/GitHub/_playing_with_lit/AGENTS.md) — Coding agent rules: where to edit, what is already shipped, and what to leave alone.
 - [PLATFORM.md](file:///c:/Users/Laptop/Documents/GitHub/_playing_with_lit/PLATFORM.md) — Technical platform guidelines and client quirks.
 - [CONTRIBUTING.md](file:///c:/Users/Laptop/Documents/GitHub/_playing_with_lit/CONTRIBUTING.md) — Contribution workflows and style guide.
 - [docs/zurb-zones.md](file:///c:/Users/Laptop/Documents/GitHub/_playing_with_lit/docs/zurb-zones.md) — Layout zone mapping for Foundation/Zurb email template.
