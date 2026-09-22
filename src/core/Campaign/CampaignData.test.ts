@@ -114,6 +114,19 @@ describe('loadCampaignData', () => {
     expect(data.content?.year).toBe(2021);
   });
 
+  it('loads and validates campaigns/google/shipment-confirmation.data.json', () => {
+    const data = loadCampaignData(
+      join(repoRoot, 'campaigns', 'google', 'shipment-confirmation.data.json')
+    );
+
+    expect(data.title).toBe('Your Google Store order has shipped');
+    expect(data.theme?.primaryColor).toBe('#3267D6');
+    expect(data.content?.greeting).toBe('Hi Smiles Davis,');
+    expect(data.content?.item).toMatchObject({
+      name: 'Google Home Mini (Chalk)',
+    });
+  });
+
   it('loads and validates campaigns/zurb/announcement.data.json', () => {
     const data = loadCampaignData(
       join(repoRoot, 'campaigns', 'zurb', 'announcement.data.json')

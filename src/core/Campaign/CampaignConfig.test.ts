@@ -121,6 +121,16 @@ describe('loadCampaignConfig', () => {
     expect(config.output).toBe('flat-file-7-email.html');
   });
 
+  it('loads and validates campaigns/google/shipment-confirmation.json (config only)', () => {
+    const config = loadCampaignConfig(
+      join(repoRoot, 'campaigns', 'google', 'shipment-confirmation.json')
+    );
+
+    expect(config.id).toBe('google-shipment-confirmation');
+    expect(config.template).toBe('google');
+    expect(config.output).toBe('google-shipment-confirmation.html');
+  });
+
   it('loads and validates campaigns/zurb/announcement.json (config only)', () => {
     const config = loadCampaignConfig(
       join(repoRoot, 'campaigns', 'zurb', 'announcement.json')

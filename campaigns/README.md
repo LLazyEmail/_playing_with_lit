@@ -31,12 +31,15 @@ This separation ensures that configuration (which is mostly stable functionality
 campaigns/
 ├── hackernoon/
 │   ├── flat-file-7.json           # Config
-│   ├── flat-file-7.data.json     # Data
-│   ├── mysterium.json            # Config
+│   ├── flat-file-7.data.json      # Data
+│   ├── mysterium.json             # Config
 │   └── mysterium.data.json        # Data
+├── google/
+│   ├── shipment-confirmation.json       # Config
+│   └── shipment-confirmation.data.json  # Data
 └── zurb/
-    ├── announcement.json         # Config
-    └── announcement.data.json    # Data
+    ├── announcement.json          # Config
+    └── announcement.data.json     # Data
 ```
 
 ## Schemas

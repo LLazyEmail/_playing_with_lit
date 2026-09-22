@@ -1,0 +1,5 @@
+{
+  "id": "google-shipment-confirmation",
+  "template": "google",
+  "output": "google-shipment-confirmation.html"
+}
