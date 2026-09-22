@@ -1,7 +1,0 @@
-{
-  "scripts": {
-    "render:zurb": "tsx src/scripts/render-zurb.ts",
-    "render:google": "tsx src/scripts/render-google.ts",
-    "test:google": "vitest run src/templates/google"
-  }
-}
