@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { hackernoonData } from '../scripts/content/hackernoon-data.js';
+import { hackernoonData } from '../scripts/hackernoon/hackernoon-data.js';
 import { HackernoonValidator } from './hackernoon.validator.js';
 import { EmailDataValidationError } from './parse.js';
 

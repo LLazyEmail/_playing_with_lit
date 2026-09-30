@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { describe, expect, it } from 'vitest';
-import { nomoretogoData } from '../../../scripts/content/nomoretogo-data.js';
+import { nomoretogoData } from '../../../scripts/nomoretogo/nomoretogo-data.js';
 import { renderLayoutSection } from './layout.section.js';
 import { renderFragment } from '../../../test/render-fragment.js';
 

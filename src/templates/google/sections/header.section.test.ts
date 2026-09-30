@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { googleShipmentData } from '../../../scripts/content/google-data.js';
+import { googleShipmentData } from '../../../scripts/google/google-data.js';
 import { renderFragment } from '../../../test/render-fragment.js';
 import { renderHeaderSection } from './header.section.js';
 

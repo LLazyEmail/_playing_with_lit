@@ -12,8 +12,8 @@ Open only the paths for the task. Skip `node_modules/`, `dist/`, `generated/`, a
 |---|---|
 | Template markup | `src/templates/<name>/` — `index.ts` composes, `sections/*.section.ts` holds markup, plus `types.ts`, `constants.ts`, `<name>.renderer.ts` |
 | Registered templates | `hackernoon`, `nomoretogo`, `mailchimp`, `zurb`, `google` in `src/rendering/template-registry.ts`. `newsletter` is separate and renders from `src/index.ts` |
-| Campaign data | `campaigns/<template>/<campaign>.json` and `<campaign>.data.json`. Payload: `src/scripts/content/<name>-data.ts`. Mysterium and flat-file-7 are Hacker Noon campaigns, not templates |
-| New template | Copy `src/templates/zurb/`, `src/validation/zurb.validator.ts`, `src/scripts/render-zurb.ts`, and the `render:zurb` script. Register it in `template-registry.ts` |
+| Campaign data | `campaigns/<template>/<campaign>.json` and `<campaign>.data.json`. Sample payload: `src/scripts/<template>/<name>-data.ts`. Mysterium and flat-file-7 live under `src/scripts/hackernoon/` |
+| New template | Copy `src/templates/zurb/`, `src/validation/zurb.validator.ts`, `src/scripts/zurb/render.ts` plus its data file, and the `render:zurb` script. Register it in `template-registry.ts` |
 | Reference HTML | `reference/README.md` only |
 | Validation | `src/validation/schemas.ts` and `src/validation/<name>.validator.ts` |
 | Errors | `src/errors/` — throw an `AppError` subclass with a stable `code` |
@@ -37,7 +37,7 @@ Vitest (`npm test`), the shared-block contracts in `src/templates/shared/blocks/
 - One template or one concern. Leave other templates, the pipeline, and the docs untouched.
 - Copy the nearest section file and match its imports and test.
 - A new section is `sections/<name>.section.ts`, one call from that template's `index.ts`, and one colocated test. Add a renderer, schema, or pipeline file only when the data contract changed.
-- Put colors, URLs, and spacing in that template's `constants.ts`. Put sample strings in `src/scripts/content/`.
+- Put colors, URLs, and spacing in that template's `constants.ts`. Put sample strings in `src/scripts/<template>/`.
 - `index.ts` only composes sections. Markup stays in `sections/` or a shared-block presenter.
 - Keep the `src/templates/*-email.ts` re-export shims.
 - Shared blocks are a props contract. Keep each template's table markup in its own presenter.
@@ -47,7 +47,7 @@ Vitest (`npm test`), the shared-block contracts in `src/templates/shared/blocks/
 
 - Interpolate `<title>`, `<style>`, and `<textarea>` only inside a plain string in `<name>.renderer.ts` or `renderEmailDocument`. An expression inside those tags in a Lit `html` template throws `Unexpected final partIndex`.
 - Return HTML through `renderEmailBody` in `src/rendering/render-email-document.ts` so Lit hydration comments are stripped.
-- Keep `import '@lit-labs/ssr/lib/install-global-dom-shim.js'` before any `lit` import in `src/index.ts` and in each `src/scripts/render-*.ts`.
+- Keep `import '@lit-labs/ssr/lib/install-global-dom-shim.js'` before any `lit` import in `src/index.ts` and in each `src/scripts/<template>/` entry (`render.ts`, plus campaign files such as `mysterium.ts`).
 - TypeScript is 7.0.x. Do not add ts-morph or any tool that needs the TypeScript programmatic API.
 
 ## Verify, then stop

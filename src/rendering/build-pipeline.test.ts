@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { hackernoonData } from '../scripts/content/hackernoon-data.js';
+import { hackernoonData } from '../scripts/hackernoon/hackernoon-data.js';
 import { BuildPipeline } from './build-pipeline.js';
 import { SilentLogger } from './logger.js';
 import { templateRegistry } from './template-registry.js';

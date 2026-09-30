@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { zurbData } from '../../../scripts/content/zurb-data.js';
+import { zurbData } from '../../../scripts/zurb/zurb-data.js';
 import { renderFragment } from '../../../test/render-fragment.js';
 import { renderTitleSection } from './title.section.js';
 

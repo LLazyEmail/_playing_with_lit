@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { ConfigError } from '../errors/index.js';
-import { hackernoonData } from '../scripts/content/hackernoon-data.js';
-import { googleShipmentData } from '../scripts/content/google-data.js';
-import { zurbData } from '../scripts/content/zurb-data.js';
+import { hackernoonData } from '../scripts/hackernoon/hackernoon-data.js';
+import { googleShipmentData } from '../scripts/google/google-data.js';
+import { zurbData } from '../scripts/zurb/zurb-data.js';
 import {
   getTemplate,
   isTemplateName,

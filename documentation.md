@@ -67,7 +67,7 @@ _playing_with_lit/
     ├── logging/                  # Debug logging and diagnostic utilities
     ├── pipeline/                 # Post-processing utilities (e.g. HTML minification)
     ├── rendering/                # SSR execution, document wrapper, and template registry
-    ├── scripts/                  # Standalone render scripts and sample content
+    ├── scripts/                  # One folder per template: render entry plus sample content
     ├── templates/                # Production email templates
     │   ├── hackernoon/
     │   ├── mailchimp/
