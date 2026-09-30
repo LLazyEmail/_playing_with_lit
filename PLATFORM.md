@@ -60,7 +60,8 @@ Invalid Hacker Noon email data:
 
 Validation runs at each template composer and again in
 `src/validation/guarded-render.ts` (used by render scripts and snapshot tests).
-`src/renderer.ts` document shells are unchanged.
+Newsletter, Hacker Noon, and No More To-Go document shells live in each
+template's `<name>.renderer.ts`. Mailchimp's shell is still `src/renderer.ts`.
 
 ```ts
 import { hackernoonRenderToString } from './validation/guarded-render.js';

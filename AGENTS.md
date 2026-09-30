@@ -13,9 +13,9 @@ Open only the paths for the task. Skip `node_modules/`, `dist/`, `generated/`, a
 | Template markup | `src/templates/<name>/` — `index.ts` composes, `sections/*.section.ts` holds markup, plus `types.ts`, `constants.ts`, `<name>.renderer.ts` |
 | Registered templates | `hackernoon`, `nomoretogo`, `mailchimp`, `zurb`, `google` in `src/rendering/template-registry.ts`. `newsletter` is separate and renders from `src/index.ts` |
 | Campaign data | `campaigns/<template>/<campaign>.json` and `<campaign>.data.json`. Sample payload: `src/scripts/<template>/<name>-data.ts`. Mysterium and flat-file-7 live under `src/scripts/hackernoon/` |
-| New template | Copy `src/templates/zurb/`, `src/validation/zurb.validator.ts`, `src/scripts/zurb/render.ts` plus its data file, and the `render:zurb` script. Register it in `template-registry.ts` |
+| New template | Copy `src/templates/zurb/`, `src/validation/zurb/zurb.validator.ts`, `src/scripts/zurb/render.ts` plus its data file, and the `render:zurb` script. Register it in `template-registry.ts` |
 | Reference HTML | `reference/README.md` only |
-| Validation | `src/validation/schemas.ts` and `src/validation/<name>.validator.ts` |
+| Validation | `src/validation/schemas.ts` and `src/validation/<name>/<name>.validator.ts` |
 | Errors | `src/errors/` — throw an `AppError` subclass with a stable `code` |
 | Asset hosts | `src/config/assets.ts` (`getAssetBaseUrl`, `joinAssetUrl`). Do not add a second host map |
 | Minify | `src/pipeline/minify-html.ts`. Stays off unless `EMAIL_MINIFY=1` |
