@@ -2,9 +2,9 @@ import { render } from '@lit-labs/ssr';
 import { collectResultSync } from '@lit-labs/ssr/lib/render-result.js';
 import type { TemplateResult } from 'lit';
 import type { EmailData, HackernoonEmailData, NomoretogoEmailData, MailchimpEmailData } from './types.js';
-import { EMAIL_STYLES } from './styles/email.styles.js';
-import { NOMORETOGO_STYLES } from './styles/nomoretogo.styles.js';
-import { MAILCHIMP_STYLES } from './styles/mailchimp.styles.js';
+import { EMAIL_STYLES } from './templates/styles/email.styles.js';
+import { NOMORETOGO_STYLES } from './templates/styles/nomoretogo.styles.js';
+import { MAILCHIMP_STYLES } from './templates/styles/mailchimp.styles.js';
 
 // ---------------------------------------------------------------------------
 // Renderer
