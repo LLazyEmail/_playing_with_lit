@@ -9,10 +9,10 @@ import { mailchimpRenderToString as renderMailchimpHtml } from '../renderer.js';
 import { hackernoonRenderToString as renderHackernoonHtml } from '../templates/hackernoon/hackernoon.renderer.js';
 import { renderToString as renderNewsletterHtml } from '../templates/newsletter/newsletter.renderer.js';
 import { nomoretogoRenderToString as renderNomoretogoHtml } from '../templates/nomoretogo/nomoretogo.renderer.js';
-import { HackernoonValidator } from './hackernoon.validator.js';
-import { MailchimpValidator } from './mailchimp.validator.js';
-import { NewsletterValidator } from './newsletter.validator.js';
-import { NomoretogoValidator } from './nomoretogo.validator.js';
+import { HackernoonValidator } from './hackernoon/hackernoon.validator.js';
+import { MailchimpValidator } from './mailchimp/mailchimp.validator.js';
+import { NewsletterValidator } from './newsletter/newsletter.validator.js';
+import { NomoretogoValidator } from './nomoretogo/nomoretogo.validator.js';
 
 const newsletterValidator = new NewsletterValidator();
 const hackernoonValidator = new HackernoonValidator();

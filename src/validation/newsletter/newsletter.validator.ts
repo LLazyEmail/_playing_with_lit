@@ -1,7 +1,7 @@
-import type { EmailData } from '../types.js';
-import { emailDataSchema } from './schemas.js';
-import { parseEmailData } from './parse.js';
-import { Validator } from './validator.js';
+import type { EmailData } from '../../types.js';
+import { emailDataSchema } from '../schemas.js';
+import { parseEmailData } from '../parse.js';
+import { Validator } from '../validator.js';
 
 export class NewsletterValidator extends Validator<EmailData> {
   validateSchema(data: unknown): data is EmailData {

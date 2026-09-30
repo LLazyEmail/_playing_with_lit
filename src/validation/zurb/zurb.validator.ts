@@ -1,7 +1,7 @@
-import type { ZurbEmailData } from '../types.js';
-import { zurbEmailDataSchema } from './schemas.js';
-import { parseEmailData } from './parse.js';
-import { Validator } from './validator.js';
+import type { ZurbEmailData } from '../../types.js';
+import { zurbEmailDataSchema } from '../schemas.js';
+import { parseEmailData } from '../parse.js';
+import { Validator } from '../validator.js';
 
 export class ZurbValidator extends Validator<ZurbEmailData> {
   validateSchema(data: unknown): data is ZurbEmailData {
