@@ -5,12 +5,10 @@ import type {
   MailchimpEmailData,
   NomoretogoEmailData,
 } from '../types.js';
-import {
-  hackernoonRenderToString as renderHackernoonHtml,
-  mailchimpRenderToString as renderMailchimpHtml,
-  nomoretogoRenderToString as renderNomoretogoHtml,
-  renderToString as renderNewsletterHtml,
-} from '../renderer.js';
+import { mailchimpRenderToString as renderMailchimpHtml } from '../renderer.js';
+import { hackernoonRenderToString as renderHackernoonHtml } from '../templates/hackernoon/hackernoon.renderer.js';
+import { renderToString as renderNewsletterHtml } from '../templates/newsletter/newsletter.renderer.js';
+import { nomoretogoRenderToString as renderNomoretogoHtml } from '../templates/nomoretogo/nomoretogo.renderer.js';
 import { HackernoonValidator } from './hackernoon.validator.js';
 import { MailchimpValidator } from './mailchimp.validator.js';
 import { NewsletterValidator } from './newsletter.validator.js';

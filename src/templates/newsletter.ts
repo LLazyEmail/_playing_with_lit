@@ -9,7 +9,7 @@
  * -----
  * ```ts
  * import { newsletterEmailTemplate } from './templates/newsletter.js';
- * import { renderToString } from './renderer.js';
+ * import { renderToString } from './templates/newsletter/newsletter.renderer.js';
  *
  * const html = renderToString(newsletterEmailTemplate(data), data);
  * ```

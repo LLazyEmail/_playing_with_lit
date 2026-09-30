@@ -9,7 +9,7 @@
  * -----
  * ```ts
  * import { hackernoonEmailTemplate } from './templates/hackernoon-email.js';
- * import { hackernoonRenderToString } from './renderer.js';
+ * import { hackernoonRenderToString } from './templates/hackernoon/hackernoon.renderer.js';
  *
  * const html = hackernoonRenderToString(hackernoonEmailTemplate(data), data);
  * ```

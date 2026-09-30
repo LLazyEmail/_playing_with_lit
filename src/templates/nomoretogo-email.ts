@@ -9,7 +9,7 @@
  * -----
  * ```ts
  * import { nomoretogoEmailTemplate } from './templates/nomoretogo-email.js';
- * import { nomoretogoRenderToString } from './renderer.js';
+ * import { nomoretogoRenderToString } from './templates/nomoretogo/nomoretogo.renderer.js';
  *
  * const html = nomoretogoRenderToString(nomoretogoEmailTemplate(data), data);
  * ```

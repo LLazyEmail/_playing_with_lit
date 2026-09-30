@@ -19,7 +19,9 @@ import '@lit-labs/ssr/lib/install-global-dom-shim.js';
 import { newsletterEmailTemplate } from './templates/newsletter.js';
 import { hackernoonEmailTemplate } from './templates/hackernoon-email.js';
 import { nomoretogoEmailTemplate } from './templates/nomoretogo-email.js';
-import { renderToString, hackernoonRenderToString, nomoretogoRenderToString } from './renderer.js';
+import { hackernoonRenderToString } from './templates/hackernoon/hackernoon.renderer.js';
+import { renderToString } from './templates/newsletter/newsletter.renderer.js';
+import { nomoretogoRenderToString } from './templates/nomoretogo/nomoretogo.renderer.js';
 import type { EmailData, HackernoonEmailData, NomoretogoEmailData } from './types.js';
 
 // ---------------------------------------------------------------------------
