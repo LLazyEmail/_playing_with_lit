@@ -1,0 +1,8 @@
+      - name: Render shirt4 template
+        run: npm run render:shirt4
+
+      - name: Upload shirt4 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: shirt4-email
+          path: dist/shirt4.html

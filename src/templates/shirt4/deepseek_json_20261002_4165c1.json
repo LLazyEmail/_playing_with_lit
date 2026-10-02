@@ -1,0 +1,7 @@
+{
+  "id": "shirt4-new-shirts",
+  "template": "shirt4",
+  "subject": "Orlebar Brown | New Shirts: Add a Layer to Your Look",
+  "dataFile": "src/scripts/content/shirt4-data.ts",
+  "output": "dist/shirt4.html"
+}
