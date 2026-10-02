@@ -1,0 +1,7 @@
+{
+  "id": "shirt5-short-sleeves",
+  "template": "shirt5",
+  "subject": "Short Sleeves. Just in Time.",
+  "dataFile": "src/scripts/content/shirt5-data.ts",
+  "output": "dist/shirt5.html"
+}
