@@ -1,0 +1,7 @@
+{
+  "id": "shirt1-announcement",
+  "template": "shirt1",
+  "subject": "Introducing the hnst-tee",
+  "dataFile": "src/scripts/content/shirt1-data.ts",
+  "output": "dist/shirt1.html"
+}
