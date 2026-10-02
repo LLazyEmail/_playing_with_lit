@@ -1,0 +1,8 @@
+      - name: Render claude template
+        run: npm run render:claude
+
+      - name: Upload claude artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: claude-email
+          path: dist/claude.html

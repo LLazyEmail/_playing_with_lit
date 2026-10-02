@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "render:claude": "tsx src/scripts/render-claude.ts",
+    "test:claude": "vitest run src/templates/claude"
+  }
+}
