@@ -1,0 +1,7 @@
+{
+  "id": "lottie-onboarding",
+  "template": "lottie",
+  "subject": "LottieFiles — ship your own beautiful motion",
+  "dataFile": "src/scripts/content/lottie-data.ts",
+  "output": "dist/lottie.html"
+}

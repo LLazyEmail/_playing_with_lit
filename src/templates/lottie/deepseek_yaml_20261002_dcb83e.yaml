@@ -1,0 +1,8 @@
+      - name: Render lottie template
+        run: npm run render:lottie
+
+      - name: Upload lottie artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lottie-email
+          path: dist/lottie.html

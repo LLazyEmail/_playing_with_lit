@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "render:lottie": "tsx src/scripts/render-lottie.ts",
+    "test:lottie": "vitest run src/templates/lottie"
+  }
+}
