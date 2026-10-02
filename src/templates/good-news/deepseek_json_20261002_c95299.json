@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "render:good-news": "tsx src/scripts/render-goodNews.ts",
+    "test:good-news": "vitest run src/templates/goodNews"
+  }
+}

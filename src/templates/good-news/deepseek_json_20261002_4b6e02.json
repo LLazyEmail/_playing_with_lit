@@ -1,0 +1,7 @@
+{
+  "id": "good-news-shared-accounts",
+  "template": "good-news",
+  "subject": "Simple Shared accounts… coming your way",
+  "dataFile": "src/scripts/content/goodNews-data.ts",
+  "output": "dist/good-news.html"
+}

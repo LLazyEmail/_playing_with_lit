@@ -1,0 +1,8 @@
+      - name: Render good-news template
+        run: npm run render:good-news
+
+      - name: Upload good-news artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: good-news-email
+          path: dist/good-news.html
