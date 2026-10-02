@@ -1,0 +1,7 @@
+{
+  "id": "shirt3-cart-abandonment",
+  "template": "shirt3",
+  "subject": "Get Them for 15% Off!",
+  "dataFile": "src/scripts/content/shirt3-data.ts",
+  "output": "dist/shirt3.html"
+}
