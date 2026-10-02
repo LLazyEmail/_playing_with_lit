@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "render:shirt2": "tsx src/scripts/render-shirt2.ts",
+    "test:shirt2": "vitest run src/templates/shirt2"
+  }
+}
