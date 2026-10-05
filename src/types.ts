@@ -238,6 +238,40 @@ export interface Shirt2EmailData {
   };
 }
 
+/** Alex Mill cart-abandonment (shirt3). Types are re-exported from the template. */
+export interface Shirt3Product {
+  image: { src: string; alt: string };
+  url: string;
+  name: string;
+  color: string;
+  price: string;
+  cta: { label: string; url: string };
+}
+
+export interface Shirt3EmailData {
+  preheaderText: string;
+  title: string;
+  logo: {
+    src: string;
+    alt: string;
+    width: number;
+    url: string;
+  };
+  hero: {
+    eyebrow: string;
+    headline: string;
+    cta: { label: string; url: string };
+  };
+  products: Shirt3Product[];
+  footer: {
+    brandName: string;
+    addressLine: string;
+    year: number;
+    unsubscribe: { label: string; url: string };
+    preferences: { label: string; url: string };
+  };
+}
+
 /** Orlebar Brown new-shirts (shirt4). Types are re-exported from the template. */
 export interface Shirt4NavLink {
   label: string;
@@ -255,34 +289,27 @@ export interface Shirt4Product {
 export interface Shirt4EmailData {
   preheaderText: string;
   title: string;
-
   topBar: {
     stripColor: string;
     message: string;
   };
-
   logo: {
     src: string;
     alt: string;
     width: number;
     url: string;
   };
-
   nav: Shirt4NavLink[];
-
   hero: {
     image: { src: string; alt: string; width: number };
     url: string;
   };
-
   intro: {
     headline: string;
     body: string;
     cta: { label: string; url: string };
   };
-
   products: Shirt4Product[];
-
   footer: {
     brandName: string;
     addressLine: string;
@@ -291,4 +318,3 @@ export interface Shirt4EmailData {
     preferences: { label: string; url: string };
   };
 }
-

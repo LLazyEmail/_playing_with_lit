@@ -5,4 +5,4 @@
  * re-exported here so section modules can import from a single,
  * template-local path.
  */
-export type { Shirt3EmailData } from '../../types.js';
+export type { Shirt3EmailData, Shirt3Product } from '../../types.js';
