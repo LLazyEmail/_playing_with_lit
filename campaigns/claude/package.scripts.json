@@ -1,7 +1,6 @@
 {
-  "id": "claude-product-update",
-  "template": "claude",
-  "subject": "Projects in Claude Code, plus Claude Design, Slides and Docs on desktop",
-  "dataFile": "src/scripts/content/claude-data.ts",
-  "output": "dist/claude.html"
+  "scripts": {
+    "render:claude": "tsx src/scripts/render-claude.ts",
+    "test:claude": "vitest run src/templates/claude"
+  }
 }
