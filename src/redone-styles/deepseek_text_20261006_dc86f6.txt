@@ -1,0 +1,10 @@
+src/rendering/
+  email-styles/
+    index.ts              ← re‑exports everything
+    shared.ts             ← cross‑template resets (@media resets, mso boilerplate, a[x-apple], etc.)
+    klaviyo.styles.ts     ← shirt1, shirt5 (@media max-width:480px + mso overrides)
+    shopify-bounce.styles.ts ← shirt2, shirt3 (Shopify + Bounce Exchange)
+    ometria.styles.ts     ← shirt4 (Ometria + Gothic720 + Google Roboto)
+    simple-iterable.styles.ts ← goodNews (min-width:550px)
+    postcards.styles.ts   ← lottie (Karla webfont + pc-sm / pc-xs)
+    anthropic-dark.styles.ts ← claude (dark mode rules + ogsc mirror)
