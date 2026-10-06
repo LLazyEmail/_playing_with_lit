@@ -238,25 +238,31 @@ export interface Shirt2EmailData {
   };
 }
 
-/** Buck Mason short-sleeves (shirt5). Types are re-exported from the template. */
-export interface Shirt5Image {
-  src: string;
-  alt: string;
-  width: number;
+/** Alex Mill cart-abandonment (shirt3). Types are re-exported from the template. */
+export interface Shirt3Product {
+  image: { src: string; alt: string };
   url: string;
-  /** Optional per‑block padding override; Klaviyo emits per‑block tweaks. */
-  padding?: string;
-  /** Optional background color (Klaviyo sometimes tints individual blocks). */
-  bgColor?: string;
+  name: string;
+  color: string;
+  price: string;
+  cta: { label: string; url: string };
 }
 
-export interface Shirt5EmailData {
+export interface Shirt3EmailData {
   preheaderText: string;
-  /** Long invisible spacer Klaviyo appends after the preheader for preview text alignment. */
-  preheaderSpacer?: string;
-
-  images: Shirt5Image[];
-
+  title: string;
+  logo: {
+    src: string;
+    alt: string;
+    width: number;
+    url: string;
+  };
+  hero: {
+    eyebrow: string;
+    headline: string;
+    cta: { label: string; url: string };
+  };
+  products: Shirt3Product[];
   footer: {
     brandName: string;
     addressLine: string;
@@ -266,3 +272,75 @@ export interface Shirt5EmailData {
   };
 }
 
+/** Orlebar Brown new-shirts (shirt4). Types are re-exported from the template. */
+export interface Shirt4NavLink {
+  label: string;
+  url: string;
+}
+
+export interface Shirt4Product {
+  image: { src: string; alt: string };
+  url: string;
+  name: string;
+  price: string;
+  cta: { label: string; url: string };
+}
+
+export interface Shirt4EmailData {
+  preheaderText: string;
+  title: string;
+  topBar: {
+    stripColor: string;
+    message: string;
+  };
+  logo: {
+    src: string;
+    alt: string;
+    width: number;
+    url: string;
+  };
+  nav: Shirt4NavLink[];
+  hero: {
+    image: { src: string; alt: string; width: number };
+    url: string;
+  };
+  intro: {
+    headline: string;
+    body: string;
+    cta: { label: string; url: string };
+  };
+  products: Shirt4Product[];
+  footer: {
+    brandName: string;
+    addressLine: string;
+    year: number;
+    unsubscribe: { label: string; url: string };
+    preferences: { label: string; url: string };
+  };
+}
+
+/** Buck Mason short-sleeves (shirt5). Types are re-exported from the template. */
+export interface Shirt5Image {
+  src: string;
+  alt: string;
+  width: number;
+  url: string;
+  /** Optional per-block padding override; Klaviyo emits per-block tweaks. */
+  padding?: string;
+  /** Optional background color (Klaviyo sometimes tints individual blocks). */
+  bgColor?: string;
+}
+
+export interface Shirt5EmailData {
+  preheaderText: string;
+  /** Long invisible spacer Klaviyo appends after the preheader for preview text alignment. */
+  preheaderSpacer?: string;
+  images: Shirt5Image[];
+  footer: {
+    brandName: string;
+    addressLine: string;
+    year: number;
+    unsubscribe: { label: string; url: string };
+    preferences: { label: string; url: string };
+  };
+}
