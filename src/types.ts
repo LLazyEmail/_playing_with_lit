@@ -345,6 +345,38 @@ export interface Shirt5EmailData {
   };
 }
 
+/** LottieFiles onboarding (lottie). Types are re-exported from the template. */
+export interface LottieStep {
+  title: string;
+  body: string;
+  image?: { src: string; alt: string; width: number };
+  cta?: { label: string; url: string };
+}
+
+export interface LottieEmailData {
+  preheaderText: string;
+  logo: {
+    src: string;
+    alt: string;
+    width: number;
+    url: string;
+  };
+  hero: {
+    image: { src: string; alt: string; width: number };
+  };
+  greeting: string;
+  intro: string;
+  stepsHeadline: string;
+  steps: LottieStep[];
+  footer: {
+    brandName: string;
+    addressLine: string;
+    year: number;
+    unsubscribe: { label: string; url: string };
+    preferences: { label: string; url: string };
+  };
+}
+
 /** Claude product update (claude). Types are re-exported from the template. */
 export interface ClaudeFeature {
   /** Small heading above the feature title (e.g. "Get more out of Claude Code"). */
@@ -371,29 +403,24 @@ export interface ClaudeFeature {
 export interface ClaudeEmailData {
   preheaderText: string;
   preheaderSpacer?: string;
-
   logo: {
     /** Shown in light mode. */
     src: string;
     alt: string;
     width: number;
     url: string;
-    /** Optional dark‑mode logo (rendered with `.dark-logo`). */
+    /** Optional dark-mode logo (rendered with `.dark-logo`). */
     darkSrc?: string;
   };
-
   greeting: string;
   intro: string;
-
   /** Feature sections separated by `<hr>` dividers. */
   features: ClaudeFeature[];
-
   /** Optional callout row (e.g. "Other news") rendered on `#f0eee6`. */
   callout?: {
     title: string;
     items: string[];
   };
-
   footer: {
     brandName: string;
     addressLine: string;
