@@ -1,8 +1,8 @@
-import type { GoodNewsEmailData } from '../../templates/goodNews/types.js';
+import type { GoodNewsEmailData } from '../../templates/good-news/types.js';
 import {
   GOOD_NEWS_ASSETS,
   GOOD_NEWS_TRACKING,
-} from '../../templates/goodNews/constants.js';
+} from '../../templates/good-news/constants.js';
 
 export const goodNewsEmailData: GoodNewsEmailData = {
   preheaderText:
