@@ -150,4 +150,19 @@ function wrapShirt4Document(bodyContent: string): string {
       th, td, img, ol, ul, li, p, a { font-family: 'Gothic720', Arial, sans-serif; font-weight: normal; }
       .title, h1, h1 a, h2, h2 a, h3, h3 a, h4, h4 a, h5, h5 a, h6, h6 a { font-family: 'Gothic720', Arial, sans-serif; font-weight: bold; }
       .mso th, .mso td, .mso img, .mso ol, .mso ul, .mso li, .mso p, .mso a { font-family: Arial, sans-serif; font-weight: normal; }
-      .mso .title, .mso h1, .mso h1 a,
+      .mso .title, .mso h1, .mso h1 a, .mso h2, .mso h2 a, .mso h3, .mso h3 a, .mso h4, .mso h4 a, .mso h5, .mso h5 a, .mso h6, .mso h6 a { font-family: Arial, sans-serif; font-weight: bold; }
+    </style>
+    <style type="text/css">
+      .button a:hover, .fade:hover, .tdn:hover, .tdu:hover { transition: 0.3s !important; }
+      .button a:hover { background-color: ${SHIRT4_PALETTE.pageBg} !important; color: ${SHIRT4_PALETTE.black} !important; }
+      .fade:hover { opacity: 0.9 !important; }
+      .tdn, .tdu { text-underline-offset: .1em; }
+      .tdn:hover { text-decoration: none !important; }
+      .tdu:hover { text-decoration: underline !important; }
+    </style>
+  </head>
+  <body class="body" style="background-color:${SHIRT4_PALETTE.pageBg}; margin:0; padding:0; word-spacing:normal; word-wrap:normal; text-align:center;" xml:lang="en">
+    ${bodyContent}
+  </body>
+</html>`;
+}
