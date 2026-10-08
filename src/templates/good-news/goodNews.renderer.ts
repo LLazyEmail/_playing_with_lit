@@ -1,5 +1,5 @@
-import type { TemplateResult } from 'lit';
 import { renderEmailBody } from '../../rendering/render-email-document.js';
+import { SIMPLE_ITERABLE_CSS } from '../../rendering/email-styles/index.js';
 import {
   GOOD_NEWS_SUBJECT,
   GOOD_NEWS_FONTS,
@@ -13,14 +13,7 @@ export interface RenderedGoodNewsEmail {
   html: string;
 }
 
-/**
- * Renders the good-news (Simple / Iterable) email.
- *
- * Keeps the original document shell — including the quirky nested
- * `<head>` / `<body>` pair that Simple's exporter emits, the
- * `@media(min-width:550px)` block, and the fixed 550px column — so the
- * output stays byte-compatible with `sandbox/good-news.html`.
- */
+/** Renders the good-news (Simple / Iterable) email. */
 export function renderGoodNewsEmail(
   data: GoodNewsEmailData
 ): RenderedGoodNewsEmail {
@@ -44,9 +37,7 @@ function wrapGoodNewsDocument(bodyContent: string): string {
   <title></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width">
-  <style type="text/css">
-    @media(min-width:550px){.hero-image{top:0!important}table[class="body"]{padding-bottom:50px!important;padding-top:50px!important}.email-logo-masthead{display:inline!important;height:35px!important;margin-left:0!important;margin-right:0!important}.email-content{border-left:1px solid #dadfe1!important;border-right:1px solid #dadfe1!important}.email-content-block{padding-left:50px!important;padding-right:50px!important}}.email-social-bar-copy p,.email-social-bar-copy a,.email-social-bar-copy .ios-no-link{color:white!important;text-decoration:none!important}
-  </style>
+  <style type="text/css">${SIMPLE_ITERABLE_CSS}</style>
 </head>
 
 <body style="background-color: ${GOOD_NEWS_PALETTE.pageBg}; height: 100%; margin: 0; padding: 0;">
