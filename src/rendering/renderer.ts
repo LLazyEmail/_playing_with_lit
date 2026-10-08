@@ -1,10 +1,7 @@
 /**
- * Common render contract for every email template.
+ * Compatibility re-export.
  *
- * No implementation lives here — subclasses wrap the existing composer +
- * `*RenderToString` functions so a future BuildPipeline / registry can call
- * `renderer.render(data)` without knowing which template it is.
+ * The real implementation lives in `src/email-renderer/` so it can be swapped
+ * for an external module later without changing call sites.
  */
-export abstract class Renderer<T> {
-  abstract render(data: T): string;
-}
+export { Renderer } from '../email-renderer/renderer.js';
