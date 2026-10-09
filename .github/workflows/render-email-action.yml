@@ -1,0 +1,58 @@
+name: Render email action
+
+# Consumer of https://github.com/marketplace/actions/render-email-template
+# (LLazyEmail/email-template-workflows). Pinned to v1.1.1: the moving @v1 tag
+# still points at the September 2026 release.
+#
+# Lit render scripts do not read --input/--output (email-template-workflows#21).
+# The action always appends those flags; the scripts ignore them and write a
+# fixed file under generated/. output is that path so the artifact upload matches.
+# validate-script is empty because this package has no validate-email script.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    name: Render ${{ matrix.template }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - template: hackernoon
+            script: render:hackernoon
+            output: generated/hackernoon-email.html
+          - template: nomoretogo
+            script: render:nomoretogo
+            output: generated/nomoretogo-email.html
+          - template: mailchimp
+            script: render:mailchimp
+            output: generated/mailchimp-email.html
+          - template: zurb
+            script: render:zurb
+            output: generated/zurb-email.html
+          - template: google
+            script: render:google
+            output: generated/google-email.html
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: LLazyEmail/email-template-workflows@v1.1.1
+        with:
+          working-directory: .
+          input: src/scripts/${{ matrix.template }}/render.ts
+          output: ${{ matrix.output }}
+          build-script: ${{ matrix.script }}
+          validate-script: ""
+          cache: npm
+          artifact-name: action-rendered-${{ matrix.template }}
