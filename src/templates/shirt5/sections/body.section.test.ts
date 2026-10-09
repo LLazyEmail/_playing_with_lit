@@ -19,7 +19,7 @@ describe('shirt5 body section', () => {
   it('appends the Klaviyo tracking query to every href', () => {
     const html = renderToString(renderBodySection(shirt5EmailData));
     expect(html).toContain(
-      'utm_campaign=Elevated%20Comfort&utm_medium=campaign-email'
+      'utm_campaign=Elevated%20Comfort&amp;utm_medium=campaign-email'
     );
   });
 });

@@ -110,7 +110,9 @@ function renderFeature(feature: ClaudeFeature, index: number): TemplateResult {
         <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%;" role="presentation">
           <tr>
             <td align="left" valign="top" style="text-align: left; ${feature.eyebrow ? 'padding-top: 24px;' : ''}">
-              <h${isFirst ? '1' : '2'} style=${headingStyle}>${feature.title}</h${isFirst ? '1' : '2'}>
+              ${isFirst
+                ? html`<h1 style=${headingStyle}>${feature.title}</h1>`
+                : html`<h2 style=${headingStyle}>${feature.title}</h2>`}
             </td>
           </tr>
         </table>
