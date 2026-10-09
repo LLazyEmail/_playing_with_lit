@@ -28,7 +28,15 @@ export type LogoBlockProps =
       variant: 'mailchimp';
       brandName: string;
       navLinks: Array<{ label: string; url: string }>;
-    };
+    }
+  | { variant: 'shirt1' }
+  | { variant: 'shirt2' }
+  | { variant: 'shirt3' }
+  | { variant: 'shirt4' }
+  | { variant: 'shirt5' }
+  | { variant: 'lottie' }
+  | { variant: 'claude' }
+  | { variant: 'good-news' };
 
 export type FooterVariant = FooterBlockProps['variant'];
 export type LogoVariant = LogoBlockProps['variant'];

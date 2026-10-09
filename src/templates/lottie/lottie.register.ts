@@ -1,6 +1,11 @@
 import type { LottieEmailData } from './types.js';
 import { LOTTIE_SUBJECT } from './constants.js';
 import { lottieEmailTemplate } from './index.js';
+import { Renderer } from '../../rendering/renderer.js';
+import { templateRegistry } from '../../rendering/template-registry.js';
+import { Validator } from '../../validation/validator.js';
+import { renderLottieEmail } from './lottie.renderer.js';
+import { lottieEmailData } from '../../scripts/content/lottie-data.js';
 
 export interface LottieTemplateRegistration {
   id: 'lottie';
@@ -8,13 +13,33 @@ export interface LottieTemplateRegistration {
   build: (data: LottieEmailData) => unknown;
 }
 
-/**
- * Registers the lottie template with the shared template registry.
- * Mirrors `hackernoon.register.ts` so both templates plug into the same
- * rendering pipeline without changes to the caller.
- */
-export const lottieRegistration: LottieTemplateRegistration = {
-  id: 'lottie',
+class LottieRenderer extends Renderer<LottieEmailData> {
+  render(data: LottieEmailData): string {
+    return renderLottieEmail(data).html;
+  }
+}
+
+class LottieValidator extends Validator<LottieEmailData> {
+  validateSchema(data: unknown): data is LottieEmailData {
+    return typeof data === 'object' && data !== null && 'preheaderText' in data;
+  }
+
+  parse(data: unknown): LottieEmailData {
+    if (!this.validateSchema(data)) {
+      throw new Error('Invalid lottie payload');
+    }
+    return data;
+  }
+}
+
+templateRegistry.register('lottie', {
+  renderer: new LottieRenderer(),
+  validator: new LottieValidator(),
+  sampleData: lottieEmailData,
+});
+
+export const lottieRegistration = {
+  id: 'lottie' as const,
   subject: LOTTIE_SUBJECT,
-  build: (data) => lottieEmailTemplate(data),
+  build: (data: LottieEmailData) => lottieEmailTemplate(data),
 };

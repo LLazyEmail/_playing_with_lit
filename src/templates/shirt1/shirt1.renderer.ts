@@ -6,7 +6,7 @@ import {
   msoStyle,
   styleTag,
 } from '../../rendering/email-styles/index.js';
-import { SHIRT1_SUBJECT, SHIRT1_PALETTE, SHIRT1_FONTS } from './constants.js';
+import { SHIRT1_SUBJECT, SHIRT1_PALETTE } from './constants.js';
 import type { Shirt1EmailData } from './types.js';
 import { shirt1EmailTemplate } from './index.js';
 

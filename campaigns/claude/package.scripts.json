@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "render:claude": "tsx src/scripts/render-claude.ts",
+    "render:claude": "npm run build && node dist/scripts/render-claude.js",
     "test:claude": "vitest run src/templates/claude"
   }
 }
