@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "render:shirt4": "tsx src/scripts/render-shirt4.ts",
+    "render:shirt4": "npm run build && node dist/scripts/render-shirt4.js",
     "test:shirt4": "vitest run src/templates/shirt4"
   }
 }

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "render:good-news": "tsx src/scripts/render-goodNews.ts",
-    "test:good-news": "vitest run src/templates/goodNews"
+    "render:good-news": "npm run build && node dist/scripts/render-goodNews.js",
+    "test:good-news": "vitest run src/templates/good-news"
   }
 }

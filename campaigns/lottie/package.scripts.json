@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "render:lottie": "tsx src/scripts/render-lottie.ts",
+    "render:lottie": "npm run build && node dist/scripts/render-lottie.js",
     "test:lottie": "vitest run src/templates/lottie"
   }
 }

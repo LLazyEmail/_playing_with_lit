@@ -11,9 +11,9 @@ import {
 } from './template-registry.js';
 
 describe('templateRegistry', () => {
-  it('registers the five templates and no campaign aliases', () => {
+  it('registers the built-in templates and no campaign aliases', () => {
     expect(listTemplateNames().sort()).toEqual(
-      ['google', 'hackernoon', 'mailchimp', 'nomoretogo', 'zurb'].sort()
+      ['claude', 'good-news', 'google', 'hackernoon', 'lottie', 'mailchimp', 'nomoretogo', 'shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'zurb'].sort()
     );
     expect(isTemplateName('mysterium')).toBe(false);
     expect(isTemplateName('flat-file-7')).toBe(false);

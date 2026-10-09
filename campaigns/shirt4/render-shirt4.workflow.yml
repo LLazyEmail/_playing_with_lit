@@ -5,4 +5,4 @@
         uses: actions/upload-artifact@v4
         with:
           name: shirt4-email
-          path: dist/shirt4.html
+          path: generated/shirt4-email.html
