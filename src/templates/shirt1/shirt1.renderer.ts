@@ -1,11 +1,5 @@
 import { renderEmailBody } from '../../rendering/render-email-document.js';
-import {
-  KLAVIYO_MOBILE_CSS,
-  KLAVIYO_MSO_CSS,
-  klaviyoGlobalReset,
-  msoStyle,
-  styleTag,
-} from '../../rendering/email-styles/index.js';
+import { shirt1Head } from '../../rendering/email-styles/index.js';
 import { SHIRT1_SUBJECT, SHIRT1_PALETTE } from './constants.js';
 import type { Shirt1EmailData } from './types.js';
 import { shirt1EmailTemplate } from './index.js';
@@ -27,24 +21,14 @@ export function renderShirt1Email(data: Shirt1EmailData): RenderedShirt1Email {
 function wrapShirt1Document(bodyContent: string): string {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>${SHIRT1_SUBJECT}</title>
-    ${styleTag(KLAVIYO_MOBILE_CSS)}
-    ${msoStyle(KLAVIYO_MSO_CSS)}
-    ${styleTag(
-      klaviyoGlobalReset({
-        pageBg: SHIRT1_PALETTE.pageBg,
-        cardBg: SHIRT1_PALETTE.panelBg,
-        headingColor: SHIRT1_PALETTE.text,
-        bodyColor: SHIRT1_PALETTE.text,
-        headingFont: SHIRT1_PALETTE.headingFont,
-        bodyFont: SHIRT1_PALETTE.bodyFont,
-        linkColor: SHIRT1_PALETTE.text,
-      })
-    )}
-  </head>
+  ${shirt1Head({
+    title: SHIRT1_SUBJECT,
+    pageBg: SHIRT1_PALETTE.pageBg,
+    cardBg: SHIRT1_PALETTE.panelBg,
+    text: SHIRT1_PALETTE.text,
+    headingFont: SHIRT1_PALETTE.headingFont,
+    bodyFont: SHIRT1_PALETTE.bodyFont,
+  })}
   <body>
     ${bodyContent}
   </body>
