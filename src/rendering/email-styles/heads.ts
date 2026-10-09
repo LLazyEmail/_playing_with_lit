@@ -164,7 +164,7 @@ export function goodNewsHeads(title: string): string {
 </head>`;
 }
 
-export function lottieHead(karlaWeights: readonly string[]): string {
+export function lottieHead(karlaWeights: readonly { weight: number; woff: string; woff2: string }[]): string {
   return `<head>
 
     ${POSTCARDS_ENCODED_IF_NOT_MSO}

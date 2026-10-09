@@ -64,7 +64,7 @@ export const POSTCARDS_XS_CSS = `
 `;
 
 export function postcardsKarlaFontFaces(
-  weights: Array<{ weight: number; woff: string; woff2: string }>
+  weights: readonly { weight: number; woff: string; woff2: string }[]
 ): string {
   return weights
     .map(
