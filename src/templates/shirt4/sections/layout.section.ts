@@ -25,7 +25,7 @@ export function renderLayoutSection(
       dir="ltr"
       lang="en"
       role="article"
-      style="font-family:${`Arial, sans-serif`}; font-size:medium; font-size:max(16px, 1rem); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; text-rendering:optimizeLegibility; line-break:normal; word-break:break-word;"
+      style="font-family:Arial, sans-serif; font-size:medium; font-size:max(16px, 1rem); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; text-rendering:optimizeLegibility; line-break:normal; word-break:break-word;"
     >
       <!--[if true]>
       <table class="mso" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:600px;" align="center"><tr><td>
@@ -51,7 +51,7 @@ export function renderLayoutSection(
       <![endif]-->
 
       <!--[if true]>
-      <table class="mso" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:600px; border:1px solid ${SHIRT4_PALETTE.cardBorder};" align="center"><tr><td>
+      <table class="mso" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:600px; border:1px solid #E9E9E9;" align="center"><tr><td>
       <![endif]-->
       <div style="max-width:600px; margin:0 auto; border:1px solid ${SHIRT4_PALETTE.cardBorder};">
         <div>

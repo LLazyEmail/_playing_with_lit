@@ -10,7 +10,7 @@ const renderToString = (tpl: any) =>
 describe('shirt1 header section', () => {
   it('renders the browser-view notice', () => {
     const html = renderToString(renderHeaderSection(shirt1EmailData));
-    expect(html).toContain("Can't see this email?");
+    expect(html).toContain('Can&#39;t see this email?');
     expect(html).toContain('View in Your Browser');
   });
 
