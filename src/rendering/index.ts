@@ -19,6 +19,7 @@ export type { Logger } from '../logging/logger.js';
 export {
   renderEmailBody,
   renderEmailDocument,
+  renderRuntimeHtml,
   stripLitMarkers,
 } from '../email-renderer/render-email-document.js';
 export type { EmailDocumentOptions } from '../email-renderer/render-email-document.js';

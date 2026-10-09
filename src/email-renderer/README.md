@@ -1,21 +1,15 @@
 # Email Renderer
 
-Isolated rendering module containing the current Lit SSR implementation and the `Renderer` contract.
+Adapter over `@llazyemail/template-runtime-display`.
 
-## Purpose
+## What comes from the package
 
-This directory exists so the render functionality can be replaced with an external module later without touching the rest of the project.
+- Document shell: `document`, `head`, `body` (used by `renderEmailDocument`)
+- Part/slot runtime: `defineTemplate`, `renderTemplate`, `renderEmail`, `slot`, and the rest of the package barrel
 
-## Current contents
+## What stays local
 
-- `renderer.ts` — abstract `Renderer<T>` contract
-- `render-email-document.ts` — Lit `@lit-labs/ssr` helpers (`renderEmailBody`, `renderEmailDocument`, `stripLitMarkers`)
-- `index.ts` — public barrel
+- `renderEmailBody` / `stripLitMarkers` — current templates still return a Lit `TemplateResult`. The runtime package renders string parts, not Lit templates.
+- `Renderer<T>` — the project contract (`renderer.render(data): string`). The package has no equivalent class.
 
-## How to replace later
-
-1. Publish or consume the external renderer package.
-2. Update the re-export files in `src/rendering/renderer.ts` and `src/rendering/render-email-document.ts` to import from the external package instead of `../email-renderer/`.
-3. (Optional) Remove or archive this directory once the switch is complete.
-
-Existing imports across the codebase (`../../rendering/renderer.js`, `../../rendering/render-email-document.js`, etc.) will continue to work unchanged.
+`src/rendering/` re-exports this module, so existing imports keep working.
