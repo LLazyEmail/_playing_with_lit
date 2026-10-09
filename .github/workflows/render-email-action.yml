@@ -1,8 +1,9 @@
 name: Render email action
 
 # Consumer of LLazyEmail/email-template-workflows@v1.
-# Lit render scripts do not read --input/--output (email-template-workflows#21),
-# so each matrix row uses command mode and indexes generated/.
+# Each row uses the action flags: build-script, input, output.
+# runCampaign reads --output and writes that file. --input is accepted;
+# these scripts still render their registered sample payload.
 # pr-comment is false: fifteen jobs would otherwise overwrite one comment.
 # .npmrc reads GITHUB_TOKEN for @llazyemail packages.
 
@@ -31,41 +32,74 @@ jobs:
         include:
           - template: hackernoon
             script: render:hackernoon
+            input: src/scripts/hackernoon/render.ts
+            output: generated/hackernoon-email.html
           - template: nomoretogo
             script: render:nomoretogo
+            input: src/scripts/nomoretogo/render.ts
+            output: generated/nomoretogo-email.html
           - template: mailchimp
             script: render:mailchimp
+            input: src/scripts/mailchimp/render.ts
+            output: generated/mailchimp-email.html
           - template: zurb
             script: render:zurb
+            input: src/scripts/zurb/render.ts
+            output: generated/zurb-email.html
           - template: google
             script: render:google
+            input: src/scripts/google/render.ts
+            output: generated/google-email.html
           - template: mysterium
             script: render:mysterium
+            input: src/scripts/hackernoon/mysterium.ts
+            output: generated/mysterium-email.html
           - template: flat-file-7
             script: render:flat-file-7
+            input: src/scripts/hackernoon/flat-file-7.ts
+            output: generated/flat-file-7-email.html
           - template: shirt1
             script: render:shirt1
+            input: src/scripts/render-shirt1.ts
+            output: generated/shirt1-email.html
           - template: shirt2
             script: render:shirt2
+            input: src/scripts/render-shirt2.ts
+            output: generated/shirt2-email.html
           - template: shirt3
             script: render:shirt3
+            input: src/scripts/render-shirt3.ts
+            output: generated/shirt3-email.html
           - template: shirt4
             script: render:shirt4
+            input: src/scripts/render-shirt4.ts
+            output: generated/shirt4-email.html
           - template: shirt5
             script: render:shirt5
+            input: src/scripts/render-shirt5.ts
+            output: generated/shirt5-email.html
           - template: lottie
             script: render:lottie
+            input: src/scripts/render-lottie.ts
+            output: generated/lottie-email.html
           - template: claude
             script: render:claude
+            input: src/scripts/render-claude.ts
+            output: generated/claude-email.html
           - template: good-news
             script: render:good-news
+            input: src/scripts/render-goodNews.ts
+            output: generated/good-news-email.html
     steps:
       - uses: actions/checkout@v7
 
       - uses: LLazyEmail/email-template-workflows@v1
         with:
           working-directory: .
-          command: npm run ${{ matrix.script }}
+          input: ${{ matrix.input }}
+          output: ${{ matrix.output }}
+          build-script: ${{ matrix.script }}
+          validate-script: ""
           artifact-directory: generated
           artifact-name: action-rendered-${{ matrix.template }}
           pr-comment: false
