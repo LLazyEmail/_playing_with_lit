@@ -71,15 +71,10 @@ jobs:
         template: [hackernoon, nomoretogo, mailchimp, zurb, google, shirt1, shirt2, shirt3, shirt4, shirt5, lottie, claude, good-news]
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: LLazyEmail/email-template-workflows@v1
         with:
-          node-version: '24'
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build
-      - run: npm run render:${{ matrix.template }}
-      - uses: actions/upload-artifact@v7
-        with:
-          name: rendered-${{ matrix.template }}
-          path: generated/${{ matrix.template }}-email.html
-          if-no-files-found: error
+          working-directory: .
+          command: npm run build && npm run render:${{ matrix.template }}
+          artifact-directory: generated
+          artifact-name: rendered-${{ matrix.template }}
+          pr-comment: false
