@@ -95,7 +95,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: LLazyEmail/email-template-workflows@v1.1.1
+      - uses: LLazyEmail/email-template-workflows@v1.3.0
         with:
           working-directory: .
           input: ${{ matrix.input }}
