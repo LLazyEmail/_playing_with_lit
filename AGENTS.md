@@ -4,6 +4,12 @@ Agent instructions. Grok is the agent for this repo; its session rules and comma
 
 Lit `html` plus `@lit-labs/ssr` render HTML emails in Node. No browser and no client hydration.
 
+## Package boundaries
+
+- Prefer `@llazyemail/generate-template` (`createGenerator`) for catalog lookup, payload resolution, and writing. Local `BuildPipeline` is duplicated functionality; new work should migrate toward the preferred generator in `src/generation/`.
+- Use `@llazyemail/template-runtime-display` for document shell and part/slot runtime. Parts return strings only. The local adapter in `src/email-renderer/` converts Lit `TemplateResult` → string (`renderEmailBody` + `stripLitMarkers`). Never pass a Lit object into a runtime part.
+- Keep Lit templates, Zod validators, styles, and the Lit SSR shim here.
+
 ## Look here first
 
 Open only the paths for the task. Skip `node_modules/`, `dist/`, `generated/`, and full HTML under `reference/`.
@@ -12,6 +18,7 @@ Open only the paths for the task. Skip `node_modules/`, `dist/`, `generated/`, a
 |---|---|
 | Template markup | `src/templates/<name>/` — `index.ts` composes, `sections/*.section.ts` holds markup, plus `types.ts`, `constants.ts`, `<name>.renderer.ts` |
 | Registered templates | `hackernoon`, `nomoretogo`, `mailchimp`, `zurb`, `google` in `src/rendering/template-registry.ts`. `newsletter` is separate and renders from `src/index.ts` |
+| Preferred generation path | `src/generation/preferred-generator.ts` (uses `createGenerator`) |
 | Campaign data | `campaigns/<template>/<campaign>.json` and `<campaign>.data.json`. Sample payload: `src/scripts/<template>/<name>-data.ts`. Mysterium and flat-file-7 live under `src/scripts/hackernoon/` |
 | New template | Copy `src/templates/zurb/`, `src/validation/zurb/zurb.validator.ts`, `src/scripts/zurb/render.ts` plus its data file, and the `render:zurb` script. Register it in `template-registry.ts` |
 | Reference HTML | `reference/README.md` only |

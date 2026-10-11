@@ -30,6 +30,12 @@ export interface BuildResult {
 
 type WriteGeneratedFile = typeof writeGeneratedFile;
 
+/**
+ * @deprecated Duplicated generation logic. Prefer `@llazyemail/generate-template`
+ * `createGenerator` (see `src/generation/preferred-generator.ts`). This class
+ * reimplements catalog lookup, validation, render, and write that the package
+ * already provides. Migrate callers incrementally; do not extend this class.
+ */
 export class BuildPipeline {
   constructor(
     private readonly registry: PipelineRegistry,
