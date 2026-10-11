@@ -8,6 +8,12 @@ This project demonstrates how to use [`lit`](https://lit.dev) and [`@lit-labs/ss
 
 Platform layers added around the templates (tests, shared blocks, Zod validation, errors, optional minify, env asset hosts) are documented in **[PLATFORM.md](PLATFORM.md)**.
 
+### Package boundaries (reduce duplication)
+
+- **Generation / catalog / write**: use `@llazyemail/generate-template` (`createGenerator` + catalog of `render` functions). Do not grow local `BuildPipeline` or reimplement payload/write logic. See `src/generation/preferred-generator.ts` for the intended direction.
+- **Part/slot runtime + email shell**: use `@llazyemail/template-runtime-display` (which depends on `@llazyemail/render-template`). Parts must return strings. Lit `TemplateResult`s stay behind the local adapter in `src/email-renderer/` (`renderEmailBody` + `stripLitMarkers`). Do not put Lit objects into runtime parts — that causes errors.
+- Local Lit templates, validators, styles, and the thin Lit-to-string adapter remain here.
+
 ### Templates vs campaigns
 
 A **template** is a composer under `src/templates/` (Hacker Noon, No More To-Go, Mailchimp, Zurb, Google Store, generic newsletter). Folder count is the template count.
