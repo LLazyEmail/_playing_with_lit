@@ -8,9 +8,9 @@ import {
   mailchimpRenderToString,
   nomoretogoRenderToString,
 } from '../../src/validation/guarded-render.js';
-import { hackernoonData } from '../../src/samples/hackernoon/hackernoon-data.js';
-import { nomoretogoData } from '../../src/samples/nomoretogo/nomoretogo-data.js';
-import { mailchimpData } from '../../src/samples/mailchimp/mailchimp-data.js';
+import { hackernoonData } from '../../scripts/samples/hackernoon/hackernoon-data.js';
+import { nomoretogoData } from '../../scripts/samples/nomoretogo/nomoretogo-data.js';
+import { mailchimpData } from '../../scripts/samples/mailchimp/mailchimp-data.js';
 import { HackernoonRenderer } from '../../src/templates/hackernoon/hackernoon.renderer.js';
 import { NomoretogoRenderer } from '../../src/templates/nomoretogo/nomoretogo.renderer.js';
 import { MailchimpRenderer } from '../../src/templates/mailchimp/mailchimp.renderer.js';
