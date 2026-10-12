@@ -1,7 +1,7 @@
 import { templateRegistry } from '../../rendering/template-registry.js';
 import { ZurbRenderer } from './zurb.renderer.js';
 import { ZurbValidator } from '../../validation/zurb/zurb.validator.js';
-import { zurbData } from '../../samples/zurb/zurb-data.js';
+import { zurbData } from '../../../scripts/samples/zurb/zurb-data.js';
 
 templateRegistry.register('zurb', {
   renderer: new ZurbRenderer(),
