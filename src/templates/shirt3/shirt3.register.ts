@@ -5,7 +5,7 @@ import { Renderer } from '../../rendering/renderer.js';
 import { templateRegistry } from '../../rendering/template-registry.js';
 import { Validator } from '../../validation/validator.js';
 import { renderShirt3Email } from './shirt3.renderer.js';
-import { shirt3EmailData } from '../../scripts/content/shirt3-data.js';
+import { shirt3EmailData } from '../../samples/content/shirt3-data.js';
 
 export interface Shirt3TemplateRegistration {
   id: 'shirt3';

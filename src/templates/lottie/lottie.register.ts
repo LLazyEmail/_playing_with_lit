@@ -5,7 +5,7 @@ import { Renderer } from '../../rendering/renderer.js';
 import { templateRegistry } from '../../rendering/template-registry.js';
 import { Validator } from '../../validation/validator.js';
 import { renderLottieEmail } from './lottie.renderer.js';
-import { lottieEmailData } from '../../scripts/content/lottie-data.js';
+import { lottieEmailData } from '../../samples/content/lottie-data.js';
 
 export interface LottieTemplateRegistration {
   id: 'lottie';
