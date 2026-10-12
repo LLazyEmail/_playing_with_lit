@@ -1,7 +1,7 @@
 import { templateRegistry } from '../../rendering/template-registry.js';
 import { GoogleRenderer } from './google.renderer.js';
 import { GoogleValidator } from '../../validation/google/google.validator.js';
-import { googleShipmentData } from '../../samples/google/google-data.js';
+import { googleShipmentData } from '../../../scripts/samples/google/google-data.js';
 
 templateRegistry.register('google', {
   renderer: new GoogleRenderer(),
