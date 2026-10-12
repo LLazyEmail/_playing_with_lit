@@ -5,7 +5,7 @@ import { Renderer } from '../../rendering/renderer.js';
 import { templateRegistry } from '../../rendering/template-registry.js';
 import { Validator } from '../../validation/validator.js';
 import { renderGoodNewsEmail } from './goodNews.renderer.js';
-import { goodNewsEmailData } from '../../scripts/content/goodNews-data.js';
+import { goodNewsEmailData } from '../../samples/content/goodNews-data.js';
 
 export interface GoodNewsTemplateRegistration {
   id: 'good-news';
