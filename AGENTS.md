@@ -6,7 +6,7 @@ Lit `html` plus `@lit-labs/ssr` render HTML emails in Node. No browser and no cl
 
 ## Package boundaries
 
-- Prefer `@llazyemail/generate-template` (`createGenerator`) for catalog lookup, payload resolution, and writing. Local `BuildPipeline` is duplicated functionality; new work should migrate toward the preferred generator in `src/generation/`.
+- Use `@llazyemail/generate-template` (`createGenerator`) for catalog lookup, payload resolution, and writing. The local `BuildPipeline` / `runCampaign` path has been removed.
 - Use `@llazyemail/template-runtime-display` for document shell and part/slot runtime. Parts return strings only. The local adapter in `src/email-renderer/` converts Lit `TemplateResult` → string (`renderEmailBody` + `stripLitMarkers`). Never pass a Lit object into a runtime part.
 - Keep Lit templates, Zod validators, styles, and the Lit SSR shim here.
 
