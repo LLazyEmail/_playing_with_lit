@@ -1,6 +1,6 @@
 name: Render email action
 
-# Consumer of LLazyEmail/email-template-workflows@v1.
+# Consumer of LLazyEmail/email-template-workflows@1.6.0.
 # Each row uses the action flags: build-script, input, output.
 # runCampaign reads --output and writes that file. --input is accepted;
 # these scripts still render their registered sample payload.
@@ -93,7 +93,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: LLazyEmail/email-template-workflows@v1
+      - uses: LLazyEmail/email-template-workflows@1.6.0
         with:
           working-directory: .
           input: ${{ matrix.input }}
