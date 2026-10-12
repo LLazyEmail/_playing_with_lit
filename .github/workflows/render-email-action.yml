@@ -1,8 +1,8 @@
 name: Render email action
 
-# Consumer of LLazyEmail/email-template-workflows@1.6.0.
+# Consumer of LLazyEmail/email-template-workflows@v2.0.0.
 # Each row uses the action flags: build-script, input, output.
-# runCampaign reads --output and writes that file. --input is accepted;
+# Scripts honor --output and write that file. --input is accepted;
 # these scripts still render their registered sample payload.
 # pr-comment is false: fifteen jobs would otherwise overwrite one comment.
 # .npmrc reads GITHUB_TOKEN for @llazyemail packages.
@@ -93,9 +93,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: LLazyEmail/email-template-workflows@1.6.0
+      - uses: LLazyEmail/email-template-workflows@v2.0.0
         with:
           working-directory: .
+          package-manager: npm
           input: ${{ matrix.input }}
           output: ${{ matrix.output }}
           build-script: ${{ matrix.script }}
@@ -103,3 +104,4 @@ jobs:
           artifact-directory: generated
           artifact-name: action-rendered-${{ matrix.template }}
           pr-comment: false
+          job-summary: true
