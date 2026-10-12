@@ -45,19 +45,22 @@ export function buildCatalogFromRegistry(): TemplateCatalogEntry[] {
 /**
  * Pilot helper: run one registered template through createGenerator.
  * Callers can migrate from runCampaign one script at a time.
+ *
+ * `out` may be a directory or an exact file path (with extension).
+ * When the action passes `--output generated/nomoretogo-email.html`,
+ * pass that full path so the file lands where the action expects it.
  */
 export async function runViaGenerator(options: {
   templateId: string;
   payload: unknown;
-  outDir?: string;
-  fileName?: string;
+  out?: string;
 }): Promise<string> {
   const generate = createLitGenerator();
   const result = await generate.run({
     templateId: options.templateId,
     payload: options.payload,
     write: {
-      out: options.outDir ?? 'generated',
+      out: options.out ?? 'generated',
     },
   });
   return result.html;
