@@ -19,8 +19,8 @@ Open only the paths for the task. Skip `node_modules/`, `dist/`, `generated/`, a
 | Template markup | `src/templates/<name>/` — `index.ts` composes, `sections/*.section.ts` holds markup, plus `types.ts`, `constants.ts`, `<name>.renderer.ts` |
 | Registered templates | `hackernoon`, `nomoretogo`, `mailchimp`, `zurb`, `google`, `shirt1`-`shirt5`, `lottie`, `claude`, `good-news` via `src/templates/register-all.ts`. `newsletter` is separate and renders from `src/index.ts` |
 | Preferred generation path | `src/generation/preferred-generator.ts`. One CLI: `scripts/render.ts --template <id>`. Targets live in `scripts/catalog.ts`; payload order is `--payload`, `--input *.json`, catalog override, then registry sample. |
-| Campaign data | `campaigns/<template>/<campaign>.json` and `<campaign>.data.json`. Sample payload: `src/samples/<template>/<name>-data.ts`. Mysterium and flat-file-7 live under `src/samples/hackernoon/` |
-| New template | Copy `src/templates/zurb/`, `src/validation/zurb/zurb.validator.ts`, and a sample under `src/samples/`. Register it, then add one `RenderTarget` in `scripts/catalog.ts`. |
+| Campaign data | `campaigns/<template>/<campaign>.json` and `<campaign>.data.json`. Sample payload: `scripts/samples/<template>/<name>-data.ts`. Mysterium and flat-file-7 live under `scripts/samples/hackernoon/` |
+| New template | Copy `src/templates/zurb/`, `src/validation/zurb/zurb.validator.ts`, and a sample under `scripts/samples/`. Register it, then add one `RenderTarget` in `scripts/catalog.ts`. |
 | Reference HTML | `reference/README.md` only |
 | Validation | `src/validation/schemas.ts` and `src/validation/<name>/<name>.validator.ts` |
 | Errors | `src/errors/` — throw an `AppError` subclass with a stable `code` |
@@ -44,7 +44,7 @@ Vitest (`npm test`), the shared-block contracts in `src/templates/shared/blocks/
 - One template or one concern. Leave other templates, the pipeline, and the docs untouched.
 - Copy the nearest section file and match its imports and test.
 - A new section is `sections/<name>.section.ts`, one call from that template's `index.ts`, and one colocated test. Add a renderer, schema, or pipeline file only when the data contract changed.
-- Put colors, URLs, and spacing in that template's `constants.ts`. Put sample strings in `src/samples/`.
+- Put colors, URLs, and spacing in that template's `constants.ts`. Put sample strings in `scripts/samples/`.
 - `index.ts` only composes sections. Markup stays in `sections/` or a shared-block presenter.
 - Keep the `src/templates/*-email.ts` re-export shims.
 - Shared blocks are a props contract. Keep each template's table markup in its own presenter.
