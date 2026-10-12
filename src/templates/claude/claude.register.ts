@@ -5,7 +5,7 @@ import { Renderer } from '../../rendering/renderer.js';
 import { templateRegistry } from '../../rendering/template-registry.js';
 import { Validator } from '../../validation/validator.js';
 import { renderClaudeEmail } from './claude.renderer.js';
-import { claudeEmailData } from '../../scripts/content/claude-data.js';
+import { claudeEmailData } from '../../samples/content/claude-data.js';
 
 export interface ClaudeTemplateRegistration {
   id: 'claude';
