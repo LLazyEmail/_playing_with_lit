@@ -14,6 +14,10 @@ import type { TemplateCatalogEntry } from '@llazyemail/generate-template';
 import { templateRegistry } from '../rendering/template-registry.js';
 import { finalizeHtml } from '../pipeline/index.js';
 
+// Ensure every template has registered itself before we read the registry.
+// Callers that already imported register-all are unaffected (ESM side effects run once).
+import '../templates/register-all.js';
+
 export function createLitGenerator(
   catalog?: TemplateCatalogEntry[],
   samplePayloads?: Record<string, unknown>
