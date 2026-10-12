@@ -20,7 +20,7 @@ Open only the paths for the task. Skip `node_modules/`, `dist/`, `generated/`, a
 | Registered templates | `hackernoon`, `nomoretogo`, `mailchimp`, `zurb`, `google`, `shirt1`-`shirt5`, `lottie`, `claude`, `good-news` via `src/templates/register-all.ts`. `newsletter` is separate and renders from `src/index.ts` |
 | Preferred generation path | `src/generation/preferred-generator.ts`. Root `scripts/render-*.ts` are the only CLI entries and call `runViaGenerator`. |
 | Campaign data | `campaigns/<template>/<campaign>.json` and `<campaign>.data.json`. Sample payload: `src/samples/<template>/<name>-data.ts`. Mysterium and flat-file-7 live under `src/samples/hackernoon/` |
-| New template | Copy `src/templates/zurb/`, `src/validation/zurb/zurb.validator.ts`, `src/scripts/zurb/render.ts` plus its data file, and the `render:zurb` script. Register it in `template-registry.ts` |
+| New template | Copy `src/templates/zurb/`, `src/validation/zurb/zurb.validator.ts`, a `scripts/render-*.ts` entry, and a sample under `src/samples/`. Register it in `template-registry.ts` |
 | Reference HTML | `reference/README.md` only |
 | Validation | `src/validation/schemas.ts` and `src/validation/<name>/<name>.validator.ts` |
 | Errors | `src/errors/` — throw an `AppError` subclass with a stable `code` |
