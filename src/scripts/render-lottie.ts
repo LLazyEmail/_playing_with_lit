@@ -1,15 +1,32 @@
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
+import path from 'node:path';
 
-import { writeFileSync, mkdirSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
-import { lottieEmailData } from './content/lottie-data.js';
-import { renderLottieEmail } from '../templates/lottie/lottie.renderer.js';
+import { getTemplate } from '../rendering/template-registry.js';
+import { runViaGenerator } from '../generation/preferred-generator.js';
 
-const outPath = resolve(process.cwd(), 'generated/lottie-email.html');
-mkdirSync(dirname(outPath), { recursive: true });
+function flag(name: string): string | undefined {
+  const inline = process.argv.find((arg) => arg.startsWith(`--${name}=`));
+  if (inline) return inline.slice(name.length + 3);
+  const index = process.argv.indexOf(`--${name}`);
+  if (index !== -1 && process.argv[index + 1] && !process.argv[index + 1].startsWith('--')) {
+    return process.argv[index + 1];
+  }
+  return undefined;
+}
 
-const { subject, html } = renderLottieEmail(lottieEmailData);
-writeFileSync(outPath, html, 'utf8');
+const { sampleData } = getTemplate('lottie');
+flag('input');
+const output = flag('output') ?? 'generated/lottie-email.html';
 
-console.log(`[lottie] subject: ${subject}`);
-console.log(`[lottie] written: ${outPath}`);
+try {
+  await runViaGenerator({
+    templateId: 'lottie',
+    payload: sampleData,
+    out: output,
+  });
+  console.log(`[lottie] written: ${path.resolve(output)}`);
+} catch (error) {
+  const message = error instanceof Error ? error.message : String(error);
+  console.error(`lottie render failed: ${message}`);
+  process.exitCode = 1;
+}
