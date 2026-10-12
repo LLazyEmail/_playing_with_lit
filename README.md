@@ -22,12 +22,12 @@ A **campaign** is a data fixture + render script that reuses an existing templat
 
 | Kind | Name | Source HTML | Data | Render |
 |---|---|---|---|---|
-| Template | Hacker Noon | `reference/hackernoon.html` | `src/samples/hackernoon/hackernoon-data.ts` | `npm run render:hackernoon` |
-| Campaign | Mysterium | `reference/mysterium_1.html` | `src/samples/hackernoon/mysterium-data.ts` | `npm run render:mysterium` |
-| Campaign | Test automation (`flat_file_7`) | `reference/flat_file_7.html` | `src/samples/hackernoon/flat-file-7-data.ts` | `npm run render:flat-file-7` |
-| Template | No More To-Go | `reference/nomoretogo.html` | `src/samples/nomoretogo/nomoretogo-data.ts` | `npm run render:template` |
-| Template | Mailchimp | `reference/email-template-mailchimp (1).html` | `src/samples/mailchimp/mailchimp-data.ts` | `npm run render:mailchimp` |
-| Template | Google Store | `sandbox/google.html` | `src/samples/google/google-data.ts` | `npm run render:google` |
+| Template | Hacker Noon | `reference/hackernoon.html` | `scripts/samples/hackernoon/hackernoon-data.ts` | `npm run render:hackernoon` |
+| Campaign | Mysterium | `reference/mysterium_1.html` | `scripts/samples/hackernoon/mysterium-data.ts` | `npm run render:mysterium` |
+| Campaign | Test automation (`flat_file_7`) | `reference/flat_file_7.html` | `scripts/samples/hackernoon/flat-file-7-data.ts` | `npm run render:flat-file-7` |
+| Template | No More To-Go | `reference/nomoretogo.html` | `scripts/samples/nomoretogo/nomoretogo-data.ts` | `npm run render:template` |
+| Template | Mailchimp | `reference/email-template-mailchimp (1).html` | `scripts/samples/mailchimp/mailchimp-data.ts` | `npm run render:mailchimp` |
+| Template | Google Store | `sandbox/google.html` | `scripts/samples/google/google-data.ts` | `npm run render:google` |
 
 Original HTML lives under [`reference/`](reference/). See that folder’s README.
 
