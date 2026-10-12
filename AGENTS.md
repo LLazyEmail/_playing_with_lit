@@ -17,8 +17,8 @@ Open only the paths for the task. Skip `node_modules/`, `dist/`, `generated/`, a
 | Task | Open |
 |---|---|
 | Template markup | `src/templates/<name>/` — `index.ts` composes, `sections/*.section.ts` holds markup, plus `types.ts`, `constants.ts`, `<name>.renderer.ts` |
-| Registered templates | `hackernoon`, `nomoretogo`, `mailchimp`, `zurb`, `google` in `src/rendering/template-registry.ts`. `newsletter` is separate and renders from `src/index.ts` |
-| Preferred generation path | `src/generation/preferred-generator.ts` (builds catalog from registry + `createGenerator`). `nomoretogo` render script is the pilot. |
+| Registered templates | `hackernoon`, `nomoretogo`, `mailchimp`, `zurb`, `google`, `shirt1`-`shirt5`, `lottie`, `claude`, `good-news` via `src/templates/register-all.ts`. `newsletter` is separate and renders from `src/index.ts` |
+| Preferred generation path | `src/generation/preferred-generator.ts` (builds catalog from registry + `createGenerator`). `nomoretogo` and `shirt1`-`shirt5` render scripts use it. |
 | Campaign data | `campaigns/<template>/<campaign>.json` and `<campaign>.data.json`. Sample payload: `src/scripts/<template>/<name>-data.ts`. Mysterium and flat-file-7 live under `src/scripts/hackernoon/` |
 | New template | Copy `src/templates/zurb/`, `src/validation/zurb/zurb.validator.ts`, `src/scripts/zurb/render.ts` plus its data file, and the `render:zurb` script. Register it in `template-registry.ts` |
 | Reference HTML | `reference/README.md` only |
