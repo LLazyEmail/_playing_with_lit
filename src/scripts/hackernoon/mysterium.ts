@@ -1,10 +1,31 @@
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
+import path from 'node:path';
 
 import { mysteriumData } from './mysterium-data.js';
-import { runCampaign } from '../run-pipeline.js';
+import { runViaGenerator } from '../../generation/preferred-generator.js';
 
-await runCampaign({
-  templateName: 'hackernoon',
-  data: mysteriumData,
-  fileName: 'mysterium-email.html',
-});
+function flag(name: string): string | undefined {
+  const inline = process.argv.find((arg) => arg.startsWith(`--${name}=`));
+  if (inline) return inline.slice(name.length + 3);
+  const index = process.argv.indexOf(`--${name}`);
+  if (index !== -1 && process.argv[index + 1] && !process.argv[index + 1].startsWith('--')) {
+    return process.argv[index + 1];
+  }
+  return undefined;
+}
+
+flag('input');
+const output = flag('output') ?? 'generated/mysterium-email.html';
+
+try {
+  await runViaGenerator({
+    templateId: 'hackernoon',
+    payload: mysteriumData,
+    out: output,
+  });
+  console.log(`[mysterium] written: ${path.resolve(output)}`);
+} catch (error) {
+  const message = error instanceof Error ? error.message : String(error);
+  console.error(`mysterium render failed: ${message}`);
+  process.exitCode = 1;
+}
