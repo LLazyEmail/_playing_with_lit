@@ -71,7 +71,7 @@ jobs:
         template: [hackernoon, nomoretogo, mailchimp, zurb, google, shirt1, shirt2, shirt3, shirt4, shirt5, lottie, claude, good-news]
     steps:
       - uses: actions/checkout@v7
-      - uses: LLazyEmail/email-template-workflows@v1
+      - uses: LLazyEmail/email-template-workflows@1.6.0
         with:
           working-directory: .
           command: npm run build && npm run render:${{ matrix.template }}

@@ -1,40 +1,67 @@
 /**
  * Preferred generation path.
  *
- * Replaces the local BuildPipeline + manual write pattern with
- * `@llazyemail/generate-template`'s createGenerator.
+ * Builds a catalog for `@llazyemail/generate-template`'s createGenerator from
+ * the existing templateRegistry. Each entry's render calls the registered
+ * Lit renderer (which already goes through the local Lit-to-string adapter).
  *
- * Each catalog entry's `render` calls an existing Lit renderer (after the
- * local Lit-to-string adapter). Payload and write handling come from the
- * package.
- *
- * This file is the starting point for removing duplicated generation logic.
- * Existing scripts can migrate to it incrementally.
+ * Validation stays with the existing Zod validators for now. This reduces
+ * the local BuildPipeline surface without forcing a full rewrite.
  */
 
 import { createGenerator } from '@llazyemail/generate-template';
 import type { TemplateCatalogEntry } from '@llazyemail/generate-template';
+import { templateRegistry } from '../rendering/template-registry.js';
+import { finalizeHtml } from '../pipeline/index.js';
 
-// Example shape — wire real renderers from src/templates/* and the registry
-// as the migration proceeds.
+// Ensure every template has registered itself before we read the registry.
+// Callers that already imported register-all are unaffected (ESM side effects run once).
+import '../templates/register-all.js';
+
 export function createLitGenerator(
-  catalog: TemplateCatalogEntry[],
+  catalog?: TemplateCatalogEntry[],
   samplePayloads?: Record<string, unknown>
 ) {
   return createGenerator({
-    catalog,
+    catalog: catalog ?? buildCatalogFromRegistry(),
     samplePayloads,
   });
 }
 
-// Usage sketch (not wired into npm scripts yet):
-// const generate = createLitGenerator([
-//   {
-//     ids: ['hackernoon'],
-//     render: async (payload) => {
-//       // call existing hackernoon renderer + renderEmailBody
-//       return '<html>...</html>';
-//     },
-//   },
-// ]);
-// await generate.run({ templateId: 'hackernoon', payload: sampleData });
+export function buildCatalogFromRegistry(): TemplateCatalogEntry[] {
+  return templateRegistry.list().map((name) => {
+    const entry = templateRegistry.get(name);
+    return {
+      ids: [name],
+      render: async (payload: unknown) => {
+        const parsed = entry.validator.parse(payload);
+        const html = entry.renderer.render(parsed);
+        return finalizeHtml(html);
+      },
+    };
+  });
+}
+
+/**
+ * Pilot helper: run one registered template through createGenerator.
+ * Callers can migrate from runCampaign one script at a time.
+ *
+ * `out` may be a directory or an exact file path (with extension).
+ * When the action passes `--output generated/nomoretogo-email.html`,
+ * pass that full path so the file lands where the action expects it.
+ */
+export async function runViaGenerator(options: {
+  templateId: string;
+  payload: unknown;
+  out?: string;
+}): Promise<string> {
+  const generate = createLitGenerator();
+  const result = await generate.run({
+    templateId: options.templateId,
+    payload: options.payload,
+    write: {
+      out: options.out ?? 'generated',
+    },
+  });
+  return result.html;
+}
