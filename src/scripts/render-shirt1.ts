@@ -1,15 +1,32 @@
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
+import path from 'node:path';
 
-import { writeFileSync, mkdirSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
-import { shirt1EmailData } from './content/shirt1-data.js';
-import { renderShirt1Email } from '../templates/shirt1/shirt1.renderer.js';
+import { getTemplate } from '../rendering/template-registry.js';
+import { runViaGenerator } from '../generation/preferred-generator.js';
 
-const outPath = resolve(process.cwd(), 'generated/shirt1-email.html');
-mkdirSync(dirname(outPath), { recursive: true });
+function flag(name: string): string | undefined {
+  const inline = process.argv.find((arg) => arg.startsWith(`--${name}=`));
+  if (inline) return inline.slice(name.length + 3);
+  const index = process.argv.indexOf(`--${name}`);
+  if (index !== -1 && process.argv[index + 1] && !process.argv[index + 1].startsWith('--')) {
+    return process.argv[index + 1];
+  }
+  return undefined;
+}
 
-const { subject, html } = renderShirt1Email(shirt1EmailData);
-writeFileSync(outPath, html, 'utf8');
+const { sampleData } = getTemplate('shirt1');
+flag('input');
+const output = flag('output') ?? 'generated/shirt1-email.html';
 
-console.log(`[shirt1] subject: ${subject}`);
-console.log(`[shirt1] written: ${outPath}`);
+try {
+  await runViaGenerator({
+    templateId: 'shirt1',
+    payload: sampleData,
+    out: output,
+  });
+  console.log(`[shirt1] written: ${path.resolve(output)}`);
+} catch (error) {
+  const message = error instanceof Error ? error.message : String(error);
+  console.error(`shirt1 render failed: ${message}`);
+  process.exitCode = 1;
+}
