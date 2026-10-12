@@ -1,5 +1,5 @@
-import { flatFile7Data } from '../src/samples/hackernoon/flat-file-7-data.js';
-import { mysteriumData } from '../src/samples/hackernoon/mysterium-data.js';
+import { flatFile7Data } from './samples/hackernoon/flat-file-7-data.js';
+import { mysteriumData } from './samples/hackernoon/mysterium-data.js';
 
 /**
  * One descriptor per renderable id.
