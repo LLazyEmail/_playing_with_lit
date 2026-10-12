@@ -1,12 +1,15 @@
-name: Render Email Template
+name: CI
+
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   build:
     name: Build & typecheck
@@ -56,27 +59,3 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-  render:
-    name: Render ${{ matrix.template }}
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      contents: read
-      packages: read
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      fail-fast: false
-      matrix:
-        template: [hackernoon, nomoretogo, mailchimp, zurb, google, shirt1, shirt2, shirt3, shirt4, shirt5, lottie, claude, good-news]
-    steps:
-      - uses: actions/checkout@v7
-      - uses: LLazyEmail/email-template-workflows@v2.0.0
-        with:
-          working-directory: .
-          package-manager: npm
-          command: npm run build && npm run render:${{ matrix.template }}
-          artifact-directory: generated
-          artifact-name: rendered-${{ matrix.template }}
-          pr-comment: false
-          job-summary: true
