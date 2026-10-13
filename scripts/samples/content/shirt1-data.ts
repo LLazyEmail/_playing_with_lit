@@ -1,5 +1,5 @@
-import type { Shirt1EmailData } from '../../src/templates/shirt1/types.js';
-import { SHIRT1_ASSETS, SHIRT1_BRAND_URL } from '../../src/templates/shirt1/constants.js';
+import type { Shirt1EmailData } from '../../../src/templates/shirt1/types.js';
+import { SHIRT1_ASSETS, SHIRT1_BRAND_URL } from '../../../src/templates/shirt1/constants.js';
 
 export const shirt1EmailData: Shirt1EmailData = {
   preheaderText:
