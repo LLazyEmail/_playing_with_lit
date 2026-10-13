@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { renderClaudeEmail } from './claude.renderer.js';
-import { claudeEmailData } from '../../scripts/content/claude-data.js';
+import { claudeEmailData } from '../../../scripts/samples/content/claude-data.js';
 
 describe('renderClaudeEmail', () => {
   const { subject, html } = renderClaudeEmail(claudeEmailData);
