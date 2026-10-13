@@ -1,4 +1,4 @@
-import type { NomoretogoEmailData } from '../../src/types.js';
+import type { NomoretogoEmailData } from '../../../src/types.js';
 
 const BASE_IMAGE =
   'https://raw.githubusercontent.com/LLazyEmail/nomoretogo_email_template/main/data/images/';
