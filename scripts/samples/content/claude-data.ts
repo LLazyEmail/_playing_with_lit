@@ -1,9 +1,9 @@
-import type { ClaudeEmailData } from '../../src/templates/claude/types.js';
+import type { ClaudeEmailData } from '../../../src/templates/claude/types.js';
 import {
   CLAUDE_ASSETS,
   CLAUDE_BRAND_URL,
   CLAUDE_DEMO_URL,
-} from '../../src/templates/claude/constants.js';
+} from '../../../src/templates/claude/constants.js';
 
 export const claudeEmailData: ClaudeEmailData = {
   preheaderText:
