@@ -1,5 +1,5 @@
-import type { Shirt3EmailData } from '../../src/templates/shirt3/types.js';
-import { SHIRT3_ASSETS, SHIRT3_BRAND_URL } from '../../src/templates/shirt3/constants.js';
+import type { Shirt3EmailData } from '../../../src/templates/shirt3/types.js';
+import { SHIRT3_ASSETS, SHIRT3_BRAND_URL } from '../../../src/templates/shirt3/constants.js';
 
 export const shirt3EmailData: Shirt3EmailData = {
   preheaderText: 'Check Out With Exclusive Offer',
