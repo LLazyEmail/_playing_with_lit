@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { renderGoodNewsEmail } from './goodNews.renderer.js';
-import { goodNewsEmailData } from '../../scripts/content/goodNews-data.js';
+import { goodNewsEmailData } from '../../../scripts/samples/content/goodNews-data.js';
 
 describe('renderGoodNewsEmail', () => {
   const { subject, html } = renderGoodNewsEmail(goodNewsEmailData);

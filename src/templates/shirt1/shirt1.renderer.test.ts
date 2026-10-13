@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { renderShirt1Email } from './shirt1.renderer.js';
-import { shirt1EmailData } from '../../scripts/content/shirt1-data.js';
+import { shirt1EmailData } from '../../../scripts/samples/content/shirt1-data.js';
 
 describe('renderShirt1Email', () => {
   const { subject, html } = renderShirt1Email(shirt1EmailData);

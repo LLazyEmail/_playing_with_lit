@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { renderLottieEmail } from './lottie.renderer.js';
-import { lottieEmailData } from '../../scripts/content/lottie-data.js';
+import { lottieEmailData } from '../../../scripts/samples/content/lottie-data.js';
 
 describe('renderLottieEmail', () => {
   const { subject, html } = renderLottieEmail(lottieEmailData);
