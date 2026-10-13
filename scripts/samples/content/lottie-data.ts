@@ -1,5 +1,5 @@
-import type { LottieEmailData } from '../../src/templates/lottie/types.js';
-import { LOTTIE_ASSETS } from '../../src/templates/lottie/constants.js';
+import type { LottieEmailData } from '../../../src/templates/lottie/types.js';
+import { LOTTIE_ASSETS } from '../../../src/templates/lottie/constants.js';
 
 export const lottieEmailData: LottieEmailData = {
   preheaderText:
