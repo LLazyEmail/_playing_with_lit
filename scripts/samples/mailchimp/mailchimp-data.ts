@@ -1,4 +1,4 @@
-import type { MailchimpEmailData } from '../../src/types.js';
+import type { MailchimpEmailData } from '../../../src/types.js';
 
 export const mailchimpData: MailchimpEmailData = {
   title: 'Summer Sale – Up to 40% Off Selected Products',
