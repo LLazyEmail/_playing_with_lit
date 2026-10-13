@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { hackernoonData } from '../scripts/hackernoon/hackernoon-data.js';
-import { nomoretogoData } from '../scripts/nomoretogo/nomoretogo-data.js';
-import { mailchimpData } from '../scripts/mailchimp/mailchimp-data.js';
+import { hackernoonData } from '../../scripts/samples/hackernoon/hackernoon-data.js';
+import { nomoretogoData } from '../../scripts/samples/nomoretogo/nomoretogo-data.js';
+import { mailchimpData } from '../../scripts/samples/mailchimp/mailchimp-data.js';
 import {
   EmailDataValidationError,
   emailDataSchema,
