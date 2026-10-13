@@ -1,5 +1,5 @@
-import type { Shirt4EmailData } from '../../src/templates/shirt4/types.js';
-import { SHIRT4_ASSETS, SHIRT4_BRAND_URL, SHIRT4_PALETTE } from '../../src/templates/shirt4/constants.js';
+import type { Shirt4EmailData } from '../../../src/templates/shirt4/types.js';
+import { SHIRT4_ASSETS, SHIRT4_BRAND_URL, SHIRT4_PALETTE } from '../../../src/templates/shirt4/constants.js';
 
 export const shirt4EmailData: Shirt4EmailData = {
   preheaderText: 'The Art of Shirting',
