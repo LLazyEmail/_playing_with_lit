@@ -1,4 +1,4 @@
-import type { GoogleEmailData } from '../../src/types.js';
+import type { GoogleEmailData } from '../../../src/types.js';
 
 export const googleShipmentData: GoogleEmailData = {
   preheader: 'Your Google Store order has shipped.',
