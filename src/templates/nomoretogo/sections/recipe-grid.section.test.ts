@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { nomoretogoData } from '../../../scripts/nomoretogo/nomoretogo-data.js';
+import { nomoretogoData } from '../../../../scripts/samples/nomoretogo/nomoretogo-data.js';
 import { renderRecipeGridSection } from './recipe-grid.section.js';
 import { renderFragment } from '../../../test/render-fragment.js';
 
