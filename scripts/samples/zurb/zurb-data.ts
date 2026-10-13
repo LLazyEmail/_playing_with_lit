@@ -1,4 +1,4 @@
-import type { ZurbEmailData } from '../../src/types.js';
+import type { ZurbEmailData } from '../../../src/types.js';
 
 export const zurbData: ZurbEmailData = {
   title: 'Foundation for Emails 2 is Here! 🐙',
