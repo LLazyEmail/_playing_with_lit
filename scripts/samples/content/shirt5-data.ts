@@ -1,5 +1,5 @@
-import type { Shirt5EmailData } from '../../src/templates/shirt5/types.js';
-import { SHIRT5_ASSETS, SHIRT5_BRAND_URL } from '../../src/templates/shirt5/constants.js';
+import type { Shirt5EmailData } from '../../../src/templates/shirt5/types.js';
+import { SHIRT5_ASSETS, SHIRT5_BRAND_URL } from '../../../src/templates/shirt5/constants.js';
 
 const SHORT_SLEEVE_COLLECTION =
   'https://www.buckmason.com/collections/short-sleeve-comfort';
