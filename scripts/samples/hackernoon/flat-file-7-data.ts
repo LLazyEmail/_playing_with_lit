@@ -1,4 +1,4 @@
-import type { HackernoonEmailData } from '../../src/types.js';
+import type { HackernoonEmailData } from '../../../src/types.js';
 
 /**
  * Sample data for the Hacker Noon "Magic Behind Test Automation" issue.
