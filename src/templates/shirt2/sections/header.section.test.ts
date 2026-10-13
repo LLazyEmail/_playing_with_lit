@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render } from '@lit-labs/ssr';
 import { collectResultSync } from '@lit-labs/ssr/lib/render-result.js';
 import { renderHeaderSection } from './header.section.js';
-import { shirt2EmailData } from '../../../scripts/content/shirt2-data.js';
+import { shirt2EmailData } from '../../../../scripts/samples/content/shirt2-data.js';
 
 const renderToString = (tpl: any) =>
   collectResultSync(render(tpl)).replace(/<!--lit-[^>]*-->/g, '');
