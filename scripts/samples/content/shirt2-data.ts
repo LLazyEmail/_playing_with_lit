@@ -1,5 +1,5 @@
-import type { Shirt2EmailData } from '../../src/templates/shirt2/types.js';
-import { SHIRT2_ASSETS, SHIRT2_BRAND_URL } from '../../src/templates/shirt2/constants.js';
+import type { Shirt2EmailData } from '../../../src/templates/shirt2/types.js';
+import { SHIRT2_ASSETS, SHIRT2_BRAND_URL } from '../../../src/templates/shirt2/constants.js';
 
 export const shirt2EmailData: Shirt2EmailData = {
   preheaderText: 'Check Out With Exclusive Offer',
