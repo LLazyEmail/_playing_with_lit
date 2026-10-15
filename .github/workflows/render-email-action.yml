@@ -1,6 +1,6 @@
 name: Render email action
 
-# Consumer of LLazyEmail/email-template-workflows@v2.0.0.
+# Consumer of LLazyEmail/email-template-workflows@v2.1.0.
 # Each row uses the action flags: build-script, input, output.
 # Every row runs the shared CLI via its npm script (--template is in the script).
 # --output is honored. --input is a payload only when it is a .json file;
@@ -94,7 +94,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: LLazyEmail/email-template-workflows@v2.0.0
+      - uses: LLazyEmail/email-template-workflows@v2.1.0
         with:
           working-directory: .
           package-manager: npm
