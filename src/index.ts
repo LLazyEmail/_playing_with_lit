@@ -79,6 +79,7 @@ await writeGeneratedEmail({
   content: html,
   fileName: 'rendered-email.html',
   label: 'Newsletter email rendered',
+  logger: console,
 });
 
 // ---------------------------------------------------------------------------
@@ -101,6 +102,7 @@ await writeGeneratedEmail({
   content: hackernoonHtml,
   fileName: 'rendered-hackernoon.html',
   label: 'Hacker Noon email rendered',
+  logger: console,
 });
 
 // ---------------------------------------------------------------------------
@@ -195,4 +197,5 @@ await writeGeneratedEmail({
   content: nomoretogoHtml,
   fileName: 'rendered-nomoretogo.html',
   label: 'No More To-Go email rendered',
+  logger: console,
 });
