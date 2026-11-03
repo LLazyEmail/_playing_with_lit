@@ -32,7 +32,7 @@ jobs:
         if: steps.gate.outputs.present == 'true'
         uses: actions/setup-python@v7
         with:
-          python-version: '3.15'
+          python-version: '3.15.2'
 
       - name: Install dependencies
         if: steps.gate.outputs.present == 'true'
