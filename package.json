@@ -5,6 +5,7 @@
   "main": "dist/src/index.js",
   "scripts": {
     "build": "tsc",
+    "preflight": "bash scripts/check-ci.sh",
     "render": "npm run build && node dist/src/index.js",
     "render:template": "npm run build && node dist/scripts/render.js --template nomoretogo",
     "render:template:minify": "EMAIL_MINIFY=1 npm run build && node dist/scripts/render.js --template nomoretogo",

@@ -122,12 +122,15 @@ Keep them after a template is ported so they remain available for regression com
 
 ## Before You Submit a PR
 
+- Run the CI mirror locally: `npm run preflight` (`npm ci` + lint + build + test). This catches lockfile drift before GitHub Actions.
+- Never hand-edit `package-lock.json`; regenerate with `npm install` after any `package.json` change and commit both together.
 - Run linters: `npm run lint -- --fix`
 - Format code: `npm run format`
-- Run tests: `npm test` (once tests are set up)
+- Run tests: `npm test`
 - Build: `npm run build`
 - Render templates: `npm run render` to verify output is correct
 - Update the README if you've changed the project structure or added new templates
+- Prefer one concern (or one dependency) per PR
 
 ## Questions?
 
