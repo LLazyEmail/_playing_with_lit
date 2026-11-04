@@ -1,3 +1,4 @@
+import { document } from '@llazyemail/template-runtime-display';
 import { renderEmailBody } from '../../rendering/render-email-document.js';
 import { goodNewsHeads } from '../../rendering/email-styles/index.js';
 import { GOOD_NEWS_SUBJECT, GOOD_NEWS_FONTS, GOOD_NEWS_PALETTE } from './constants.js';
@@ -18,17 +19,18 @@ export function renderGoodNewsEmail(data: GoodNewsEmailData): RenderedGoodNewsEm
   };
 }
 
+/**
+ * Full document via `@llazyemail/template-runtime-display`.
+ * Requires the next release that adds `lang`, `bodyAttributes`, etc.
+ * (fixes the previous double `</body>`).
+ */
 function wrapGoodNewsDocument(bodyContent: string): string {
-  return `<!DOCTYPE html>
-<html >
-${goodNewsHeads(GOOD_NEWS_SUBJECT)}
-
-<body style="background-color: ${GOOD_NEWS_PALETTE.pageBg}; height: 100%; margin: 0; padding: 0;">
-${bodyContent}
-</body>
-
-</body>
-</html>`;
+  return document({
+    lang: false,
+    headHtml: goodNewsHeads(GOOD_NEWS_SUBJECT),
+    bodyAttributes: `style="background-color: ${GOOD_NEWS_PALETTE.pageBg}; height: 100%; margin: 0; padding: 0;"`,
+    mainHtml: bodyContent,
+  });
 }
 
 /** Re-exported for tests and downstream tooling. */
