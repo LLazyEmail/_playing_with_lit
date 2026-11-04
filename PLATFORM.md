@@ -3,6 +3,7 @@
 These layers sit *around* the existing per-template folders. They do not replace
 `index.ts` composers or the `*-email.ts` re-export shims.
 
+
 ## Phase 1 — Tests
 
 `npm test` runs [Vitest](https://vitest.dev) (`"type": "module"` + TypeScript).

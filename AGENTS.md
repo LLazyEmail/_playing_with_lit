@@ -49,6 +49,17 @@ Vitest (`npm test`), the shared-block contracts in `src/templates/shared/blocks/
 - Keep the `src/templates/*-email.ts` re-export shims.
 - Shared blocks are a props contract. Keep each template's table markup in its own presenter.
 - Leave snapshot hashes alone unless the task changes rendered markup. Then update `src/templates/__snapshots__/`.
+- Prefer small PRs. One dependency bump per PR when the task is a dependency change. Do not mix template edits with lockfile churn unless the template needs the new API.
+
+## Dependencies and lockfile (CI fails here often)
+
+CI runs `npm ci`. That command fails when `package.json` and `package-lock.json` disagree.
+
+- Never hand-edit `package-lock.json`.
+- After any `package.json` dependency change, run `npm install` (not only edit the version string) and commit the regenerated lockfile in the same PR.
+- Nested / peer trees matter: e.g. root `markup-generator@4` can coexist with `@llazyemail/generate-template` still needing `markup-generator@3.x`. If `npm ci` reports `Missing: markup-generator@3.2.0 from lock file`, restore the nested entry via `npm install`, do not delete it by hand.
+- Rebase onto `main` before pushing if the PR is stale; lockfile conflicts from main are a common false "CI broken" signal.
+- Do not bump Node major in workflows without also regenerating the lockfile for any `@types/node` (or other) range change in the same commit.
 
 ## Lit and email
 
@@ -59,10 +70,20 @@ Vitest (`npm test`), the shared-block contracts in `src/templates/shared/blocks/
 
 ## Verify, then stop
 
+Before pushing (agents must run this, not only the template-scoped checks):
+
+```
+npm run preflight
+```
+
+That is `npm ci && npm run lint && npm run build && npm test` via `scripts/check-ci.sh`. Catch lockfile drift locally instead of waiting for GitHub Actions.
+
+For a single-template edit you may also run the narrower checks:
+
 ```
 npm run build
 npm test -- src/templates/<name>
 npm run render:<name>
 ```
 
-Run those for the template you changed. Run bare `npm test` only when the change crosses templates. Skip the `:minify` scripts unless the task is minification. Skip `README.md`, `PLATFORM.md`, `documentation.md`, and `CONTRIBUTING.md` unless a command or public contract changed.
+Run bare `npm test` when the change crosses templates. Skip the `:minify` scripts unless the task is minification. Skip `README.md`, `PLATFORM.md`, `documentation.md`, and `CONTRIBUTING.md` unless a command or public contract changed.

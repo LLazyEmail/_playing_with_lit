@@ -12,18 +12,34 @@ jobs:
   ai-review:
     runs-on: ubuntu-latest
     steps:
+      - name: Check for XAI_API_KEY
+        id: gate
+        env:
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+        run: |
+          if [ -z "${XAI_API_KEY}" ]; then
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::XAI_API_KEY is not configured; skipping AI Code Review (success)."
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout code
+        if: steps.gate.outputs.present == 'true'
         uses: actions/checkout@v7
 
       - name: Set up Python
+        if: steps.gate.outputs.present == 'true'
         uses: actions/setup-python@v7
         with:
-          python-version: '3.15'
+          python-version: '3.15.2'
 
       - name: Install dependencies
+        if: steps.gate.outputs.present == 'true'
         run: pip install requests
 
       - name: Run AI Review
+        if: steps.gate.outputs.present == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
